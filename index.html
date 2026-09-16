@@ -1,0 +1,6701 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Coffee Trip — Luxury specialty coffee, rare origins and curated coffee experiences."
+    >
+
+    <title>Coffee Trip — The Art of Exceptional Coffee</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        /* ==========================================================
+           COFFEE TRIP — LUXURY DESIGN SYSTEM
+        ========================================================== */
+
+        :root {
+            --black: #080807;
+            --black-soft: #11100e;
+            --black-card: #171612;
+            --cream: #f2ede2;
+            --cream-light: #faf7ef;
+            --cream-dark: #ddd5c4;
+            --gold: #b88a45;
+            --gold-light: #d8b474;
+            --gold-dark: #87632f;
+            --text-muted: #817b70;
+            --border: rgba(216, 180, 116, 0.18);
+
+            --serif: "Cormorant Garamond", Georgia, serif;
+            --sans: "Inter", Arial, sans-serif;
+
+            --container: 1240px;
+            --ease: cubic-bezier(.22,1,.36,1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--cream);
+            color: var(--black);
+            font-family: var(--sans);
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.locked {
+            overflow: hidden;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .container {
+            width: min(calc(100% - 80px), var(--container));
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            font-size: 9px;
+            letter-spacing: 3px;
+            font-weight: 500;
+            color: #777064;
+            text-transform: uppercase;
+        }
+
+        .gold {
+            color: var(--gold-light);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--serif);
+            font-weight: 500;
+        }
+
+        em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .section-padding {
+            padding: 125px 0;
+        }
+
+        /* ==========================================================
+           LOADER
+        ========================================================== */
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--black);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--cream);
+            transition: .8s ease;
+        }
+
+        #loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-box {
+            width: 76px;
+            height: 76px;
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
+            display: grid;
+            place-items: center;
+            animation: loaderSpin 2s ease-in-out infinite;
+        }
+
+        .loader-box span {
+            transform: rotate(-45deg);
+            font-family: var(--serif);
+            font-size: 28px;
+            color: var(--gold-light);
+        }
+
+        #loader p {
+            margin-top: 25px;
+            font-size: 8px;
+            letter-spacing: 5px;
+        }
+
+        @keyframes loaderSpin {
+            0%, 100% {
+                transform: rotate(45deg) scale(.94);
+            }
+
+            50% {
+                transform: rotate(225deg) scale(1);
+            }
+        }
+
+        /* ==========================================================
+           ANNOUNCEMENT
+        ========================================================== */
+
+        .announcement {
+            height: 34px;
+            background: #050504;
+            color: #8d877c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 7px;
+            letter-spacing: 2.6px;
+        }
+
+        .announcement strong {
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        /* ==========================================================
+           HEADER
+        ========================================================== */
+
+        header {
+            height: 88px;
+            position: sticky;
+            top: 0;
+            z-index: 5000;
+            background: rgba(8,8,7,.96);
+            backdrop-filter: blur(15px);
+            color: var(--cream);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .header-inner {
+            width: min(calc(100% - 80px), 1400px);
+            height: 100%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .brand {
+            width: max-content;
+            display: flex;
+            flex-direction: column;
+            line-height: .9;
+        }
+
+        .brand strong {
+            font-family: var(--serif);
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+
+        .brand span {
+            font-size: 7px;
+            letter-spacing: 3px;
+            color: var(--gold-light);
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #aaa294;
+            font-size: 9px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            position: relative;
+            transition: .3s;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -8px;
+            height: 1px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s var(--ease);
+        }
+
+        nav a:hover {
+            color: var(--cream);
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-action {
+            position: relative;
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            color: var(--cream);
+        }
+
+        .header-action:hover {
+            color: var(--gold-light);
+        }
+
+        .header-count {
+            width: 15px;
+            height: 15px;
+            background: var(--gold);
+            color: var(--black);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 7px;
+            font-weight: 600;
+            display: none;
+            place-items: center;
+        }
+
+        .search-icon {
+            width: 15px;
+            height: 15px;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .search-icon::after {
+            content: "";
+            width: 6px;
+            height: 1px;
+            background: currentColor;
+            position: absolute;
+            right: -5px;
+            bottom: -2px;
+            transform: rotate(45deg);
+        }
+
+        .bag-icon {
+            width: 15px;
+            height: 18px;
+            border: 1px solid currentColor;
+            position: relative;
+        }
+
+        .bag-icon::before {
+            content: "";
+            width: 7px;
+            height: 5px;
+            border: 1px solid currentColor;
+            border-bottom: 0;
+            border-radius: 4px 4px 0 0;
+            position: absolute;
+            left: 3px;
+            top: -5px;
+        }
+
+        .heart-icon {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        #mobileButton {
+            display: none;
+        }
+
+        /* ==========================================================
+           HERO
+        ========================================================== */
+
+        .hero {
+            min-height: calc(100vh - 122px);
+            color: var(--cream);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 74% 48%,
+                    rgba(184,138,69,.22),
+                    transparent 23%
+                ),
+                linear-gradient(
+                    125deg,
+                    #1c1914 0%,
+                    #090908 52%,
+                    #11100e 100%
+                );
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: .08;
+            background-image:
+                linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px);
+            background-size: 90px 90px;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 620px;
+            height: 620px;
+            border: 1px solid rgba(216,180,116,.12);
+            border-radius: 50%;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hero-glow::before {
+            content: "";
+            position: absolute;
+            width: 430px;
+            height: 430px;
+            border: 1px solid rgba(216,180,116,.08);
+            border-radius: 50%;
+            top: 95px;
+            left: 95px;
+        }
+
+        .hero-inner {
+            width: min(calc(100% - 80px), var(--container));
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-copy {
+            max-width: 950px;
+        }
+
+        .hero-copy .eyebrow {
+            margin-bottom: 24px;
+            color: #9b917f;
+        }
+
+        .hero h1 {
+            font-size: clamp(65px, 8vw, 124px);
+            line-height: .82;
+            letter-spacing: -2px;
+        }
+
+        .hero-description {
+            max-width: 480px;
+            color: #9b9386;
+            font-size: 12px;
+            line-height: 1.9;
+            margin: 35px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .btn {
+            min-height: 49px;
+            padding: 0 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            letter-spacing: 1.8px;
+            font-weight: 600;
+            transition: .35s var(--ease);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-dark {
+            color: var(--cream);
+            background: var(--black);
+        }
+
+        .btn-dark:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .btn-outline {
+            color: var(--cream);
+            border: 1px solid rgba(216,180,116,.35);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        .hero-link {
+            color: #aaa294;
+            font-size: 8px;
+            letter-spacing: 2px;
+        }
+
+        .hero-link span {
+            color: var(--gold);
+            margin-left: 8px;
+        }
+
+        .hero-meta {
+            position: absolute;
+            right: 36px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 7px;
+            letter-spacing: 3px;
+            color: #736d62;
+        }
+
+        .hero-meta-line {
+            width: 1px;
+            height: 70px;
+            background: var(--gold-dark);
+        }
+
+        .scroll {
+            position: absolute;
+            bottom: 28px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #777064;
+            font-size: 7px;
+            letter-spacing: 3px;
+            z-index: 2;
+        }
+
+        .scroll span:last-child {
+            width: 76px;
+            height: 1px;
+            background: var(--gold-dark);
+        }
+
+        /* ==========================================================
+           INTRO
+        ========================================================== */
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 160px 1.6fr 1fr;
+            gap: 65px;
+            align-items: start;
+        }
+
+        .section-number {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #777064;
+            font-size: 7px;
+            letter-spacing: 2px;
+        }
+
+        .section-number::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .intro-main h2 {
+            font-size: clamp(50px, 5.5vw, 81px);
+            line-height: .9;
+            margin-top: 18px;
+        }
+
+        .intro-right {
+            margin-top: 65px;
+        }
+
+        .intro-right p {
+            color: #70695e;
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        .under-link {
+            display: inline-flex;
+            margin-top: 25px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gold-dark);
+            font-size: 8px;
+            letter-spacing: 2px;
+        }
+
+        .under-link span {
+            margin-left: 10px;
+            color: var(--gold-dark);
+        }
+
+        /* ==========================================================
+           COLLECTION
+        ========================================================== */
+
+        .collection {
+            background: var(--black-soft);
+            color: var(--cream);
+        }
+
+        .collection-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            align-items: end;
+            margin-bottom: 55px;
+        }
+
+        .collection-header h2 {
+            font-size: clamp(52px, 5.5vw, 78px);
+            line-height: .88;
+            margin-top: 15px;
+        }
+
+        .collection-header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 20px;
+        }
+
+        .collection-header-right p {
+            color: #7f786c;
+            max-width: 285px;
+            text-align: right;
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .filter-toggle {
+            color: var(--gold-light);
+            font-size: 8px;
+            letter-spacing: 2px;
+        }
+
+        .filter-panel {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            transition: .4s var(--ease);
+        }
+
+        .filter-panel.open {
+            max-height: 120px;
+            opacity: 1;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            border: 1px solid var(--border);
+            color: #999185;
+            padding: 10px 13px;
+            font-size: 7px;
+            letter-spacing: 1.5px;
+            transition: .3s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            border-color: var(--gold);
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .product {
+            min-width: 0;
+            position: relative;
+        }
+
+        .product-visual {
+            position: relative;
+            aspect-ratio: .8;
+            overflow: hidden;
+            cursor: pointer;
+
+            background:
+                radial-gradient(circle at 70% 25%, rgba(216,180,116,.17), transparent 26%),
+                linear-gradient(145deg,#29261f,#11100e);
+        }
+
+        .product-visual::before {
+            content: "COFFEE TRIP";
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: #5d574e;
+            font-size: 8px;
+            letter-spacing: 3px;
+        }
+
+        .product-visual img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .8s var(--ease);
+        }
+
+        .product:hover .product-visual img {
+            transform: scale(1.06);
+        }
+
+        .product-badge {
+            position: absolute;
+            left: 14px;
+            top: 14px;
+            z-index: 5;
+            color: var(--black);
+            background: var(--gold);
+            padding: 6px 8px;
+            font-size: 6px;
+            letter-spacing: 1.4px;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            right: 14px;
+            top: 14px;
+            border-radius: 50%;
+            z-index: 5;
+            background: rgba(5,5,4,.84);
+            color: var(--cream);
+            font-size: 21px;
+            transition: .3s;
+        }
+
+        .favorite-btn.active,
+        .favorite-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .quick-add {
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            height: 42px;
+            background: var(--cream);
+            color: var(--black);
+            z-index: 5;
+            opacity: 0;
+            transform: translateY(10px);
+            font-size: 7px;
+            letter-spacing: 2px;
+            transition: .4s var(--ease);
+        }
+
+        .product:hover .quick-add {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-info {
+            padding: 19px 2px;
+        }
+
+        .product-title-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .product h3 {
+            font-size: 25px;
+            line-height: .95;
+        }
+
+        .product-price {
+            color: var(--gold-light);
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .product-meta {
+            color: #746e63;
+            text-transform: uppercase;
+            font-size: 7px;
+            letter-spacing: 1.4px;
+            margin-top: 8px;
+        }
+
+        .notes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 11px;
+        }
+
+        .note {
+            border: 1px solid var(--border);
+            padding: 4px 6px;
+            font-size: 6px;
+            letter-spacing: .9px;
+            color: #888074;
+        }
+
+        .collection-bottom {
+            border-top: 1px solid var(--border);
+            margin-top: 55px;
+            padding-top: 27px;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .collection-bottom p {
+            font-family: var(--serif);
+            font-size: 19px;
+            color: #777064;
+        }
+
+        .stats {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            color: #736d62;
+            font-size: 7px;
+            letter-spacing: 1.5px;
+        }
+
+        .stat strong {
+            font-family: var(--serif);
+            color: var(--gold-light);
+            font-size: 17px;
+            margin-right: 4px;
+        }
+
+        /* ==========================================================
+           ATELIER
+        ========================================================== */
+
+        .atelier-grid {
+            display: grid;
+            grid-template-columns: .9fr 1fr;
+            gap: 120px;
+            align-items: center;
+        }
+
+        .atelier-image {
+            min-height: 650px;
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(circle at 75% 25%, rgba(184,138,69,.18), transparent 24%),
+                linear-gradient(145deg,#24211b,#0b0b09);
+        }
+
+        .atelier-image::before {
+            content: "ATELIER";
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: #615b51;
+            font-size: 8px;
+            letter-spacing: 4px;
+        }
+
+        .atelier-image::after {
+            content: "";
+            width: 260px;
+            height: 260px;
+            border: 1px solid rgba(216,180,116,.14);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .atelier-copy {
+            max-width: 530px;
+        }
+
+        .atelier-copy h2 {
+            font-size: clamp(52px, 5vw, 78px);
+            line-height: .9;
+            margin-top: 17px;
+        }
+
+        .atelier-copy > p {
+            color: #716b60;
+            font-size: 12px;
+            line-height: 2;
+            margin-top: 30px;
+        }
+
+        .steps {
+            margin-top: 42px;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 45px 1fr;
+            gap: 15px;
+            padding: 18px 0;
+            border-top: 1px solid #cdc4b3;
+        }
+
+        .step-number {
+            color: var(--gold-dark);
+            font-size: 8px;
+            letter-spacing: 1.5px;
+        }
+
+        .step h4 {
+            font-size: 20px;
+        }
+
+        .step p {
+            color: #777064;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+
+        /* ==========================================================
+           QUOTE
+        ========================================================== */
+
+        .quote {
+            background:
+                radial-gradient(circle at center, rgba(184,138,69,.18), transparent 28%),
+                linear-gradient(125deg,#0e0e0c,#18140f,#080807);
+            color: var(--cream);
+            padding: 170px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote::before,
+        .quote::after {
+            content: "";
+            width: 500px;
+            height: 500px;
+            border: 1px solid rgba(184,138,69,.12);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .quote::before {
+            left: -280px;
+        }
+
+        .quote::after {
+            right: -280px;
+        }
+
+        .quote-inner {
+            width: min(calc(100% - 50px), 860px);
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote-mark {
+            font-family: var(--serif);
+            font-size: 100px;
+            color: var(--gold);
+            line-height: .3;
+        }
+
+        blockquote {
+            font-size: clamp(46px, 6vw, 84px);
+            line-height: .95;
+            margin-top: 25px;
+        }
+
+        .quote-author {
+            display: block;
+            color: #6e685d;
+            font-size: 7px;
+            letter-spacing: 3px;
+            margin-top: 35px;
+        }
+
+        /* ==========================================================
+           STORY
+        ========================================================== */
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 130px;
+        }
+
+        .story-left h2 {
+            font-size: clamp(52px,5vw,80px);
+            line-height: .88;
+            margin-top: 18px;
+        }
+
+        .story-year {
+            display: inline-block;
+            color: var(--gold-dark);
+            font-family: var(--serif);
+            font-size: 18px;
+            letter-spacing: 3px;
+            margin-top: 80px;
+        }
+
+        .story-right {
+            padding-top: 80px;
+        }
+
+        .story-right .lead {
+            font-family: var(--serif);
+            font-size: 29px;
+            line-height: 1.1;
+            color: var(--black);
+            margin-bottom: 30px;
+        }
+
+        .story-right p {
+            color: #716b60;
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        /* ==========================================================
+           NEWSLETTER
+        ========================================================== */
+
+        .newsletter {
+            background: var(--black);
+            color: var(--cream);
+            padding: 95px 0;
+        }
+
+        .newsletter-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .newsletter h2 {
+            font-size: clamp(52px, 5vw, 74px);
+            line-height: .87;
+            margin-top: 16px;
+        }
+
+        .newsletter-form label {
+            display: block;
+            color: #777064;
+            font-size: 10px;
+            margin-bottom: 16px;
+        }
+
+        .newsletter-form-row {
+            border-bottom: 1px solid var(--gold-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .newsletter-form-row input {
+            flex: 1;
+            height: 55px;
+            border: 0;
+            outline: 0;
+            background: none;
+            color: var(--cream);
+            font-size: 12px;
+        }
+
+        .newsletter-form-row input::placeholder {
+            color: #625d54;
+        }
+
+        .newsletter-submit {
+            color: var(--gold-light);
+            font-size: 25px;
+            width: 50px;
+        }
+
+        #newsletterMessage {
+            color: var(--gold-light);
+            font-size: 8px;
+            margin-top: 10px;
+        }
+
+        /* ==========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+            background: #050504;
+            color: var(--cream);
+            padding: 72px 0 28px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
+            gap: 45px;
+            padding-bottom: 60px;
+        }
+
+        .footer-brand strong {
+            display: block;
+            font-family: var(--serif);
+            font-size: 31px;
+            letter-spacing: 4px;
+        }
+
+        .footer-brand p {
+            color: #5f5a52;
+            max-width: 290px;
+            font-size: 10px;
+            line-height: 1.8;
+            margin-top: 18px;
+        }
+
+        .footer-title {
+            color: var(--gold);
+            font-size: 7px;
+            letter-spacing: 2px;
+            margin-bottom: 13px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .footer-col a,
+        .footer-col p {
+            color: #706a60;
+            font-size: 9px;
+        }
+
+        .footer-col a:hover {
+            color: var(--cream);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding-top: 23px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            color: #48443e;
+            font-size: 6px;
+            letter-spacing: 1.6px;
+        }
+
+        /* ==========================================================
+           DRAWERS
+        ========================================================== */
+
+        .drawer {
+            width: min(520px,100%);
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            background: var(--cream);
+            color: var(--black);
+            z-index: 9000;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(110%);
+            transition: transform .55s var(--ease);
+            box-shadow: -20px 0 70px rgba(0,0,0,.28);
+        }
+
+        .drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-head {
+            padding: 28px 30px;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drawer-head h3 {
+            font-size: 39px;
+            line-height: .9;
+            margin-top: 4px;
+        }
+
+        .close-round {
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: 50%;
+            font-size: 25px;
+            display: grid;
+            place-items: center;
+            transition: .3s;
+        }
+
+        .close-round:hover {
+            background: var(--black);
+            color: var(--cream);
+        }
+
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 30px;
+        }
+
+        .drawer-footer {
+            padding: 24px 30px;
+            border-top: 1px solid rgba(0,0,0,.1);
+        }
+
+        .drawer-total {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--serif);
+            font-size: 25px;
+        }
+
+        .drawer-message {
+            color: #7b746a;
+            font-size: 8px;
+            margin: 9px 0 17px;
+        }
+
+        .empty {
+            min-height: 350px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: #777064;
+        }
+
+        .empty strong {
+            display: block;
+            color: var(--black);
+            font-family: var(--serif);
+            font-size: 35px;
+            margin-bottom: 4px;
+        }
+
+        .cart-item,
+        .wishlist-item {
+            border-bottom: 1px solid rgba(0,0,0,.09);
+            padding: 18px 0;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 15px;
+        }
+
+        .cart-image,
+        .wishlist-image {
+            width: 80px;
+            height: 100px;
+            background:
+                radial-gradient(circle at 70% 20%, rgba(216,180,116,.15), transparent 30%),
+                #25221c;
+            overflow: hidden;
+        }
+
+        .cart-image img,
+        .wishlist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-name,
+        .wishlist-name {
+            font-family: var(--serif);
+            font-size: 22px;
+            line-height: .95;
+        }
+
+        .cart-meta,
+        .wishlist-meta {
+            color: #777064;
+            font-size: 8px;
+            margin-top: 6px;
+        }
+
+        .qty {
+            width: max-content;
+            display: flex;
+            margin-top: 12px;
+            border: 1px solid rgba(0,0,0,.16);
+        }
+
+        .qty button,
+        .qty span {
+            width: 27px;
+            height: 27px;
+            display: grid;
+            place-items: center;
+            font-size: 10px;
+        }
+
+        .item-price {
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .remove {
+            color: #827b70;
+            font-size: 18px;
+            transition: .2s;
+        }
+
+        .remove:hover {
+            color: #a23f34;
+        }
+
+        .wishlist-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 15px;
+        }
+
+        .mini-add {
+            margin-top: 12px;
+            font-size: 7px;
+            letter-spacing: 1.5px;
+            color: var(--gold-dark);
+        }
+
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.58);
+            z-index: 8500;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .backdrop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ==========================================================
+           MODALS
+        ========================================================== */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(3,3,2,.86);
+            backdrop-filter: blur(12px);
+            display: grid;
+            place-items: center;
+            padding: 30px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .35s;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            width: min(980px,100%);
+            max-height: 94vh;
+            overflow-y: auto;
+            background: var(--cream);
+            color: var(--black);
+            position: relative;
+            padding: clamp(35px,6vw,65px);
+        }
+
+        .modal h2 {
+            font-size: clamp(48px, 5vw, 75px);
+            line-height: .9;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .search-modal {
+            width: min(720px,100%);
+        }
+
+        .search-input-wrap {
+            border-bottom: 1px solid var(--black);
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .search-input-wrap input {
+            flex: 1;
+            height: 60px;
+            outline: none;
+            border: 0;
+            background: none;
+            font-family: var(--serif);
+            font-size: 28px;
+        }
+
+        .search-results {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .search-result {
+            width: 100%;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,.12);
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .search-result strong {
+            font-family: var(--serif);
+            font-size: 22px;
+        }
+
+        .search-result small {
+            display: block;
+            color: #777064;
+        }
+
+        .product-modal-grid {
+            display: grid;
+            grid-template-columns: .85fr 1fr;
+            gap: 55px;
+            align-items: center;
+        }
+
+        .product-detail-image {
+            aspect-ratio: .8;
+            background:
+                radial-gradient(circle at 70% 20%, rgba(216,180,116,.16), transparent 27%),
+                #22201b;
+            overflow: hidden;
+        }
+
+        .product-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-category {
+            font-size: 8px;
+            letter-spacing: 2px;
+            color: var(--gold-dark);
+        }
+
+        .detail-origin {
+            color: #767065;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .detail-price {
+            font-family: var(--serif);
+            font-size: 29px;
+            color: var(--gold-dark);
+            margin-top: 13px;
+        }
+
+        .detail-description {
+            color: #716b60;
+            font-size: 11px;
+            line-height: 2;
+            margin: 24px 0;
+        }
+
+        .detail-notes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 25px;
+        }
+
+        .detail-note {
+            border: 1px solid #cac1b1;
+            padding: 6px 9px;
+            color: #776f63;
+            font-size: 7px;
+        }
+
+        .checkout-title {
+            margin-bottom: 45px;
+        }
+
+        .checkout-title p {
+            color: #777064;
+            font-size: 9px;
+            margin-top: 8px;
+        }
+
+        .checkout-section {
+            border-top: 1px solid rgba(0,0,0,.13);
+            padding: 28px 0;
+        }
+
+        .checkout-section h4 {
+            font-family: var(--sans);
+            color: var(--gold-dark);
+            font-size: 8px;
+            letter-spacing: 2px;
+            margin-bottom: 19px;
+        }
+
+        .fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field label {
+            display: block;
+            color: #777064;
+            font-size: 8px;
+            margin-bottom: 5px;
+        }
+
+        .field input {
+            width: 100%;
+            height: 45px;
+            border: 0;
+            border-bottom: 1px solid #bdb3a1;
+            background: none;
+            outline: none;
+            font-size: 11px;
+        }
+
+        .field input:focus {
+            border-color: var(--gold);
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .payment {
+            border: 1px solid #c9c0af;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .payment:has(input:checked) {
+            border-color: var(--gold);
+            background: rgba(184,138,69,.06);
+        }
+
+        .payment input {
+            accent-color: var(--gold);
+        }
+
+        .payment strong {
+            display: block;
+            font-family: var(--serif);
+            font-size: 19px;
+        }
+
+        .payment small {
+            font-size: 7px;
+            color: #777064;
+        }
+
+        .checkout-total {
+            margin: 28px 0 20px;
+            border-top: 1px solid #bdb3a1;
+            padding-top: 19px;
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--serif);
+            font-size: 27px;
+        }
+
+        .success {
+            text-align: center;
+            max-width: 570px;
+            margin: auto;
+            padding: 55px 15px;
+        }
+
+        .success-icon {
+            width: 76px;
+            height: 76px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            color: var(--gold-dark);
+            font-size: 33px;
+            margin: auto;
+        }
+
+        .success h2 {
+            margin: 15px 0;
+        }
+
+        .success p {
+            color: #777064;
+            font-size: 10px;
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        /* ==========================================================
+           TOAST
+        ========================================================== */
+
+        #toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            z-index: 12000;
+            width: 310px;
+            padding: 15px;
+            background: var(--black);
+            border-left: 2px solid var(--gold);
+            color: var(--cream);
+            box-shadow: 0 15px 50px rgba(0,0,0,.3);
+            transform: translateY(120px);
+            opacity: 0;
+            transition: .45s var(--ease);
+        }
+
+        #toast.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        #toast strong {
+            font-family: var(--serif);
+            font-size: 17px;
+        }
+
+        #toast p {
+            color: #7f786d;
+            font-size: 8px;
+            margin-top: 2px;
+        }
+
+        /* ==========================================================
+           BARISTA AI
+        ========================================================== */
+
+        #barista-launcher {
+            position: fixed;
+            right: 27px;
+            bottom: 27px;
+            z-index: 7000;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 18px 0 8px;
+            border-radius: 40px;
+            background: rgba(8,8,7,.94);
+            border: 1px solid rgba(216,180,116,.35);
+            color: var(--cream);
+            box-shadow: 0 18px 60px rgba(0,0,0,.3);
+            transition: .35s var(--ease);
+        }
+
+        #barista-launcher:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold);
+        }
+
+        #barista-launcher:hover .bot-head {
+            animation: evaFriendly .7s var(--ease);
+        }
+
+        .bot-head {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            position: relative;
+            background: linear-gradient(145deg, #f7f2e9 0%, #dfd5c5 45%, #c1b39a 100%);
+            border: 1px solid rgba(255,255,255,.75);
+            box-shadow:
+                inset -6px -8px 12px rgba(133,114,83,.18),
+                inset 5px 6px 10px rgba(255,255,255,.72),
+                0 10px 26px rgba(184,138,69,.18);
+            overflow: hidden;
+            transition: transform .35s var(--ease), box-shadow .35s var(--ease), filter .35s var(--ease);
+        }
+
+        .bot-head::before {
+            content: "";
+            position: absolute;
+            inset: 6px 6px 10px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 32% 22%, rgba(255,255,255,.95), rgba(255,255,255,0) 34%),
+                linear-gradient(135deg, rgba(255,255,255,.3), rgba(255,255,255,0) 42%);
+        }
+
+        .bot-head::after {
+            content: "";
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 6px;
+            height: 8px;
+            border-radius: 50px;
+            background: linear-gradient(180deg, rgba(216,180,116,.95), rgba(168,126,63,.88));
+            box-shadow: inset 0 2px 4px rgba(255,255,255,.35);
+        }
+
+        .bot-glow {
+            position: absolute;
+            inset: 2px;
+            border-radius: inherit;
+            background: radial-gradient(circle at center, rgba(255,255,255,.16), rgba(255,255,255,0) 62%);
+        }
+
+        .bot-apron {
+            position: absolute;
+            left: 50%;
+            bottom: 7px;
+            width: 18px;
+            height: 10px;
+            transform: translateX(-50%);
+            border-radius: 8px 8px 10px 10px;
+            background: linear-gradient(180deg, #f4ecdb 0%, #e8d9b8 100%);
+            border: 1px solid rgba(162,126,72,.2);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,.45);
+        }
+
+        .bot-apron::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -4px;
+            width: 9px;
+            height: 7px;
+            transform: translateX(-50%);
+            border-radius: 0 0 10px 10px;
+            background: linear-gradient(180deg, #f4ecdb 0%, #d9b778 100%);
+        }
+
+        .bot-eye {
+            position: absolute;
+            top: 13px;
+            width: 8px;
+            height: 12px;
+            border-radius: 50% / 42%;
+            background: #12110f;
+            box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 0 8px rgba(184,138,69,.5);
+            transform-origin: center;
+            animation: evaBlink 6.5s infinite;
+        }
+
+        .bot-eye.left {
+            left: 11px;
+        }
+
+        .bot-eye.right {
+            right: 11px;
+            animation-delay: .25s;
+        }
+
+        .bot-mouth {
+            position: absolute;
+            left: 50%;
+            bottom: 14px;
+            width: 10px;
+            height: 6px;
+            border-bottom: 2px solid rgba(32,28,24,.72);
+            border-radius: 0 0 10px 10px;
+            transform: translateX(-50%);
+            opacity: .82;
+            transition: transform .35s var(--ease), border-bottom-width .35s var(--ease);
+        }
+
+        .barista-text {
+            font-size: 8px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes evaBlink {
+            0%, 44%, 46%, 100% {
+                transform: scaleY(1);
+            }
+
+            45% {
+                transform: scaleY(.14);
+            }
+        }
+
+        @keyframes evaFriendly {
+            0% {
+                transform: rotate(0deg) translateY(0);
+            }
+
+            30% {
+                transform: rotate(-5deg) translateY(-2px);
+            }
+
+            65% {
+                transform: rotate(3deg) translateY(-1px);
+            }
+
+            100% {
+                transform: rotate(0deg) translateY(0);
+            }
+        }
+
+        @keyframes evaHello {
+            0% {
+                transform: scale(.97) rotate(-2deg);
+            }
+
+            38% {
+                transform: scale(1.04) rotate(3deg);
+            }
+
+            68% {
+                transform: scale(1.01) rotate(-1deg);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes evaThinking {
+            0% {
+                transform: translateY(0) scaleY(1);
+            }
+
+            50% {
+                transform: translateY(-1px) scaleY(.9);
+            }
+
+            100% {
+                transform: translateY(1px) scaleY(1);
+            }
+        }
+
+        @keyframes evaEyeThinking {
+            0% {
+                transform: translateY(0) scaleY(1);
+            }
+
+            50% {
+                transform: translateY(-1px) scaleY(.92);
+            }
+
+            100% {
+                transform: translateY(1px) scaleY(1);
+            }
+        }
+
+        @keyframes evaRecommend {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            25% {
+                transform: scale(1.06) rotate(-4deg);
+            }
+
+            55% {
+                transform: scale(1.02) rotate(2deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        #chat {
+            position: fixed;
+            z-index: 7100;
+            right: 27px;
+            bottom: 95px;
+            width: min(400px, calc(100vw - 25px));
+            height: min(720px, calc(100vh - 108px));
+            background: #0d0d0c;
+            color: var(--cream);
+            border: 1px solid rgba(216,180,116,.28);
+            box-shadow: 0 25px 100px rgba(0,0,0,.45);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(.98);
+            transform-origin: bottom right;
+            transition: .4s var(--ease);
+            overflow: hidden;
+        }
+
+        #chat.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        #chat.open .bot-head {
+            animation: evaHello .8s var(--ease);
+            box-shadow:
+                inset -6px -8px 12px rgba(133,114,83,.18),
+                inset 5px 6px 10px rgba(255,255,255,.72),
+                0 12px 30px rgba(184,138,69,.24);
+        }
+
+        #chat.is-thinking .bot-head {
+            animation: evaThinking .7s ease-in-out infinite alternate;
+        }
+
+        #chat.is-thinking .bot-eye {
+            animation: evaBlink 6.5s infinite, evaEyeThinking .7s ease-in-out infinite alternate;
+        }
+
+        #chat.is-thinking .bot-mouth {
+            border-bottom-width: 3px;
+            transform: translateX(-50%) scaleX(1.15);
+        }
+
+        #chat.is-recommending .bot-head {
+            animation: evaRecommend .8s var(--ease);
+        }
+
+        #chat.is-recommending .bot-eyes,
+        #chat.is-recommending .bot-eye {
+            animation-duration: 2.5s;
+        }
+
+        .chat-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .chat-head .bot-head {
+            width: 48px;
+            height: 48px;
+        }
+
+        .chat-agent {
+            flex: 1;
+        }
+
+        .chat-agent strong {
+            display: block;
+            font-family: var(--serif);
+            font-size: 19px;
+        }
+
+        .chat-agent span {
+            color: #6c665c;
+            font-size: 6px;
+            letter-spacing: 1.3px;
+        }
+
+        .online-dot {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background: #75a96e;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+
+        .chat-close {
+            color: #7b746a;
+            font-size: 24px;
+        }
+
+        .chat-intro {
+            padding: 22px 20px 10px;
+        }
+
+        .chat-intro h3 {
+            font-size: 37px;
+            line-height: .9;
+            margin-top: 7px;
+        }
+
+        .chat-intro p {
+            color: #777064;
+            font-size: 8.5px;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+
+        .chat-suggestions {
+            padding: 12px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chat-suggestions button {
+            color: #948c80;
+            border: 1px solid rgba(216,180,116,.18);
+            padding: 7px 9px;
+            font-size: 6.5px;
+            transition: .25s;
+        }
+
+        .chat-suggestions button:hover {
+            color: var(--cream);
+            border-color: var(--gold-dark);
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 84%;
+            padding: 10px 12px;
+            font-size: 8.5px;
+            line-height: 1.7;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: #151513;
+            border: 1px solid rgba(255,255,255,.06);
+            color: #aaa294;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .recommendation {
+            border-top: 1px solid rgba(255,255,255,.08);
+            margin-top: 8px;
+            padding-top: 8px;
+        }
+
+        .recommendation strong {
+            display: block;
+            font-family: var(--serif);
+            color: var(--gold-light);
+            font-size: 16px;
+        }
+
+        .recommendation small {
+            color: #777064;
+            display: block;
+        }
+
+        .recommendation button {
+            margin-top: 8px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 6px 8px;
+            font-size: 6px;
+            letter-spacing: 1px;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid rgba(255,255,255,.08);
+        }
+
+        .chat-input input {
+            flex: 1;
+            min-width: 0;
+            height: 47px;
+            border: 0;
+            outline: 0;
+            background: none;
+            color: var(--cream);
+            padding: 0 15px;
+            font-size: 8px;
+        }
+
+        .chat-input input::placeholder {
+            color: #5f5a52;
+        }
+
+        .chat-input button {
+            width: 50px;
+            color: var(--gold-light);
+            font-size: 22px;
+        }
+
+        .chat-status {
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            color: #45413b;
+            border-top: 1px solid rgba(255,255,255,.04);
+            font-size: 5.5px;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================
+           ANIMATIONS
+        ========================================================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity .9s var(--ease), transform .9s var(--ease);
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (max-width: 1080px) {
+            nav {
+                gap: 16px;
+            }
+
+            .products {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr 1.7fr;
+            }
+
+            .intro-grid > :first-child {
+                grid-row: span 2;
+            }
+
+            .atelier-grid {
+                gap: 60px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+
+            .footer-grid .footer-col:last-child {
+                grid-column: span 3;
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .container {
+                width: calc(100% - 40px);
+            }
+
+            .announcement {
+                font-size: 5.5px;
+                letter-spacing: 1.3px;
+                gap: 5px;
+            }
+
+            header {
+                height: 74px;
+            }
+
+            .header-inner {
+                width: calc(100% - 25px);
+                grid-template-columns: auto 1fr auto;
+            }
+
+            #mobileButton {
+                display: flex;
+                width: 30px;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            #mobileButton span {
+                width: 21px;
+                height: 1px;
+                background: var(--cream);
+            }
+
+            nav {
+                display: none;
+            }
+
+            .brand {
+                margin-left: 5px;
+            }
+
+            .brand strong {
+                font-size: 17px;
+                letter-spacing: 2.5px;
+            }
+
+            .header-action {
+                width: 32px;
+            }
+
+            .header-actions {
+                gap: 2px;
+            }
+
+            .hero {
+                min-height: calc(100vh - 108px);
+            }
+
+            .hero-inner {
+                width: calc(100% - 40px);
+            }
+
+            .hero h1 {
+                font-size: 54px;
+            }
+
+            .hero-description {
+                font-size: 10px;
+                line-height: 1.75;
+                max-width: 350px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-meta {
+                display: none;
+            }
+
+            .scroll {
+                left: 20px;
+            }
+
+            .section-padding {
+                padding: 85px 0;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .intro-grid > :first-child {
+                grid-row: auto;
+            }
+
+            .intro-right {
+                margin-top: 5px;
+            }
+
+            .collection-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .collection-header-right {
+                align-items: flex-start;
+            }
+
+            .collection-header-right p {
+                text-align: left;
+            }
+
+            .filter-panel.open {
+                max-height: 250px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .product-visual {
+                aspect-ratio: 1;
+            }
+
+            .quick-add {
+                opacity: 1;
+                transform: none;
+            }
+
+            .collection-bottom {
+                flex-direction: column;
+            }
+
+            .atelier-grid,
+            .story-grid,
+            .newsletter-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .atelier-image {
+                min-height: 480px;
+            }
+
+            .story-right {
+                padding-top: 20px;
+            }
+
+            .story-year {
+                margin-top: 35px;
+            }
+
+            .newsletter-inner {
+                gap: 45px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 35px;
+            }
+
+            .footer-grid .footer-col:last-child {
+                grid-column: span 2;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+            }
+
+            .modal {
+                padding: 35px 22px;
+            }
+
+            .fields,
+            .payment-grid,
+            .product-modal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quote {
+                padding: 115px 0;
+            }
+
+            blockquote {
+                font-size: 45px;
+            }
+
+            #chat {
+                right: 12px;
+                bottom: 83px;
+                width: calc(100vw - 24px);
+            }
+
+            #barista-launcher {
+                right: 15px;
+                bottom: 15px;
+            }
+
+            #toast {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================================
+         LOADER
+    ========================================================== -->
+
+    <div id="loader">
+        <div class="loader-box">
+            <span>CT</span>
+        </div>
+        <p>COFFEE TRIP</p>
+    </div>
+
+
+    <!-- ==========================================================
+         ANNOUNCEMENT
+    ========================================================== -->
+
+    <div class="announcement">
+        <strong>COMPLIMENTARY DELIVERY</strong>
+        <span>•</span>
+        <span>DETAILS AT CONFIRMATION</span>
+        <span>•</span>
+        <span>ROASTED WITH INTENTION</span>
+    </div>
+
+
+    <!-- ==========================================================
+         HEADER
+    ========================================================== -->
+
+    <header>
+
+        <div class="header-inner">
+
+            <button id="mobileButton" aria-label="Meniu">
+                <span></span>
+                <span></span>
+            </button>
+
+            <a href="index.html" class="brand">
+                <span>THE ART OF</span>
+                <strong>COFFEE TRIP</strong>
+                <span>EST. 2026</span>
+            </a>
+
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="coffee.html">Coffee</a>
+                <a href="rare-coffee.html">Rare Coffee</a>
+                <a href="espresso.html">Espresso</a>
+                <a href="signature-blends.html">Blends</a>
+                <a href="collections.html">Collections</a>
+                <a href="atelier.html">Atelier</a>
+                <a href="journal.html">Journal</a>
+                <a href="guide.html">Guide</a>
+            </nav>
+
+                    <div class="header-actions">
+                        <a href="account.html" class="header-action" aria-label="Account">◎</a>
+
+                <button
+                    class="header-action"
+                    id="searchButton"
+                    aria-label="Caută"
+                >
+                    <span class="search-icon"></span>
+                </button>
+
+                <button
+                    class="header-action"
+                    id="wishlistButton"
+                    aria-label="Favorite"
+                >
+                    <span class="heart-icon">♡</span>
+                    <span class="header-count" id="wishlistCount">0</span>
+                </button>
+
+                <button
+                    class="header-action"
+                    id="cartButton"
+                    aria-label="Coș"
+                >
+                    <span class="bag-icon"></span>
+                    <span class="header-count" id="cartCount">0</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================================
+         HERO
+    ========================================================== -->
+
+    <main id="home">
+
+        <section class="hero">
+
+            <div class="hero-glow"></div>
+
+            <div class="hero-inner">
+
+                <div class="hero-copy reveal">
+
+                    <p class="eyebrow">
+                        PRIVATE COFFEE ATELIER
+                    </p>
+
+                    <h1>
+                        Exceptional coffee.<br>
+                        <em>Remarkable moments.</em>
+                    </h1>
+
+                    <p class="hero-description">
+                        O colecție atent curatoriată de cafele de specialitate,
+                        origini rare și profiluri create pentru cei care văd cafeaua
+                        ca pe o formă de artă.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#shop"
+                            class="btn btn-gold"
+                        >
+                            EXPLOREAZĂ COLECȚIA
+                        </a>
+
+                        <a
+                            href="#story"
+                            class="hero-link"
+                        >
+                            DESCOPERĂ POVESTEA
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="hero-meta">
+                <span>01</span>
+                <span class="hero-meta-line"></span>
+                <span>CURATED ORIGINS</span>
+            </div>
+
+            <div class="scroll">
+                <span>SCROLL</span>
+                <span></span>
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             INTRO
+        ======================================================= -->
+
+        <section class="section-padding">
+
+            <div class="container intro-grid">
+
+                <div class="section-number reveal">
+                    01 / PHILOSOPHY
+                </div>
+
+                <div class="intro-main reveal">
+
+                    <p class="eyebrow">
+                        A DIFFERENT KIND OF COFFEE HOUSE
+                    </p>
+
+                    <h2>
+                        From the first aroma
+                        to the final sip,
+                        <em>nothing is accidental.</em>
+                    </h2>
+
+                </div>
+
+                <div class="intro-right reveal">
+
+                    <p>
+                        Coffee Trip aduce împreună origini extraordinare,
+                        roasting de precizie și un ritual contemporan.
+                        Descoperă cafele create pentru dimineți lente,
+                        conversații memorabile și momente care merită savurate.
+                    </p>
+
+                    <a
+                        href="#story"
+                        class="under-link"
+                    >
+                        CITEȘTE MANIFESTUL
+                        <span>↗</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             COLLECTION
+        ======================================================= -->
+
+        <section
+            class="collection section-padding"
+            id="shop"
+        >
+
+            <div class="container">
+
+                <div class="collection-header reveal">
+
+                    <div>
+
+                        <p class="eyebrow gold">
+                            THE PRIVATE COLLECTION
+                        </p>
+
+                        <h2>
+                            Selecții
+                            <em>extraordinare</em>
+                        </h2>
+
+                    </div>
+
+                    <div class="collection-header-right">
+
+                        <p>
+                            Loturi mici. Origini rare.
+                            Profile de gust memorabile.
+                        </p>
+
+                        <button
+                            class="filter-toggle"
+                            id="filterToggle"
+                        >
+                            FILTREAZĂ +
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="filter-panel"
+                    id="filterPanel"
+                >
+
+                    <button
+                        class="filter-btn active"
+                        data-filter="all"
+                    >
+                        TOATE
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="Single Origin"
+                    >
+                        SINGLE ORIGIN
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="Rare Coffee"
+                    >
+                        RARE COFFEE
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="Espresso"
+                    >
+                        ESPRESSO
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="Signature Blend"
+                    >
+                        SIGNATURE BLEND
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="House Blend"
+                    >
+                        HOUSE BLEND
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="products"
+                    id="products"
+                ></div>
+
+
+                <div class="collection-bottom">
+
+                    <p>
+                        Descoperă fiecare origine.
+                        Găsește-ți ritualul.
+                    </p>
+
+                    <div class="stats">
+
+                        <span class="stat">
+                            <strong>08</strong>
+                            ORIGINI & SELECȚII
+                        </span>
+
+                        <span class="stat">
+                            <strong>100%</strong>
+                            SPECIALTY
+                        </span>
+
+                        <span class="stat">
+                            <strong>01</strong>
+                            COFFEE ATELIER
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             ATELIER
+        ======================================================= -->
+
+        <section
+            class="section-padding"
+            id="atelier"
+        >
+
+            <div class="container atelier-grid">
+
+                <div class="atelier-image reveal"></div>
+
+                <div class="atelier-copy reveal">
+
+                    <p class="eyebrow">
+                        THE COFFEE ATELIER
+                    </p>
+
+                    <h2>
+                        The ritual
+                        behind the <em>ritual.</em>
+                    </h2>
+
+                    <p>
+                        La Coffee Trip, fiecare boabă trece printr-un proces
+                        atent de selecție, prăjire și degustare. Construim
+                        profile clare și elegante, păstrând caracterul autentic
+                        al fiecărei origini.
+                    </p>
+
+                    <div class="steps">
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                01
+                            </div>
+
+                            <div>
+                                <h4>SELECT</h4>
+                                <p>
+                                    Micro-loturi și cafele de origine unică.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                02
+                            </div>
+
+                            <div>
+                                <h4>ROAST</h4>
+                                <p>
+                                    Profile de prăjire dezvoltate pentru fiecare lot.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                03
+                            </div>
+
+                            <div>
+                                <h4>REVEAL</h4>
+                                <p>
+                                    Note de degustare care transformă fiecare ceașcă într-o poveste.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             QUOTE
+        ======================================================= -->
+
+        <section class="quote">
+
+            <div class="quote-inner reveal">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+                <blockquote>
+                    Great coffee isn't merely consumed.
+                    <em>It is remembered.</em>
+                </blockquote>
+
+                <span class="quote-author">
+                    — COFFEE TRIP ATELIER
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             STORY
+        ======================================================= -->
+
+        <section
+            class="section-padding"
+            id="story"
+        >
+
+            <div class="container story-grid">
+
+                <div class="story-left reveal">
+
+                    <p class="eyebrow">
+                        THE STORY
+                    </p>
+
+                    <h2>
+                        A journey measured
+                        in <em>origins.</em>
+                    </h2>
+
+                    <span class="story-year">
+                        2026
+                    </span>
+
+                </div>
+
+                <div class="story-right reveal">
+
+                    <p class="lead">
+                        Coffee Trip a început cu o idee simplă:
+                        cafeaua de excepție trebuie să fie o experiență,
+                        nu doar un produs.
+                    </p>
+
+                    <p>
+                        De la ferme aflate la altitudini impresionante până
+                        la masa de cupping din atelierul nostru, urmărim
+                        drumul fiecărei selecții. Nu căutăm cea mai puternică
+                        cafea, ci cea mai expresivă.
+                    </p>
+
+                    <a
+                        href="#contact"
+                        class="btn btn-dark"
+                        style="margin-top:30px;"
+                    >
+                        INTRĂ ÎN LUMEA COFFEE TRIP
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             NEWSLETTER
+        ======================================================= -->
+
+        <section class="newsletter">
+
+            <div class="container newsletter-inner">
+
+                <div class="reveal">
+
+                    <p class="eyebrow gold">
+                        PRIVATE LETTER
+                    </p>
+
+                    <h2>
+                        Descoperiri rare.<br>
+                        <em>În inbox-ul tău.</em>
+                    </h2>
+
+                </div>
+
+                <form
+                    class="newsletter-form reveal"
+                    id="newsletterForm"
+                >
+
+                    <label for="newsletterEmail">
+                        Primește selecții, povești și lansări exclusive.
+                    </label>
+
+                    <div class="newsletter-form-row">
+
+                        <input
+                            type="email"
+                            id="newsletterEmail"
+                            placeholder="adresa@email.com"
+                            required
+                        >
+
+                        <button
+                            type="submit"
+                            class="newsletter-submit"
+                        >
+                            →
+                        </button>
+
+                    </div>
+
+                    <div id="newsletterMessage"></div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             FOOTER
+        ======================================================= -->
+
+        <footer id="contact">
+
+            <div class="container">
+
+                <div class="footer-grid">
+
+                    <div class="footer-brand">
+
+                        <span class="brand">
+                            <span>THE ART OF</span>
+                            <strong>COFFEE TRIP</strong>
+                        </span>
+
+                        <p>
+                            Specialty coffee, carefully selected.
+                            Designed for meaningful moments.
+                        </p>
+
+                    </div>
+
+                    <div class="footer-col">
+
+                        <div class="footer-title">
+                            EXPLORE
+                        </div>
+
+                        <a href="#shop">Colecția</a>
+                        <a href="#atelier">Atelier</a>
+                        <a href="#story">Povestea</a>
+                        <a href="#contact">Contact</a>
+
+                    </div>
+
+                    <div class="footer-col">
+
+                        <div class="footer-title">
+                            SUPPORT
+                        </div>
+
+                        <a href="faq.html#shipping">Livrare</a>
+                        <a href="faq.html#returns">Retururi</a>
+                        <a href="faq.html">Întrebări frecvente</a>
+                        <a href="contact.html#terms">Termeni & condiții</a>
+
+                    </div>
+
+                    <div class="footer-col">
+
+                        <div class="footer-title">
+                            CONTACT
+                        </div>
+
+                        <p>București, România</p>
+                        <p>hello@coffeetrip.ro</p>
+                        <p>+40 700 000 000</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="footer-bottom">
+
+                    <span>
+                        © 2026 COFFEE TRIP — FIRMĂ DE EXERCIȚIU
+                    </span>
+
+                    <span>
+                        MADE FOR THE LOVE OF COFFEE
+                    </span>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- ==========================================================
+         BACKDROP
+    ========================================================== -->
+
+    <div
+        class="backdrop"
+        id="backdrop"
+    ></div>
+
+
+    <!-- ==========================================================
+         CART DRAWER
+    ========================================================== -->
+
+    <aside
+        class="drawer"
+        id="cartDrawer"
+    >
+
+        <div class="drawer-head">
+
+            <div>
+
+                <p class="eyebrow">
+                    YOUR RITUAL
+                </p>
+
+                <h3>
+                    Coșul tău
+                </h3>
+
+            </div>
+
+            <button
+                class="close-round"
+                data-close-drawer
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div
+            class="drawer-body"
+            id="cartItems"
+        ></div>
+
+        <div class="drawer-footer">
+
+            <div class="drawer-total">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="cartSubtotal">
+                    PREȚ NECUNOSCUT
+                </strong>
+
+            </div>
+
+            <p
+                class="drawer-message"
+                id="shippingMessage"
+            >
+                Prețurile finale sunt disponibile la confirmarea comenzii.
+            </p>
+
+            <button
+                class="btn btn-gold"
+                style="width:100%;"
+                id="checkoutButton"
+            >
+                CONTINUĂ CĂTRE CHECKOUT
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ==========================================================
+         WISHLIST DRAWER
+    ========================================================== -->
+
+    <aside
+        class="drawer"
+        id="wishlistDrawer"
+    >
+
+        <div class="drawer-head">
+
+            <div>
+
+                <p class="eyebrow">
+                    YOUR SELECTION
+                </p>
+
+                <h3>
+                    Favorite
+                </h3>
+
+            </div>
+
+            <button
+                class="close-round"
+                data-close-drawer
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div
+            class="drawer-body"
+            id="wishlistItems"
+        ></div>
+
+    </aside>
+
+
+    <!-- ==========================================================
+         SEARCH MODAL
+    ========================================================== -->
+
+    <div
+        class="overlay"
+        id="searchOverlay"
+    >
+
+        <div class="modal search-modal">
+
+            <button
+                class="close-round modal-close"
+                data-close-modal
+            >
+                ×
+            </button>
+
+            <p class="eyebrow">
+                COFFEE FINDER
+            </p>
+
+            <h2>
+                Caută în colecție
+            </h2>
+
+            <div class="search-input-wrap">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Ex: floral, Ethiopia, espresso..."
+                    autocomplete="off"
+                >
+
+                <span>
+                    ⌕
+                </span>
+
+            </div>
+
+            <div
+                class="search-results"
+                id="searchResults"
+            >
+                <div class="empty">
+                    <div>
+                        Scrie pentru a explora colecția.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================================
+         PRODUCT MODAL
+    ========================================================== -->
+
+    <div
+        class="overlay"
+        id="productOverlay"
+    >
+
+        <div class="modal">
+
+            <button
+                class="close-round modal-close"
+                data-close-modal
+            >
+                ×
+            </button>
+
+            <div id="productModalContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================================
+         CHECKOUT MODAL
+    ========================================================== -->
+
+    <div
+        class="overlay"
+        id="checkoutOverlay"
+    >
+
+        <div class="modal">
+
+            <button
+                class="close-round modal-close"
+                data-close-modal
+            >
+                ×
+            </button>
+
+            <div id="checkoutFormView">
+
+                <div class="checkout-title">
+
+                    <p class="eyebrow gold">
+                        PRIVATE ORDER
+                    </p>
+
+                    <h2>
+                        Finalizează
+                        <em>ritualul.</em>
+                    </h2>
+
+                    <p>
+                        Demo UI/UX — nicio plată reală nu va fi procesată.
+                    </p>
+
+                </div>
+
+
+                <form id="checkoutForm">
+
+                    <div class="checkout-section">
+
+                        <h4>
+                            01 / DATE PERSONALE
+                        </h4>
+
+                        <div class="fields">
+
+                            <div class="field">
+                                <label>Nume complet</label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="Numele tău"
+                                >
+                            </div>
+
+                            <div class="field">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    required
+                                    placeholder="email@example.com"
+                                >
+                            </div>
+
+                            <div class="field">
+                                <label>Telefon</label>
+                                <input
+                                    type="tel"
+                                    required
+                                    placeholder="+40 700 000 000"
+                                >
+                            </div>
+
+                            <div class="field">
+                                <label>Oraș</label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="București"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="checkout-section">
+
+                        <h4>
+                            02 / LIVRARE
+                        </h4>
+
+                        <div class="field">
+
+                            <label>
+                                Adresă
+                            </label>
+
+                            <input
+                                type="text"
+                                required
+                                placeholder="Stradă, număr, apartament"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="checkout-section">
+
+                        <h4>
+                            03 / METODĂ DE PLATĂ
+                        </h4>
+
+                        <div class="payment-grid">
+
+                            <label class="payment">
+
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="card"
+                                    checked
+                                >
+
+                                <div>
+                                    <strong>
+                                        Card bancar
+                                    </strong>
+
+                                    <small>
+                                        Simulare securizată
+                                    </small>
+                                </div>
+
+                            </label>
+
+
+                            <label class="payment">
+
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="cash"
+                                >
+
+                                <div>
+                                    <strong>
+                                        Ramburs
+                                    </strong>
+
+                                    <small>
+                                        Plată la livrare
+                                    </small>
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="checkout-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong id="checkoutTotal">
+                            PREȚ NECUNOSCUT
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-gold"
+                        style="width:100%;"
+                        type="submit"
+                    >
+                        PLASEAZĂ COMANDA DEMO
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div
+                id="checkoutSuccessView"
+                class="success hidden"
+            >
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <p class="eyebrow gold">
+                    ORDER RECEIVED
+                </p>
+
+                <h2>
+                    Mulțumim pentru
+                    <em>alegere.</em>
+                </h2>
+
+                <p id="successMessage">
+                    Comanda demo a fost înregistrată cu succes.
+                    Într-un magazin real, aici ar începe procesarea
+                    și notificarea de livrare.
+                </p>
+
+                <button
+                    class="btn btn-dark"
+                    data-close-modal
+                >
+                    ÎNAPOI LA COFFEE TRIP
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================================
+         TOAST
+    ========================================================== -->
+
+    <div id="toast">
+
+        <strong id="toastTitle">
+            Done
+        </strong>
+
+        <p id="toastMessage">
+            Acțiunea a fost finalizată.
+        </p>
+
+    </div>
+
+
+    <!-- ==========================================================
+         BARISTA LAUNCHER
+    ========================================================== -->
+
+    <button
+        id="barista-launcher"
+        aria-label="Deschide Barista AI"
+    >
+
+        <div class="bot-head">
+
+            <span class="bot-glow"></span>
+            <span class="bot-apron"></span>
+            <span class="bot-eye left"></span>
+            <span class="bot-eye right"></span>
+            <span class="bot-mouth"></span>
+
+        </div>
+
+        <span class="barista-text">
+            BARISTA
+        </span>
+
+    </button>
+
+
+    <!-- ==========================================================
+         BARISTA CHAT
+    ========================================================== -->
+
+    <aside id="chat">
+
+        <div class="chat-head">
+
+            <div class="bot-head">
+
+                <span class="bot-glow"></span>
+                <span class="bot-apron"></span>
+                <span class="bot-eye left"></span>
+                <span class="bot-eye right"></span>
+                <span class="bot-mouth"></span>
+
+            </div>
+
+            <div class="chat-agent">
+
+                <strong>
+                    EVA · BARISTA AI
+                </strong>
+
+                <span>
+                    <i class="online-dot"></i>
+                    ONLINE · READY TO BREW
+                </span>
+
+            </div>
+
+            <button
+                id="chatClose"
+                class="chat-close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="chat-intro">
+
+            <p class="eyebrow gold">
+                COFFEE CONCIERGE
+            </p>
+
+            <h3>
+                Cu ce cafea<br>
+                începem?
+            </h3>
+
+            <p>
+                Spune-mi ce gusturi îți plac.
+                Pot recomanda cafele în timp real,
+                chiar dacă mai faci mici greșeli de scriere.
+            </p>
+
+        </div>
+
+
+        <div class="chat-suggestions">
+
+            <button data-chat-suggestion="Vreau ceva dulce și ciocolatos">
+                Dulce & ciocolatos
+            </button>
+
+            <button data-chat-suggestion="Îmi place cafeaua florală">
+                Floral & elegant
+            </button>
+
+            <button data-chat-suggestion="Vreau o cafea puternică">
+                Intens & puternic
+            </button>
+
+            <button data-chat-suggestion="Ce cafea recomanzi?">
+                Surprinde-mă
+            </button>
+
+        </div>
+
+
+        <div id="messages"></div>
+
+
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="chatInput"
+                placeholder="Scrie-i Baristei..."
+                autocomplete="off"
+            >
+
+            <button id="chatSend">
+                →
+            </button>
+
+        </div>
+
+
+        <div class="chat-status">
+            Fuzzy matching active • Client-side NLP
+        </div>
+
+    </aside>
+
+
+    <!-- ==========================================================
+         JAVASCRIPT
+         TOTUL ESTE ÎN ACEST INDEX.HTML
+    ========================================================== -->
+
+    <script>
+
+        /* ==========================================================
+           PRODUCT DATABASE
+        ========================================================== */
+
+        const products = [
+            {
+                id: 1,
+                name: "Ethiopian Yirgacheffe",
+                origin: "Ethiopia",
+                category: "Single Origin",
+                price: 89,
+                weight: "250g",
+                roast: "Light",
+                notes: ["Jasmine", "Bergamot", "Blueberry"],
+                description:
+                    "O cafea elegantă de origine unică, cu aromatice florale, citrice luminoase și un finish foarte fin.",
+                image: "assets/img/img1.jpg",
+                featured: true
+            },
+
+            {
+                id: 2,
+                name: "Colombian Supremo",
+                origin: "Colombia",
+                category: "Single Origin",
+                price: 79,
+                weight: "250g",
+                roast: "Medium",
+                notes: ["Caramel", "Red Apple", "Chocolate"],
+                description:
+                    "Un profil sofisticat cu dulceață de caramel, aciditate de măr roșu și un corp bogat de ciocolată.",
+                image: "assets/img/img2.jpg",
+                featured: true
+            },
+
+            {
+                id: 3,
+                name: "Jamaican Blue Mountain",
+                origin: "Jamaica",
+                category: "Rare Coffee",
+                price: 199,
+                weight: "250g",
+                roast: "Medium-Light",
+                notes: ["Hazelnut", "Cocoa", "Cedar"],
+                description:
+                    "O cafea rară, cunoscută pentru echilibrul său excepțional, claritate și finish extrem de smooth.",
+                image: "assets/img/img3.jpg",
+                featured: true
+            },
+
+            {
+                id: 4,
+                name: "Panama Geisha",
+                origin: "Panama",
+                category: "Rare Coffee",
+                price: 249,
+                weight: "100g",
+                roast: "Light",
+                notes: ["Peach", "Tea Rose", "Tangerine"],
+                description:
+                    "Un micro-lot extraordinar cu flori delicate, dulceață de piersică și citrice vibrante.",
+                image: "assets/img/img4.jpg",
+                featured: true
+            },
+
+            {
+                id: 5,
+                name: "Brazilian Bourbon",
+                origin: "Brazil",
+                category: "Espresso",
+                price: 69,
+                weight: "250g",
+                roast: "Medium-Dark",
+                notes: ["Hazelnut", "Toffee", "Milk Chocolate"],
+                description:
+                    "Smooth, confortabil și decadent, creat special pentru iubitorii de espresso.",
+                image: "assets/img/img5.jpg",
+                featured: false
+            },
+
+            {
+                id: 6,
+                name: "Guatemala Antigua",
+                origin: "Guatemala",
+                category: "Single Origin",
+                price: 74,
+                weight: "250g",
+                roast: "Medium",
+                notes: ["Cocoa", "Orange", "Brown Sugar"],
+                description:
+                    "Solul vulcanic și altitudinea creează o cafea expresivă, cu bogăție de cacao și aciditate de portocală.",
+                image: "assets/img/img6.jpg",
+                featured: false
+            },
+
+            {
+                id: 7,
+                name: "Kenya AA",
+                origin: "Kenya",
+                category: "Single Origin",
+                price: 84,
+                weight: "250g",
+                roast: "Light",
+                notes: ["Blackcurrant", "Grapefruit", "Honey"],
+                description:
+                    "Vibrantă și complexă, cu aciditate strălucitoare și dulceață de fructe negre.",
+                image: "assets/img/img7.jpg",
+                featured: false
+            },
+
+            {
+                id: 8,
+                name: "House Noir",
+                origin: "Coffee Trip Atelier",
+                category: "Signature Blend",
+                price: 64,
+                weight: "250g",
+                roast: "Dark",
+                notes: ["Dark Chocolate", "Walnut", "Molasses"],
+                description:
+                    "Blend-ul nostru signature, creat pentru un espresso puternic, sofisticat și memorabil.",
+                image: "assets/img/img8.jpg",
+                featured: false
+            },
+
+            {
+                id: 9,
+                name: "Velvet Reserve",
+                origin: "Brazil + Colombia",
+                category: "Signature Blend",
+                price: 59,
+                weight: "250g",
+                roast: "Medium",
+                notes: ["Caramel", "Milk Chocolate", "Hazelnut"],
+                description:
+                    "Un blend elegant și accesibil, conceput pentru o experiență smooth, caldă și foarte plăcută de fiecare zi.",
+                image: "assets/img/img9.jpg",
+                featured: false
+            },
+
+            {
+                id: 10,
+                name: "Maison Noire",
+                origin: "Brazil + Guatemala",
+                category: "Signature Blend",
+                price: 64,
+                weight: "250g",
+                roast: "Medium-Dark",
+                notes: ["Dark Chocolate", "Walnut", "Toffee"],
+                description:
+                    "O versiune dark luxury, dar accesibilă, cu profunzime de cacao și un final de caramel pronunțat.",
+                image: "assets/img/img10.jpg",
+                featured: false
+            },
+
+            {
+                id: 11,
+                name: "Golden Estate",
+                origin: "Colombia + Brazil",
+                category: "Signature Blend",
+                price: 69,
+                weight: "250g",
+                roast: "Medium",
+                notes: ["Honey", "Caramel", "Cocoa"],
+                description:
+                    "Un blend premium-looking cu o profilare prietenoasă, echilibrată și foarte bine pregătită pentru utilizare zilnică.",
+                image: "assets/img/img11.jpg",
+                featured: false
+            },
+
+            {
+                id: 12,
+                name: "Noir Élégance",
+                origin: "Brazil + India",
+                category: "Espresso",
+                price: 72,
+                weight: "250g",
+                roast: "Dark",
+                notes: ["Dark Chocolate", "Molasses", "Roasted Almond"],
+                description:
+                    "Un espresso intens și elegant, cu corp amplu, note de cacao și un final rafinat, perfect pentru momentele care merită stil.",
+                image: "assets/img/img12.jpg",
+                featured: false
+            },
+
+            {
+                id: 13,
+                name: "Velours d'Or",
+                origin: "Colombia + Ethiopia",
+                category: "Signature Blend",
+                price: 76,
+                weight: "250g",
+                roast: "Medium",
+                notes: ["Red Berries", "Caramel", "Cocoa"],
+                description:
+                    "Un profil sofisticat, aromatic și foarte echilibrat, cu un parfum frumos de fructe roșii și dulceață fină.",
+                image: "assets/img/img13.jpg",
+                featured: false
+            },
+
+            {
+                id: 14,
+                name: "Royal Morning",
+                origin: "Brazil + Colombia",
+                category: "House Blend",
+                price: 54,
+                weight: "250g",
+                roast: "Medium",
+                notes: ["Biscuit", "Caramel", "Milk Chocolate"],
+                description:
+                    "Cea mai accesibilă dintre selecțiile premium din colecție, cu un profil cald, familiar și impecabil pentru începutul zilei.",
+                image: "assets/img/img14.jpg",
+                featured: false
+            },
+
+            {
+                id: 15,
+                name: "Imperial Amber",
+                origin: "Brazil + Colombia + India",
+                category: "Espresso",
+                price: 79,
+                weight: "250g",
+                roast: "Medium-Dark",
+                notes: ["Brown Sugar", "Cocoa", "Hazelnut"],
+                description:
+                    "Un espresso premium pentru consum zilnic, cu rotunjime elegantă, dulceață de zahăr brun și un finish sofisticat.",
+                image: "assets/img/img15.jpg",
+                featured: false
+            },
+
+            {
+                id: 16,
+                name: "Atelier Privé",
+                origin: "Ethiopia + Colombia",
+                category: "Signature Blend",
+                price: 84,
+                weight: "250g",
+                roast: "Medium-Light",
+                notes: ["Jasmine", "Apricot", "Honey"],
+                description:
+                    "Blend-ul nostru cel mai sofisticat și accesibil, cu profunzime florală, franchețe fructată și o eleganță clară.",
+                image: "assets/img/img16.jpg",
+                featured: false
+            }
+        ];
+
+
+        /* ==========================================================
+           STORAGE
+        ========================================================== */
+
+        const CART_KEY = "coffeeTrip_cart";
+        const WISHLIST_KEY = "coffeeTrip_wishlist";
+
+
+        let cart = loadStorage(CART_KEY, []);
+        let wishlist = loadStorage(WISHLIST_KEY, []);
+
+
+        function loadStorage(key, fallback) {
+
+            try {
+
+                const data = localStorage.getItem(key);
+
+                return data
+                    ? JSON.parse(data)
+                    : fallback;
+
+            } catch (error) {
+
+                return fallback;
+
+            }
+
+        }
+
+
+        function saveCart() {
+
+            localStorage.setItem(
+                CART_KEY,
+                JSON.stringify(cart)
+            );
+
+        }
+
+
+        function saveWishlist() {
+
+            localStorage.setItem(
+                WISHLIST_KEY,
+                JSON.stringify(wishlist)
+            );
+
+        }
+
+
+        /* ==========================================================
+           UTILITIES
+        ========================================================== */
+
+        function formatPrice(value) {
+            return "PREȚ NECUNOSCUT";
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replaceAll("&","&amp;")
+                .replaceAll("<","&lt;")
+                .replaceAll(">","&gt;")
+                .replaceAll('"',"&quot;")
+                .replaceAll("'","&#039;");
+
+        }
+
+
+        /* ==========================================================
+           TOAST
+        ========================================================== */
+
+        let toastTimer;
+
+
+        function showToast(title, message) {
+
+            const toast =
+                document.getElementById("toast");
+
+            document.getElementById("toastTitle")
+                .textContent = title;
+
+            document.getElementById("toastMessage")
+                .textContent = message;
+
+            toast.classList.add("visible");
+
+            clearTimeout(toastTimer);
+
+            toastTimer = setTimeout(() => {
+
+                toast.classList.remove("visible");
+
+            }, 2800);
+
+        }
+
+
+        /* ==========================================================
+           COUNTERS
+        ========================================================== */
+
+        function updateCounters() {
+
+            const cartCount =
+                cart.reduce(
+                    (sum, item) =>
+                        sum + item.quantity,
+                    0
+                );
+
+            const cartElement =
+                document.getElementById("cartCount");
+
+            const wishlistElement =
+                document.getElementById("wishlistCount");
+
+
+            if (cartCount > 0) {
+
+                cartElement.textContent = cartCount;
+                cartElement.style.display = "grid";
+
+            } else {
+
+                cartElement.style.display = "none";
+
+            }
+
+
+            if (wishlist.length > 0) {
+
+                wishlistElement.textContent =
+                    wishlist.length;
+
+                wishlistElement.style.display =
+                    "grid";
+
+            } else {
+
+                wishlistElement.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        /* ==========================================================
+           CART
+        ========================================================== */
+
+        function addToCart(productId, quantity = 1) {
+
+            const product =
+                products.find(
+                    p => p.id === Number(productId)
+                );
+
+            if (!product) return;
+
+
+            const existing =
+                cart.find(
+                    item => item.id === product.id
+                );
+
+
+            if (existing) {
+
+                existing.quantity += quantity;
+
+            } else {
+
+                cart.push({
+
+                    id: product.id,
+                    name: product.name,
+                    origin: product.origin,
+                    price: product.price,
+                    weight: product.weight,
+                    image: product.image,
+                    quantity: quantity
+
+                });
+
+            }
+
+
+            saveCart();
+            renderCart();
+            updateCounters();
+
+
+            showToast(
+                "Adăugat în coș",
+                `${product.name} × ${quantity}`
+            );
+
+        }
+
+
+        function removeFromCart(id) {
+
+            cart =
+                cart.filter(
+                    item => item.id !== Number(id)
+                );
+
+            saveCart();
+            renderCart();
+            updateCounters();
+
+        }
+
+
+        function changeQuantity(id, delta) {
+
+            const item =
+                cart.find(
+                    item => item.id === Number(id)
+                );
+
+            if (!item) return;
+
+
+            item.quantity += delta;
+
+
+            if (item.quantity <= 0) {
+
+                removeFromCart(id);
+                return;
+
+            }
+
+
+            saveCart();
+            renderCart();
+            updateCounters();
+
+        }
+
+
+        function cartSubtotal() {
+
+            return cart.reduce(
+                (sum, item) =>
+                    sum + item.price * item.quantity,
+                0
+            );
+
+        }
+
+
+        function renderCart() {
+
+            const container =
+                document.getElementById("cartItems");
+
+            const subtotal =
+                cartSubtotal();
+
+
+            document.getElementById("cartSubtotal")
+                .textContent =
+                formatPrice(subtotal);
+
+
+            document.getElementById("checkoutTotal")
+                .textContent =
+                formatPrice(subtotal);
+
+
+            const remaining = 250 - subtotal;
+
+
+            if (remaining <= 0) {
+
+                document.getElementById("shippingMessage")
+                    .textContent =
+                    "Transportul tău este gratuit.";
+
+            } else {
+
+                document.getElementById("shippingMessage")
+                    .textContent =
+                    `Mai adaugă ${formatPrice(remaining)} pentru transport gratuit.`;
+
+            }
+
+
+            if (!cart.length) {
+
+                container.innerHTML = `
+                    <div class="empty">
+                        <div>
+                            <strong>Coșul este gol.</strong>
+                            <p>
+                                Poate că Barista are o recomandare pentru tine.
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                cart.map(item => `
+
+                    <article class="cart-item">
+
+                        <div class="cart-image">
+                            <img
+                                src="${item.image}"
+                                alt="${escapeHTML(item.name)}"
+                                onerror="this.style.display='none'"
+                            >
+                        </div>
+
+                        <div>
+
+                            <div class="cart-name">
+                                ${escapeHTML(item.name)}
+                            </div>
+
+                            <div class="cart-meta">
+                                ${escapeHTML(item.origin)}
+                                ·
+                                ${escapeHTML(item.weight)}
+                            </div>
+
+                            <div class="qty">
+
+                                <button
+                                    data-cart-minus="${item.id}"
+                                >
+                                    −
+                                </button>
+
+                                <span>
+                                    ${item.quantity}
+                                </span>
+
+                                <button
+                                    data-cart-plus="${item.id}"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="item-price">
+                                ${formatPrice(
+                                    item.price * item.quantity
+                                )}
+                            </div>
+
+                            <button
+                                class="remove"
+                                data-cart-remove="${item.id}"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `).join("");
+
+        }
+
+
+        /* ==========================================================
+           WISHLIST
+        ========================================================== */
+
+        function isFavorite(id) {
+
+            return wishlist.includes(
+                Number(id)
+            );
+
+        }
+
+
+        function toggleWishlist(id) {
+
+            id = Number(id);
+
+            const product =
+                products.find(
+                    item => item.id === id
+                );
+
+            if (!product) return;
+
+
+            if (wishlist.includes(id)) {
+
+                wishlist =
+                    wishlist.filter(
+                        item => item !== id
+                    );
+
+                showToast(
+                    "Eliminat din favorite",
+                    product.name
+                );
+
+            } else {
+
+                wishlist.push(id);
+
+                showToast(
+                    "Adăugat la favorite",
+                    product.name
+                );
+
+            }
+
+
+            saveWishlist();
+            renderProducts(currentFilter);
+            renderWishlist();
+            updateCounters();
+
+        }
+
+
+        function renderWishlist() {
+
+            const container =
+                document.getElementById("wishlistItems");
+
+
+            const favoriteProducts =
+                products.filter(
+                    product =>
+                        wishlist.includes(product.id)
+                );
+
+
+            if (!favoriteProducts.length) {
+
+                container.innerHTML = `
+                    <div class="empty">
+                        <div>
+                            <strong>Încă nu ai favorite.</strong>
+                            <p>
+                                Păstrează aici selecțiile
+                                care ți-au atras atenția.
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                favoriteProducts.map(product => `
+
+                    <article class="wishlist-item">
+
+                        <div class="wishlist-image">
+
+                            <img
+                                src="${product.image}"
+                                alt="${escapeHTML(product.name)}"
+                                onerror="this.style.display='none'"
+                            >
+
+                        </div>
+
+                        <div>
+
+                            <div class="wishlist-name">
+                                ${escapeHTML(product.name)}
+                            </div>
+
+                            <div class="wishlist-meta">
+                                ${escapeHTML(product.origin)}
+                                ·
+                                ${formatPrice(product.price)}
+                            </div>
+
+                            <button
+                                class="mini-add"
+                                data-wishlist-add="${product.id}"
+                            >
+                                + ADAUGĂ ÎN COȘ
+                            </button>
+
+                        </div>
+
+                        <button
+                            class="remove"
+                            data-wishlist-remove="${product.id}"
+                        >
+                            ×
+                        </button>
+
+                    </article>
+
+                `).join("");
+
+        }
+
+
+        /* ==========================================================
+           PRODUCT RENDER
+        ========================================================== */
+
+        let currentFilter = "all";
+
+
+        function renderProducts(filter = "all") {
+
+            currentFilter = filter;
+
+            const container =
+                document.getElementById("products");
+
+
+            let visible =
+                products;
+
+
+            if (filter !== "all") {
+
+                visible =
+                    products.filter(
+                        product =>
+                            product.category === filter
+                    );
+
+            }
+
+
+            container.innerHTML =
+                visible.map(product => `
+
+                    <article
+                        class="product reveal"
+                    >
+
+                        <div
+                            class="product-visual"
+                            data-product="${product.id}"
+                        >
+
+                            ${
+                                product.featured
+                                    ? `
+                                        <span class="product-badge">
+                                            CURATED
+                                        </span>
+                                      `
+                                    : ""
+                            }
+
+
+                            <button
+                                class="favorite-btn ${
+                                    isFavorite(product.id)
+                                        ? "active"
+                                        : ""
+                                }"
+                                data-favorite="${product.id}"
+                                aria-label="Favorite"
+                            >
+                                ${
+                                    isFavorite(product.id)
+                                        ? "♥"
+                                        : "♡"
+                                }
+                            </button>
+
+
+                            <img
+                                src="${product.image}"
+                                alt="${escapeHTML(product.name)}"
+                                loading="lazy"
+                                onerror="this.style.display='none'"
+                            >
+
+
+                            <button
+                                class="quick-add"
+                                data-add-cart="${product.id}"
+                            >
+                                + ADAUGĂ ÎN COȘ
+                            </button>
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-title-row">
+
+                                <h3>
+                                    ${escapeHTML(product.name)}
+                                </h3>
+
+                                <span class="product-price">
+                                    ${formatPrice(product.price)}
+                                </span>
+
+                            </div>
+
+                            <div class="product-meta">
+                                ${escapeHTML(product.origin)}
+                                ·
+                                ${escapeHTML(product.roast)}
+                            </div>
+
+                            <div class="notes">
+
+                                ${
+                                    product.notes
+                                        .map(
+                                            note => `
+                                                <span class="note">
+                                                    ${escapeHTML(note)}
+                                                </span>
+                                            `
+                                        )
+                                        .join("")
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `).join("");
+
+
+            observeRevealElements();
+
+        }
+
+
+        /* ==========================================================
+           PRODUCT EVENTS
+        ========================================================== */
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                const add =
+                    event.target.closest(
+                        "[data-add-cart]"
+                    );
+
+                const favorite =
+                    event.target.closest(
+                        "[data-favorite]"
+                    );
+
+                const detail =
+                    event.target.closest(
+                        "[data-product]"
+                    );
+
+
+                if (add) {
+
+                    event.stopPropagation();
+
+                    addToCart(
+                        Number(
+                            add.dataset.addCart
+                        )
+                    );
+
+                    return;
+
+                }
+
+
+                if (favorite) {
+
+                    event.stopPropagation();
+
+                    toggleWishlist(
+                        Number(
+                            favorite.dataset.favorite
+                        )
+                    );
+
+                    return;
+
+                }
+
+
+                if (detail) {
+
+                    openProductModal(
+                        Number(
+                            detail.dataset.product
+                        )
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================================
+           CART EVENTS
+        ========================================================== */
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                const plus =
+                    event.target.closest(
+                        "[data-cart-plus]"
+                    );
+
+                const minus =
+                    event.target.closest(
+                        "[data-cart-minus]"
+                    );
+
+                const remove =
+                    event.target.closest(
+                        "[data-cart-remove]"
+                    );
+
+
+                if (plus) {
+
+                    changeQuantity(
+                        Number(
+                            plus.dataset.cartPlus
+                        ),
+                        1
+                    );
+
+                }
+
+
+                if (minus) {
+
+                    changeQuantity(
+                        Number(
+                            minus.dataset.cartMinus
+                        ),
+                        -1
+                    );
+
+                }
+
+
+                if (remove) {
+
+                    removeFromCart(
+                        Number(
+                            remove.dataset.cartRemove
+                        )
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================================
+           WISHLIST EVENTS
+        ========================================================== */
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                const add =
+                    event.target.closest(
+                        "[data-wishlist-add]"
+                    );
+
+                const remove =
+                    event.target.closest(
+                        "[data-wishlist-remove]"
+                    );
+
+
+                if (add) {
+
+                    addToCart(
+                        Number(
+                            add.dataset.wishlistAdd
+                        )
+                    );
+
+                }
+
+
+                if (remove) {
+
+                    toggleWishlist(
+                        Number(
+                            remove.dataset.wishlistRemove
+                        )
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================================
+           DRAWERS
+        ========================================================== */
+
+        const backdrop =
+            document.getElementById("backdrop");
+
+
+        function openDrawer(drawer) {
+
+            document
+                .querySelectorAll(".drawer")
+                .forEach(d => d.classList.remove("open"));
+
+            drawer.classList.add("open");
+
+            backdrop.classList.add("visible");
+
+            document.body.classList.add("locked");
+
+        }
+
+
+        function closeDrawers() {
+
+            document
+                .querySelectorAll(".drawer")
+                .forEach(
+                    d => d.classList.remove("open")
+                );
+
+            backdrop.classList.remove("visible");
+
+            document.body.classList.remove("locked");
+
+        }
+
+
+        document
+            .getElementById("cartButton")
+            .addEventListener(
+                "click",
+                () => {
+
+                    renderCart();
+
+                    openDrawer(
+                        document.getElementById(
+                            "cartDrawer"
+                        )
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById("wishlistButton")
+            .addEventListener(
+                "click",
+                () => {
+
+                    renderWishlist();
+
+                    openDrawer(
+                        document.getElementById(
+                            "wishlistDrawer"
+                        )
+                    );
+
+                }
+            );
+
+
+        backdrop.addEventListener(
+            "click",
+            closeDrawers
+        );
+
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target.closest(
+                        "[data-close-drawer]"
+                    )
+                ) {
+
+                    closeDrawers();
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================================
+           FILTERS
+        ========================================================== */
+
+        document
+            .getElementById("filterToggle")
+            .addEventListener(
+                "click",
+                () => {
+
+                    document
+                        .getElementById("filterPanel")
+                        .classList.toggle("open");
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(".filter-btn")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        document
+                            .querySelectorAll(
+                                ".filter-btn"
+                            )
+                            .forEach(
+                                btn =>
+                                    btn.classList.remove(
+                                        "active"
+                                    )
+                            );
+
+                        button.classList.add("active");
+
+                        renderProducts(
+                            button.dataset.filter
+                        );
+
+                    }
+                );
+
+            });
+
+
+        /* ==========================================================
+           MODALS
+        ========================================================== */
+
+        function openOverlay(id) {
+
+            document
+                .getElementById(id)
+                .classList.add("open");
+
+            document.body.classList.add("locked");
+
+        }
+
+
+        function closeOverlays() {
+
+            document
+                .querySelectorAll(".overlay")
+                .forEach(
+                    overlay =>
+                        overlay.classList.remove("open")
+                );
+
+            document.body.classList.remove("locked");
+
+        }
+
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target.closest(
+                        "[data-close-modal]"
+                    )
+                ) {
+
+                    closeOverlays();
+
+                }
+
+
+                if (
+                    event.target.classList.contains(
+                        "overlay"
+                    )
+                ) {
+
+                    closeOverlays();
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================================
+           PRODUCT MODAL
+        ========================================================== */
+
+        function openProductModal(id) {
+
+            const product =
+                products.find(
+                    p => p.id === Number(id)
+                );
+
+            if (!product) return;
+
+
+            document.getElementById(
+                "productModalContent"
+            ).innerHTML = `
+
+                <div class="product-modal-grid">
+
+                    <div class="product-detail-image">
+
+                        <img
+                            src="${product.image}"
+                            alt="${escapeHTML(product.name)}"
+                            onerror="this.style.display='none'"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <p class="detail-category">
+                            ${escapeHTML(product.category)}
+                        </p>
+
+                        <h2 style="margin-top:10px;">
+                            ${escapeHTML(product.name)}
+                        </h2>
+
+                        <div class="detail-origin">
+                            ${escapeHTML(product.origin)}
+                            ·
+                            ${escapeHTML(product.roast)}
+                            ·
+                            ${escapeHTML(product.weight)}
+                        </div>
+
+                        <div class="detail-price">
+                            ${formatPrice(product.price)}
+                        </div>
+
+                        <p class="detail-description">
+                            ${escapeHTML(product.description)}
+                        </p>
+
+                        <div class="detail-notes">
+
+                            ${
+                                product.notes
+                                    .map(
+                                        note => `
+                                            <span class="detail-note">
+                                                ${escapeHTML(note)}
+                                            </span>
+                                        `
+                                    )
+                                    .join("")
+                            }
+
+                        </div>
+
+                        <button
+                            class="btn btn-gold"
+                            style="width:100%;"
+                            id="detailAdd"
+                        >
+                            ADAUGĂ ÎN COȘ
+                        </button>
+
+                        <button
+                            class="under-link"
+                            style="background:none;border:0;"
+                            id="detailFavorite"
+                        >
+                            ${
+                                isFavorite(product.id)
+                                    ? "♥ ELIMINĂ DIN FAVORITE"
+                                    : "♡ ADAUGĂ LA FAVORITE"
+                            }
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            openOverlay("productOverlay");
+
+
+            document
+                .getElementById("detailAdd")
+                .addEventListener(
+                    "click",
+                    () => {
+
+                        addToCart(
+                            product.id
+                        );
+
+                    }
+                );
+
+
+            document
+                .getElementById("detailFavorite")
+                .addEventListener(
+                    "click",
+                    () => {
+
+                        toggleWishlist(
+                            product.id
+                        );
+
+                        document
+                            .getElementById(
+                                "detailFavorite"
+                            )
+                            .textContent =
+                                isFavorite(
+                                    product.id
+                                )
+                                    ? "♥ ELIMINĂ DIN FAVORITE"
+                                    : "♡ ADAUGĂ LA FAVORITE";
+
+                    }
+                );
+
+        }
+
+
+        /* ==========================================================
+           SEARCH
+        ========================================================== */
+
+        document
+            .getElementById("searchButton")
+            .addEventListener(
+                "click",
+                () => {
+
+                    openOverlay(
+                        "searchOverlay"
+                    );
+
+                    setTimeout(
+                        () =>
+                            document
+                                .getElementById(
+                                    "searchInput"
+                                )
+                                .focus(),
+                        150
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "input",
+                event => {
+
+                    const query =
+                        event.target.value
+                            .trim()
+                            .toLowerCase();
+
+
+                    const results =
+                        document.getElementById(
+                            "searchResults"
+                        );
+
+
+                    if (!query) {
+
+                        results.innerHTML = `
+                            <div class="empty">
+                                Scrie pentru a explora colecția.
+                            </div>
+                        `;
+
+                        return;
+
+                    }
+
+
+                    const matches =
+                        products.filter(
+                            product => {
+
+                                const content =
+                                    [
+                                        product.name,
+                                        product.origin,
+                                        product.category,
+                                        product.roast,
+                                        ...product.notes
+                                    ]
+                                        .join(" ")
+                                        .toLowerCase();
+
+                                return content.includes(query);
+
+                            }
+                        );
+
+
+                    if (!matches.length) {
+
+                        results.innerHTML = `
+                            <div class="empty">
+                                Nu am găsit această selecție.
+                            </div>
+                        `;
+
+                        return;
+
+                    }
+
+
+                    results.innerHTML =
+                        matches.map(
+                            product => `
+
+                                <button
+                                    class="search-result"
+                                    data-search-id="${product.id}"
+                                >
+
+                                    <span>
+
+                                        <strong>
+                                            ${escapeHTML(product.name)}
+                                        </strong>
+
+                                        <small>
+                                            ${escapeHTML(product.origin)}
+                                            ·
+                                            ${escapeHTML(product.category)}
+                                        </small>
+
+                                    </span>
+
+                                    <span>
+                                        ${formatPrice(product.price)}
+                                    </span>
+
+                                </button>
+
+                            `
+                        ).join("");
+
+
+                    results
+                        .querySelectorAll(
+                            "[data-search-id]"
+                        )
+                        .forEach(button => {
+
+                            button.addEventListener(
+                                "click",
+                                () => {
+
+                                    closeOverlays();
+
+                                    openProductModal(
+                                        Number(
+                                            button.dataset.searchId
+                                        )
+                                    );
+
+                                }
+                            );
+
+                        });
+
+                }
+            );
+
+
+        /* ==========================================================
+           CHECKOUT
+        ========================================================== */
+
+        document
+            .getElementById("checkoutButton")
+            .addEventListener(
+                "click",
+                () => {
+
+                    if (!cart.length) {
+
+                        showToast(
+                            "Coș gol",
+                            "Adaugă o cafea înainte de checkout."
+                        );
+
+                        return;
+
+                    }
+
+
+                    document.getElementById(
+                        "checkoutTotal"
+                    ).textContent =
+                        formatPrice(
+                            cartSubtotal()
+                        );
+
+
+                    openOverlay(
+                        "checkoutOverlay"
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById("checkoutForm")
+            .addEventListener(
+                "submit",
+                event => {
+
+                    event.preventDefault();
+
+
+                    if (
+                        !event.target.reportValidity()
+                    ) {
+                        return;
+                    }
+
+
+                    const code =
+                        "CT-" +
+                        Date.now()
+                            .toString()
+                            .slice(-6);
+
+
+                    document.getElementById(
+                        "checkoutFormView"
+                    ).classList.add("hidden");
+
+
+                    document.getElementById(
+                        "checkoutSuccessView"
+                    ).classList.remove("hidden");
+
+
+                    document.getElementById(
+                        "successMessage"
+                    ).textContent =
+                        `Comanda demo ${code} a fost înregistrată cu succes. ` +
+                        `Într-un magazin real, aici ar începe procesarea și notificarea de livrare.`;
+
+
+                    cart = [];
+
+                    saveCart();
+
+                    renderCart();
+
+                    updateCounters();
+
+                }
+            );
+
+
+        /* ==========================================================
+           NEWSLETTER
+        ========================================================== */
+
+        document
+            .getElementById("newsletterForm")
+            .addEventListener(
+                "submit",
+                event => {
+
+                    event.preventDefault();
+
+                    const input =
+                        document.getElementById(
+                            "newsletterEmail"
+                        );
+
+                    if (!input.value) return;
+
+
+                    document.getElementById(
+                        "newsletterMessage"
+                    ).textContent =
+                        "Mulțumim. Într-un magazin real, adresa ar fi adăugată la newsletter.";
+
+
+                    input.value = "";
+
+                }
+            );
+
+
+        /* ==========================================================
+           MOBILE NAV
+        ========================================================== */
+
+        document
+            .getElementById("mobileButton")
+            .addEventListener(
+                "click",
+                () => {
+
+                    const nav =
+                        document.querySelector("nav");
+
+                    nav.style.display =
+                        nav.style.display === "flex"
+                            ? ""
+                            : "flex";
+
+                    if (nav.style.display === "flex") {
+
+                        nav.style.position = "absolute";
+                        nav.style.top = "74px";
+                        nav.style.left = "0";
+                        nav.style.right = "0";
+                        nav.style.padding = "22px 20px 28px";
+                        nav.style.background = "#080807";
+                        nav.style.flexDirection = "column";
+                        nav.style.alignItems = "flex-start";
+                        nav.style.gap = "14px";
+                        nav.style.borderTop =
+                            "1px solid rgba(255,255,255,.08)";
+                    }
+
+                }
+            );
+
+
+        /* ==========================================================
+           REVEAL
+        ========================================================== */
+
+        let revealObserver;
+
+
+        function observeRevealElements() {
+
+            const elements =
+                document.querySelectorAll(
+                    ".reveal"
+                );
+
+
+            if (
+                window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                ).matches
+            ) {
+
+                elements.forEach(
+                    element =>
+                        element.classList.add("show")
+                );
+
+                return;
+
+            }
+
+
+            if (!revealObserver) {
+
+                revealObserver =
+                    new IntersectionObserver(
+                        entries => {
+
+                            entries.forEach(
+                                entry => {
+
+                                    if (
+                                        entry.isIntersecting
+                                    ) {
+
+                                        entry.target
+                                            .classList
+                                            .add("show");
+
+                                        revealObserver
+                                            .unobserve(
+                                                entry.target
+                                            );
+
+                                    }
+
+                                }
+                            );
+
+                        },
+                        {
+                            threshold: .08
+                        }
+                    );
+
+            }
+
+
+            elements.forEach(
+                element =>
+                    revealObserver.observe(
+                        element
+                    )
+            );
+
+        }
+
+
+        /* ==========================================================
+           BARISTA NLP
+        ========================================================== */
+
+        const intentKeywords = {
+
+            greeting: [
+                "salut",
+                "buna",
+                "bună",
+                "hello",
+                "hei",
+                "hey",
+                "servus"
+            ],
+
+            recommendation: [
+                "recomanda",
+                "recomandare",
+                "recomanzi",
+                "sugereaza",
+                "sugerează",
+                "ce cafea",
+                "aleg",
+                "cafea"
+            ],
+
+            sweet: [
+                "dulce",
+                "ciocolata",
+                "ciocolată",
+                "caramel",
+                "toffee",
+                "nuca",
+                "nucă",
+                "alune",
+                "hazelnut",
+                "cacao",
+                "cocoa",
+                "molasses",
+                "chocolate"
+            ],
+
+            floral: [
+                "floral",
+                "flori",
+                "jasmine",
+                "iasomie",
+                "bergamot",
+                "bergamota",
+                "trandafir",
+                "rose",
+                "parfum"
+            ],
+
+            fruity: [
+                "fruct",
+                "fructata",
+                "fructată",
+                "blueberry",
+                "afina",
+                "afină",
+                "peach",
+                "piersica",
+                "piersică",
+                "orange",
+                "tangerine",
+                "grapefruit",
+                "măr",
+                "mar",
+                "apple",
+                "blackcurrant"
+            ],
+
+            strong: [
+                "tare",
+                "puternica",
+                "puternică",
+                "intens",
+                "intensa",
+                "intensă",
+                "dark",
+                "espresso",
+                "amar",
+                "amărui",
+                "strong"
+            ],
+
+            light: [
+                "light",
+                "usoara",
+                "ușoară",
+                "delicata",
+                "delicată",
+                "fresh",
+                "acida",
+                "acidă"
+            ],
+
+            rare: [
+                "rara",
+                "rară",
+                "rare",
+                "premium",
+                "exclusiva",
+                "exclusivă",
+                "lux",
+                "luxury",
+                "speciala",
+                "specială",
+                "geisha",
+                "mountain"
+            ],
+
+            origin: [
+                "ethiopia",
+                "etiopia",
+                "colombia",
+                "columbia",
+                "jamaica",
+                "panama",
+                "brazil",
+                "brazilia",
+                "guatemala",
+                "kenya",
+                "origine",
+                "origin"
+            ],
+
+            price: [
+                "pret",
+                "preț",
+                "ieftin",
+                "ieftina",
+                "ieftină",
+                "buget",
+                "lei",
+                "costa",
+                "costă"
+            ]
+
+        };
+
+
+        /* ==========================================================
+           NLP NORMALIZATION
+        ========================================================== */
+
+        function normalizeText(text) {
+
+            return text
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^\w\s]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+
+        }
+
+
+        function levenshtein(a,b) {
+
+            if (a === b) return 0;
+
+            if (!a.length) return b.length;
+            if (!b.length) return a.length;
+
+
+            const matrix =
+                Array.from(
+                    {
+                        length: b.length + 1
+                    },
+                    () =>
+                        Array(
+                            a.length + 1
+                        ).fill(0)
+                );
+
+
+            for (
+                let i = 0;
+                i <= b.length;
+                i++
+            ) {
+
+                matrix[i][0] = i;
+
+            }
+
+
+            for (
+                let j = 0;
+                j <= a.length;
+                j++
+            ) {
+
+                matrix[0][j] = j;
+
+            }
+
+
+            for (
+                let i = 1;
+                i <= b.length;
+                i++
+            ) {
+
+                for (
+                    let j = 1;
+                    j <= a.length;
+                    j++
+                ) {
+
+                    const cost =
+                        a[j-1] === b[i-1]
+                            ? 0
+                            : 1;
+
+
+                    matrix[i][j] =
+                        Math.min(
+
+                            matrix[i-1][j] + 1,
+
+                            matrix[i][j-1] + 1,
+
+                            matrix[i-1][j-1] + cost
+
+                        );
+
+                }
+
+            }
+
+
+            return matrix[
+                b.length
+            ][
+                a.length
+            ];
+
+        }
+
+
+        function similarity(a,b) {
+
+            a = normalizeText(a);
+            b = normalizeText(b);
+
+            if (!a || !b) return 0;
+
+            const distance =
+                levenshtein(a,b);
+
+            return (
+                1 -
+                distance /
+                Math.max(
+                    a.length,
+                    b.length
+                )
+            );
+
+        }
+
+
+        function fuzzyContains(text,target) {
+
+            text =
+                normalizeText(text);
+
+            target =
+                normalizeText(target);
+
+
+            if (
+                text.includes(target)
+            ) {
+                return true;
+            }
+
+
+            const tokens =
+                text.split(" ");
+
+
+            return tokens.some(
+                token => {
+
+                    const threshold =
+                        target.length <= 4
+                            ? .83
+                            : .76;
+
+                    return (
+                        similarity(
+                            token,
+                            target
+                        ) >= threshold
+                    );
+
+                }
+            );
+
+        }
+
+
+        function getIntents(text) {
+
+            return Object.entries(
+                intentKeywords
+            )
+                .map(
+                    ([intent,keywords]) => {
+
+                        let score = 0;
+
+
+                        keywords.forEach(
+                            keyword => {
+
+                                if (
+                                    fuzzyContains(
+                                        text,
+                                        keyword
+                                    )
+                                ) {
+
+                                    score +=
+                                        keyword.includes(" ")
+                                            ? 2
+                                            : 1;
+
+                                }
+
+                            }
+                        );
+
+
+                        return {
+                            intent,
+                            score
+                        };
+
+                    }
+                )
+                .filter(
+                    item =>
+                        item.score > 0
+                )
+                .sort(
+                    (a,b) =>
+                        b.score - a.score
+                );
+
+        }
+
+
+        /* ==========================================================
+           RECOMMENDATION ENGINE
+        ========================================================== */
+
+        function productScore(
+            product,
+            text
+        ) {
+
+            const normalized =
+                normalizeText(text);
+
+            let score = 0;
+
+            const intents =
+                new Set(
+                    getIntents(
+                        normalized
+                    ).map(
+                        item =>
+                            item.intent
+                    )
+                );
+
+
+            const combined =
+                normalizeText(
+                    [
+                        product.name,
+                        product.origin,
+                        product.category,
+                        product.roast,
+                        ...product.notes
+                    ].join(" ")
+                );
+
+
+            if (intents.has("sweet")) {
+
+                [
+                    "caramel",
+                    "toffee",
+                    "chocolate",
+                    "cocoa",
+                    "hazelnut",
+                    "brown sugar",
+                    "molasses",
+                    "walnut"
+                ].forEach(
+                    word => {
+
+                        if (
+                            fuzzyContains(
+                                combined,
+                                word
+                            )
+                        ) {
+                            score += 4;
+                        }
+
+                    }
+                );
+
+            }
+
+
+            if (intents.has("floral")) {
+
+                [
+                    "jasmine",
+                    "bergamot",
+                    "tea rose",
+                    "floral"
+                ].forEach(
+                    word => {
+
+                        if (
+                            fuzzyContains(
+                                combined,
+                                word
+                            )
+                        ) {
+                            score += 5;
+                        }
+
+                    }
+                );
+
+            }
+
+
+            if (intents.has("fruity")) {
+
+                [
+                    "blueberry",
+                    "peach",
+                    "orange",
+                    "tangerine",
+                    "grapefruit",
+                    "red apple",
+                    "blackcurrant"
+                ].forEach(
+                    word => {
+
+                        if (
+                            fuzzyContains(
+                                combined,
+                                word
+                            )
+                        ) {
+                            score += 4;
+                        }
+
+                    }
+                );
+
+            }
+
+
+            if (intents.has("strong")) {
+
+                if (
+                    /dark|medium-dark|espresso/i
+                        .test(product.roast)
+                    ||
+                    fuzzyContains(
+                        product.category,
+                        "espresso"
+                    )
+                ) {
+
+                    score += 7;
+
+                }
+
+            }
+
+
+            if (intents.has("light")) {
+
+                if (
+                    /light/i.test(
+                        product.roast
+                    )
+                ) {
+
+                    score += 6;
+
+                }
+
+            }
+
+
+            if (intents.has("rare")) {
+
+                if (
+                    product.category ===
+                        "Rare Coffee"
+                    ||
+                    product.price >= 150
+                ) {
+
+                    score += 7;
+
+                }
+
+            }
+
+
+            [
+                "ethiopia",
+                "etiopia",
+                "colombia",
+                "columbia",
+                "jamaica",
+                "panama",
+                "brazil",
+                "brazilia",
+                "guatemala",
+                "kenya"
+            ].forEach(
+                originWord => {
+
+                    if (
+                        fuzzyContains(
+                            normalized,
+                            originWord
+                        )
+                        &&
+                        fuzzyContains(
+                            product.origin,
+                            originWord
+                        )
+                    ) {
+
+                        score += 10;
+
+                    }
+
+                }
+            );
+
+
+            product.notes.forEach(
+                note => {
+
+                    if (
+                        fuzzyContains(
+                            normalized,
+                            note
+                        )
+                    ) {
+
+                        score += 5;
+
+                    }
+
+                }
+            );
+
+
+            if (
+                fuzzyContains(
+                    normalized,
+                    product.name
+                )
+            ) {
+
+                score += 12;
+
+            }
+
+
+            if (
+                /\b(ieftin|ieftina|ieftină|buget)\b/i
+                    .test(normalized)
+            ) {
+
+                if (product.price <= 80) {
+                    score += 5;
+                }
+
+            }
+
+
+            return score;
+
+        }
+
+
+        function recommend(text) {
+
+            return products
+
+                .map(
+                    product => ({
+                        product,
+                        score:
+                            productScore(
+                                product,
+                                text
+                            )
+                    })
+                )
+
+                .sort(
+                    (a,b) =>
+                        b.score - a.score
+                )
+
+                .slice(0,2)
+
+                .map(
+                    item =>
+                        item.product
+                );
+
+        }
+
+
+        /* ==========================================================
+           BOT RESPONSE
+        ========================================================== */
+
+        function getBotResponse(text) {
+
+            const intents =
+                getIntents(text);
+
+            const top =
+                intents[0]?.intent
+                    || "unknown";
+
+
+            if (top === "greeting") {
+
+                return {
+
+                    text:
+                        "Bun venit la Coffee Trip. ☕ " +
+                        "Sunt EVA, Barista ta digitală. " +
+                        "Spune-mi ce profil de gust cauți și îți găsesc ceva potrivit.",
+
+                    products: []
+
+                };
+
+            }
+
+
+            if (top === "price") {
+
+                const cheapest =
+                    [...products]
+                        .sort(
+                            (a,b) =>
+                                a.price - b.price
+                        )[0];
+
+                const premium =
+                    [...products]
+                        .sort(
+                            (a,b) =>
+                                b.price - a.price
+                        )[0];
+
+
+                return {
+
+                    text:
+                        `Pentru un punct de pornire accesibil, ` +
+                        `${cheapest.name} este ${formatPrice(cheapest.price)}. ` +
+                        `Pentru o experiență de colecție, ` +
+                        `${premium.name} este ${formatPrice(premium.price)}.`,
+
+                    products: [
+                        cheapest,
+                        premium
+                    ]
+
+                };
+
+            }
+
+
+            const recommendations =
+                recommend(text);
+
+
+            if (
+                recommendations.length
+                &&
+                (
+                    top === "sweet"
+                    ||
+                    top === "floral"
+                    ||
+                    top === "fruity"
+                    ||
+                    top === "strong"
+                    ||
+                    top === "light"
+                    ||
+                    top === "rare"
+                    ||
+                    top === "origin"
+                    ||
+                    top === "recommendation"
+                )
+            ) {
+
+                const selected =
+                    recommendations[0];
+
+
+                let style =
+                    "profilul pe care l-ai descris";
+
+
+                if (top === "sweet") {
+                    style =
+                        "zona dulce și ciocolatoasă";
+                }
+
+                if (top === "floral") {
+                    style =
+                        "profilul floral și elegant";
+                }
+
+                if (top === "fruity") {
+                    style =
+                        "profilul fructat și vibrant";
+                }
+
+                if (top === "strong") {
+                    style =
+                        "un espresso mai intens";
+                }
+
+                if (top === "light") {
+                    style =
+                        "o ceașcă light și delicată";
+                }
+
+                if (top === "rare") {
+                    style =
+                        "o selecție premium și rară";
+                }
+
+                if (top === "origin") {
+                    style =
+                        "originea menționată";
+                }
+
+
+                return {
+
+                    text:
+                        `Pentru ${style}, ` +
+                        `aș începe cu ${selected.name}. ` +
+                        `${selected.description}`,
+
+                    products:
+                        recommendations
+
+                };
+
+            }
+
+
+            const defaultProducts =
+                products
+                    .filter(
+                        product =>
+                            product.featured
+                    )
+                    .slice(0,2);
+
+
+            return {
+
+                text:
+                    "Nu sunt 100% sigur ce profil cauți, " +
+                    "dar pot începe cu două selecții excelente. " +
+                    "Încearcă „ceva floral”, „dulce și ciocolatos”, " +
+                    "„o cafea tare” sau spune-mi o origine.",
+
+                products:
+                    defaultProducts
+
+            };
+
+        }
+
+
+        /* ==========================================================
+           CHAT UI
+        ========================================================== */
+
+        const chat =
+            document.getElementById("chat");
+
+        const messages =
+            document.getElementById("messages");
+
+        const chatInput =
+            document.getElementById("chatInput");
+
+
+        function addMessage(
+            sender,
+            text,
+            recommendationProducts = []
+        ) {
+
+            if (
+                recommendationProducts.length
+            ) {
+
+                chat.classList.remove(
+                    "is-recommending"
+                );
+
+                void chat.offsetWidth;
+
+                chat.classList.add(
+                    "is-recommending"
+                );
+
+                setTimeout(
+                    () => {
+
+                        chat.classList.remove(
+                            "is-recommending"
+                        );
+
+                    },
+                    900
+                );
+
+            }
+
+            const element =
+                document.createElement("div");
+
+            element.className =
+                `message ${sender}`;
+
+
+            let content =
+                `<div>${escapeHTML(text)}</div>`;
+
+
+            if (
+                recommendationProducts.length
+            ) {
+
+                content +=
+                    recommendationProducts
+                        .slice(0,2)
+                        .map(
+                            product => `
+
+                                <div class="recommendation">
+
+                                    <strong>
+                                        ${escapeHTML(product.name)}
+                                    </strong>
+
+                                    <small>
+                                        ${escapeHTML(product.origin)}
+                                        ·
+                                        ${formatPrice(product.price)}
+                                    </small>
+
+                                    <button
+                                        data-chat-add="${product.id}"
+                                    >
+                                        + ADAUGĂ ÎN COȘ
+                                    </button>
+
+                                </div>
+
+                            `
+                        )
+                        .join("");
+
+            }
+
+
+            element.innerHTML =
+                content;
+
+
+            messages.appendChild(
+                element
+            );
+
+
+            messages.scrollTo({
+                top:
+                    messages.scrollHeight,
+                behavior:
+                    "smooth"
+            });
+
+        }
+
+
+        function processChat(text) {
+
+            text = text.trim();
+
+            if (!text) return;
+
+
+            addMessage(
+                "user",
+                text
+            );
+
+
+            const response =
+                getBotResponse(
+                    text
+                );
+
+
+            chat.classList.add(
+                "is-thinking"
+            );
+
+            setTimeout(
+                () => {
+
+                    chat.classList.remove(
+                        "is-thinking"
+                    );
+
+                    addMessage(
+                        "bot",
+                        response.text,
+                        response.products
+                    );
+
+                },
+                300
+            );
+
+        }
+
+
+        document
+            .getElementById(
+                "barista-launcher"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    chat.classList.toggle(
+                        "open"
+                    );
+
+
+                    if (
+                        chat.classList.contains(
+                            "open"
+                        )
+                        &&
+                        messages.children.length === 0
+                    ) {
+
+                        setTimeout(
+                            () => {
+
+                                addMessage(
+                                    "bot",
+                                    "Bun venit. Sunt EVA, Barista AI de la Coffee Trip. " +
+                                    "Spune-mi ce fel de cafea îți place și îți fac o recomandare."
+                                );
+
+                            },
+                            250
+                        );
+
+                    }
+
+
+                    setTimeout(
+                        () =>
+                            chatInput.focus(),
+                        300
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "chatClose"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    chat.classList.remove(
+                        "open"
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "chatSend"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    processChat(
+                        chatInput.value
+                    );
+
+                    chatInput.value = "";
+
+                }
+            );
+
+
+        chatInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    event.preventDefault();
+
+                    processChat(
+                        chatInput.value
+                    );
+
+                    chatInput.value = "";
+
+                }
+
+            }
+        );
+
+
+        document
+            .querySelectorAll(
+                "[data-chat-suggestion]"
+            )
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        processChat(
+                            button.dataset
+                                .chatSuggestion
+                        );
+
+                    }
+                );
+
+            });
+
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                const button =
+                    event.target.closest(
+                        "[data-chat-add]"
+                    );
+
+
+                if (!button) return;
+
+
+                addToCart(
+                    Number(
+                        button.dataset.chatAdd
+                    )
+                );
+
+
+                button.textContent =
+                    "✓ ADĂUGAT";
+
+            }
+        );
+
+
+        /* ==========================================================
+           KEYBOARD SHORTCUTS
+        ========================================================== */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    closeDrawers();
+                    closeOverlays();
+
+                    chat.classList.remove(
+                        "open"
+                    );
+
+                }
+
+
+                if (
+                    (event.ctrlKey ||
+                     event.metaKey)
+                    &&
+                    event.key.toLowerCase() === "k"
+                ) {
+
+                    event.preventDefault();
+
+                    openOverlay(
+                        "searchOverlay"
+                    );
+
+                    document
+                        .getElementById(
+                            "searchInput"
+                        )
+                        .focus();
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================================
+           INITIALIZATION
+        ========================================================== */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                setTimeout(
+                    () => {
+
+                        document
+                            .getElementById(
+                                "loader"
+                            )
+                            .classList.add(
+                                "hide"
+                            );
+
+                    },
+                    700
+                );
+
+            }
+        );
+
+
+        renderProducts();
+        renderCart();
+        renderWishlist();
+        updateCounters();
+        observeRevealElements();
+
+    </script>
+
+</body>
+</html>  
