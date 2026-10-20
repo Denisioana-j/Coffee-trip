@@ -29,11 +29,13 @@ function saveStorage(key, value) {
 }
 
 function formatPrice(value) {
-  return 'PREȚ NECUNOSCUT';
+  if (value === undefined || value === null || isNaN(value)) return '0 LEI';
+  return `${Math.round(value)} LEI`;
 }
 
 function getPriceLabel(product) {
-  return product?.priceLabel || 'PREȚ NECUNOSCUT';
+  if (!product) return '0 LEI';
+  return formatPrice(product.price);
 }
 
 function escapeHTML(value) {
@@ -104,6 +106,8 @@ function addToCart(productId, quantity = 1) {
   saveStorage(CART_KEY, state.cart);
   updateCounters();
   renderCart();
+  document.getElementById('cartButton')?.classList.remove('cart-pulse');
+  requestAnimationFrame(() => document.getElementById('cartButton')?.classList.add('cart-pulse'));
   showToast('Adăugat în coș', `${product.name} × ${quantity}`);
 }
 
@@ -147,6 +151,7 @@ function toggleWishlist(id) {
   updateCounters();
   renderWishlist();
   renderProductCards();
+  document.querySelector(`[data-favorite="${pid}"]`)?.classList.add('favorite-pulse');
 }
 
 function cartSubtotal() {
@@ -171,11 +176,20 @@ function renderCart() {
   if (cartSubtotalElement) cartSubtotalElement.textContent = formatPrice(subtotal);
   if (checkoutTotal) checkoutTotal.textContent = formatPrice(subtotal);
   if (checkoutGrandTotal) checkoutGrandTotal.textContent = formatPrice(subtotal);
-  if (shippingSummary) shippingSummary.textContent = 'Disponibil la confirmarea comenzii';
+  const freeShippingThreshold = 150;
+  const remaining = freeShippingThreshold - subtotal;
+  if (shippingSummary) {
+    shippingSummary.textContent = subtotal >= freeShippingThreshold || subtotal === 0 ? 'Gratuit' : '15 LEI';
+  }
 
   if (shippingMessage) {
-    const remaining = 250 - subtotal;
-    shippingMessage.textContent = 'Prețurile finale sunt disponibile la confirmarea comenzii.';
+    if (subtotal <= 0) {
+      shippingMessage.textContent = 'Livrare gratuită la comenzi de peste 150 LEI.';
+    } else if (remaining > 0) {
+      shippingMessage.innerHTML = `Mai adaugă <strong>${remaining} LEI</strong> pentru transport gratuit!`;
+    } else {
+      shippingMessage.innerHTML = `<span style="color:#d8b474;">🎉 Felicitări! Beneficiezi de livrare gratuită!</span>`;
+    }
   }
 
   const emptyMarkup = `
@@ -254,37 +268,90 @@ function renderWishlist() {
   });
 }
 
-function renderProductCards() {
-  const container = document.getElementById('productsGrid');
+function renderProductCards(customFilter = null) {
+  const container = document.getElementById('productsGrid') || document.getElementById('products');
   if (!container) return;
 
-  const products = window.COFFEE_TRIP_PRODUCTS;
+  let products = [...window.COFFEE_TRIP_PRODUCTS];
+  const path = window.location.pathname.toLowerCase();
+  const params = new URLSearchParams(window.location.search);
+
+  // 1. Page-based filtering
+  if (path.includes('coffee.html')) {
+    products = products.filter(p => p.category === 'Single Origin');
+  } else if (path.includes('rare-coffee.html')) {
+    products = products.filter(p => p.category === 'Rare Coffee' || p.badge === 'LIMITED');
+  } else if (path.includes('espresso.html')) {
+    products = products.filter(p => p.category === 'Espresso' || (p.roast && p.roast.toLowerCase().includes('dark')));
+  } else if (path.includes('signature-blends.html')) {
+    products = products.filter(p => p.category === 'Signature Blend' || p.category === 'House Blend');
+  }
+
+  // 2. URL parameter filtering (for shop.html and collections.html)
+  const categoryParam = customFilter || params.get('category');
+  if (categoryParam && categoryParam.toLowerCase() !== 'all' && categoryParam.toLowerCase() !== 'toate') {
+    products = products.filter(p => p.category.toLowerCase() === categoryParam.toLowerCase());
+  }
+
+  const badgeParam = params.get('badge');
+  if (badgeParam && badgeParam !== 'all') {
+    if (badgeParam === 'budget') products = products.filter(p => p.price <= 70);
+    else if (badgeParam === 'premium') products = products.filter(p => p.price > 75);
+    else if (badgeParam === 'rare') products = products.filter(p => p.category === 'Rare Coffee' || p.badge === 'LIMITED');
+    else if (badgeParam === 'best') products = products.filter(p => p.badge === 'BEST SELLER' || p.featured);
+    else if (badgeParam === 'new') products = products.filter(p => p.badge === 'NEW');
+  }
+
+  const roastParam = params.get('roast');
+  if (roastParam) {
+    products = products.filter(p => p.roast && p.roast.toLowerCase().includes(roastParam.toLowerCase()));
+  }
+
+  const sortParam = params.get('sort');
+  if (sortParam === 'price-asc') {
+    products.sort((a, b) => a.price - b.price);
+  } else if (sortParam === 'price-desc') {
+    products.sort((a, b) => b.price - a.price);
+  } else if (sortParam === 'rating') {
+    products.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  }
+
+  // Update product count label if present
+  const countEl = document.querySelector('.section-head .eyebrow');
+  if (countEl && (path.includes('shop.html') || path.includes('coffee.html'))) {
+    countEl.textContent = `${products.length} PRODUSE DISPONIBILE`;
+  }
+
+  if (products.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+        <h4 style="font-family: var(--serif); font-size: 28px; color: var(--cream);">Niciun produs găsit</h4>
+        <p style="color: var(--text-muted); margin: 10px 0 20px;">Încearcă să resetezi filtrele pentru a explora întreaga colecție.</p>
+        <a href="shop.html" class="btn btn-gold" style="display: inline-block;">VEZI TOATE PRODUSELE</a>
+      </div>
+    `;
+    return;
+  }
 
   container.innerHTML = products.map((product) => `
-    <article class="product-card reveal">
-      <div class="product-visual">
-        <span class="product-badge">${escapeHTML(product.badge || 'Curated')}</span>
-        <button class="product-favorite ${isFavorite(product.id) ? 'active' : ''}" data-favorite="${product.id}" aria-label="Favorite">${isFavorite(product.id) ? '♥' : '♡'}</button>
-        <img src="${product.image}" alt="${escapeHTML(product.name)}">
-        <button class="btn btn-dark product-quick-add" data-add-cart="${product.id}">+ Adaugă în coș</button>
+    <article class="product reveal" style="position: relative;">
+      <div class="product-visual" data-product-id="${product.id}">
+        <span class="product-badge">${escapeHTML(product.badge || (product.featured ? 'CURATED' : 'SPECIALTY'))}</span>
+        <button class="favorite-btn ${isFavorite(product.id) ? 'active' : ''}" data-favorite="${product.id}" aria-label="Favorite">
+          ${isFavorite(product.id) ? '♥' : '♡'}
+        </button>
+        <img src="${product.image}" alt="${escapeHTML(product.name)}" loading="lazy" onerror="this.src='assets/img/img1.jpg'">
+        <button class="quick-add" data-add-cart="${product.id}">+ ADAUGĂ ÎN COȘ</button>
       </div>
-      <div class="product-body">
-        <div class="product-top">
-          <h3>${escapeHTML(product.name)}</h3>
-          <div class="product-price-wrap">
-            <span class="product-price">${getPriceLabel(product)}</span>
-            
-          </div>
+      <div class="product-info">
+        <div class="product-title-row">
+          <h3><a href="product.html?id=${product.id}">${escapeHTML(product.name)}</a></h3>
+          <span class="product-price">${getPriceLabel(product)}</span>
         </div>
-        <div class="product-meta">${escapeHTML(product.origin)} · ${escapeHTML(product.roast)}</div>
-        <div class="product-ratings">
-          <span class="product-rating-stars">★★★★★</span>
-          <span><strong>${product.rating}</strong> (${product.reviews} reviews)</span>
+        <div class="product-meta">${escapeHTML(product.origin)} · ${escapeHTML(product.roast || 'Medium')}</div>
+        <div class="notes">
+          ${(product.notes || []).map(note => `<span class="note">${escapeHTML(note)}</span>`).join('')}
         </div>
-        <div class="product-notes">
-          ${product.notes.map((note) => `<span class="product-note">${escapeHTML(note)}</span>`).join('')}
-        </div>
-        <a class="view-link" href="product.html?id=${product.id}">Vezi produs →</a>
       </div>
     </article>
   `).join('');
@@ -365,7 +432,7 @@ function renderProductPage() {
 
         <div class="price-block">
           <span class="price-current">${getPriceLabel(product)}</span>
-          <span class="price-note">Prețurile finale sunt disponibile la confirmarea comenzii.</span>
+          <span class="price-note">TVA inclus • Livrare gratuită de la 150 LEI • Boabe proaspăt prăjite</span>
         </div>
 
         <p class="product-description">${escapeHTML(product.description)}</p>
@@ -524,6 +591,43 @@ function setupProductPageInteractions(productId) {
 }
 
 function setupGlobalInteractions() {
+  // Global promo code handler
+  document.getElementById('applyPromoBtn')?.addEventListener('click', () => {
+    const input = document.getElementById('promoCodeInput');
+    const msg = document.getElementById('promoMessage');
+    if (!input || !msg) return;
+    const code = input.value.trim().toUpperCase();
+    if (code === 'AROMA10' || code === 'COFFEE10' || code === 'CT2026') {
+      msg.style.display = 'block';
+      msg.style.color = '#d8b474';
+      msg.textContent = '✓ Cod promoțional ' + code + ' aplicat (-10%)!';
+      showToast('Cod aplicat!', 'Ai obținut 10% reducere la comanda ta.');
+    } else if (code) {
+      msg.style.display = 'block';
+      msg.style.color = '#e26d6d';
+      msg.textContent = 'Cod invalid. Încearcă: AROMA10';
+    }
+  });
+
+  // Checkout Place Order Handler
+  document.querySelectorAll('button').forEach((btn) => {
+    if (btn.textContent.trim().toLowerCase() === 'place order' || btn.textContent.trim().toLowerCase() === 'plasează comanda') {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const orderNumber = 'CT-' + Math.floor(100000 + Math.random() * 900000);
+        showToast('Comandă Confirmată!', `Comanda ta #${orderNumber} a fost înregistrată cu succes.`);
+        state.cart = [];
+        saveStorage(CART_KEY, state.cart);
+        updateCounters();
+        renderCart();
+        setTimeout(() => {
+          alert(`Vă mulțumim pentru comandă!\n\nNumăr comandă: #${orderNumber}\nVei primi confirmarea și detaliile de expediere prin email/SMS.\n\nCoffee Trip vă urează dimineți aromate!`);
+          window.location.href = 'index.html';
+        }, 600);
+      });
+    }
+  });
+
   document.querySelectorAll('.main-nav').forEach((nav) => {
     nav.innerHTML = `
       <a href="index.html">Home</a>
@@ -697,11 +801,42 @@ function setupGlobalInteractions() {
     emailInput.value = '';
   });
 
-  document.getElementById('mobileMenuButton')?.addEventListener('click', () => {
-    const nav = document.querySelector('.main-nav');
+  const handleMobileNav = () => {
+    const nav = document.querySelector('nav') || document.querySelector('.main-nav');
     if (!nav) return;
-    nav.classList.toggle('mobile-open');
-  });
+    nav.classList.toggle('open');
+    if (nav.classList.contains('open')) {
+      nav.style.display = 'flex';
+      nav.style.position = 'absolute';
+      nav.style.top = '74px';
+      nav.style.left = '0';
+      nav.style.right = '0';
+      nav.style.padding = '22px 20px 28px';
+      nav.style.background = '#080807';
+      nav.style.flexDirection = 'column';
+      nav.style.alignItems = 'flex-start';
+      nav.style.gap = '14px';
+      nav.style.borderTop = '1px solid var(--border)';
+      nav.style.borderBottom = '1px solid var(--border)';
+      nav.style.zIndex = '999';
+    } else {
+      nav.style.display = '';
+      nav.style.position = '';
+      nav.style.top = '';
+      nav.style.left = '';
+      nav.style.right = '';
+      nav.style.padding = '';
+      nav.style.background = '';
+      nav.style.flexDirection = '';
+      nav.style.alignItems = '';
+      nav.style.gap = '';
+      nav.style.borderTop = '';
+      nav.style.borderBottom = '';
+      nav.style.zIndex = '';
+    }
+  };
+  document.getElementById('mobileButton')?.addEventListener('click', handleMobileNav);
+  document.getElementById('mobileMenuButton')?.addEventListener('click', handleMobileNav);
 
   document.getElementById('filterToggle')?.addEventListener('click', () => {
     const panel = document.getElementById('filterPanel');
@@ -839,6 +974,78 @@ function setupRevealObserver() {
   window.observeRevealElements = () => setupRevealObserver();
 }
 
+function setupLuxuryInteractions() {
+  const progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.prepend(progress);
+
+  const backToTop = document.createElement('button');
+  backToTop.className = 'back-to-top';
+  backToTop.type = 'button';
+  backToTop.setAttribute('aria-label', 'Back to top');
+  backToTop.innerHTML = '<span>↑</span><small>TOP</small>';
+  document.body.appendChild(backToTop);
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (window.matchMedia('(pointer: fine)').matches && !reducedMotion) {
+    const cursor = document.createElement('span');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    window.addEventListener('pointermove', (event) => {
+      cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+    }, { passive: true });
+    document.querySelectorAll('a, button, input, select, textarea').forEach((element) => {
+      element.addEventListener('pointerenter', () => cursor.classList.add('is-hovering'));
+      element.addEventListener('pointerleave', () => cursor.classList.remove('is-hovering'));
+    });
+  }
+  const updateScrollUI = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+    progress.style.transform = `scaleX(${ratio})`;
+    backToTop.classList.toggle('visible', window.scrollY > 500);
+    document.querySelector('.main-header')?.classList.toggle('scrolled', window.scrollY > 24);
+  };
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateScrollUI();
+      ticking = false;
+    });
+  }, { passive: true });
+  updateScrollUI();
+
+  document.querySelectorAll('.products-grid, .journal-grid, .collection-grid, .cta-grid').forEach((grid) => {
+    [...grid.children].forEach((item, index) => item.style.setProperty('--reveal-delay', `${Math.min(index * 70, 350)}ms`));
+  });
+
+  if (!reducedMotion) {
+    document.querySelectorAll('.page-hero, .home-hero').forEach((hero) => hero.addEventListener('pointermove', (event) => {
+      if (window.innerWidth < 800) return;
+      const bounds = hero.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - .5;
+      const y = (event.clientY - bounds.top) / bounds.height - .5;
+      hero.style.setProperty('--hero-shift-x', `${x * 8}px`);
+      hero.style.setProperty('--hero-shift-y', `${y * 8}px`);
+    }));
+  }
+
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const url = new URL(link.href, window.location.href);
+    if (url.origin !== window.location.origin || url.pathname === window.location.pathname || link.target === '_blank' || link.hasAttribute('download')) return;
+    link.addEventListener('click', (event) => {
+      if (reducedMotion || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      document.body.classList.add('page-leaving');
+      window.setTimeout(() => { window.location.href = link.href; }, 260);
+    });
+  });
+}
+
 function buildCollections() {
   const collectionList = document.getElementById('collectionsList');
   if (!collectionList) return;
@@ -919,10 +1126,11 @@ function initPage() {
   setupGlobalInteractions();
   ensureJourneyLinks();
   setupRevealObserver();
+  setupLuxuryInteractions();
 
   const loader = document.getElementById('loader');
   if (loader) {
-    setTimeout(() => loader.classList.add('hide'), 550);
+    setTimeout(() => loader.classList.add('hide'), 1900);
   }
 
   document.getElementById('backdrop')?.addEventListener('click', closeDrawers);
@@ -930,7 +1138,7 @@ function initPage() {
     if (event.key === 'Escape') {
       closeDrawers();
       closeOverlays();
-      const chat = document.getElementById('chatPanel');
+      const chat = document.getElementById('chat') || document.getElementById('chatPanel');
       if (chat) chat.classList.remove('open');
     }
 

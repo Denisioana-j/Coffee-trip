@@ -1,40 +1,41 @@
-const CHAT_PROMPTS = [
-  'ce cafea recomanzi?',
-  'vreau ceva ieftin',
-  'vreau ceva premium',
-  'vreau ceva floral',
-  'vreau ceva dulce',
-  'vreau espresso',
-  'vreau ceva tare',
-  'ce merge cu lapte?',
-  'ce merge cu french press?',
-  'care e cea mai bună cafea?',
-  'care e cea mai rară?',
-  'ce cafea recomanzi?'
-];
-
+// Coffee Trip — EVA Barista AI Engine
 function initChatbot() {
-  const launcher = document.getElementById('chatLauncher');
-  const panel = document.getElementById('chatPanel');
+  const launcher = document.getElementById('barista-launcher') || document.getElementById('chatLauncher');
+  const panel = document.getElementById('chat') || document.getElementById('chatPanel');
   const close = document.getElementById('chatClose');
   const input = document.getElementById('chatInput');
   const send = document.getElementById('chatSend');
-  const messages = document.getElementById('chatMessages');
+  const messages = document.getElementById('messages') || document.getElementById('chatMessages');
+  const backdrop = document.getElementById('backdrop');
 
   if (!launcher || !panel || !input || !messages) return;
 
   launcher.addEventListener('click', () => {
-    panel.classList.toggle('open');
-    if (panel.classList.contains('open') && messages.children.length === 0) {
-      appendChatMessage('bot', 'Bun venit la Coffee Trip. Sunt EVA, Barista AI. Spune-mi ce gusturi îți plac și îți fac o recomandare.');
+    const isOpen = panel.classList.contains('open');
+    if (isOpen) {
+      panel.classList.remove('open');
+      backdrop?.classList.remove('visible');
+    } else {
+      panel.classList.add('open');
+      backdrop?.classList.add('visible');
+      if (messages.children.length === 0) {
+        appendChatMessage('bot', 'Bun venit la Coffee Trip. Sunt EVA, Barista AI. Spune-mi ce note aromatice sau ce mod de preparare preferi și îți recomand cafeaua ideală!');
+      }
+      setTimeout(() => input.focus(), 250);
     }
-    setTimeout(() => input.focus(), 250);
   });
 
-  close?.addEventListener('click', () => panel.classList.remove('open'));
+  close?.addEventListener('click', () => {
+    panel.classList.remove('open');
+    backdrop?.classList.remove('visible');
+  });
 
-  send.addEventListener('click', () => processChat(input.value));
-  input.addEventListener('keydown', (event) => {
+  backdrop?.addEventListener('click', () => {
+    panel.classList.remove('open');
+  });
+
+  send?.addEventListener('click', () => processChat(input.value));
+  input?.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       processChat(input.value);
     }
@@ -56,16 +57,21 @@ function initChatbot() {
 
   function appendChatMessage(sender, text, products = []) {
     const element = document.createElement('div');
-    element.className = `chat-message ${sender}`;
+    element.className = sender === 'bot' ? 'message bot' : 'message user';
 
     let content = `<div>${escapeHTML(text)}</div>`;
-    if (products.length) {
+    if (products && products.length) {
       content += products.slice(0, 2).map((product) => `
-        <div class="recommendation">
-          <strong>${escapeHTML(product.name)}</strong>
-          <small>${escapeHTML(product.origin)} · ${getPriceLabel(product)}</small>
-          <a href="product.html?id=${product.id}">Vezi produsul →</a>
-          <button data-chat-add="${product.id}">+ Adaugă în coș</button>
+        <div class="recommendation" style="margin-top:12px;padding:12px;background:rgba(216,180,116,0.06);border:1px solid rgba(216,180,116,0.25);border-radius:4px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <strong style="color:var(--gold-light);font-size:14px;font-family:var(--serif);">${escapeHTML(product.name)}</strong>
+            <span style="font-weight:600;font-size:13px;color:var(--gold);">${typeof formatPrice === 'function' ? formatPrice(product.price) : product.price + ' LEI'}</span>
+          </div>
+          <small style="color:var(--text-muted);font-size:11px;">${escapeHTML(product.origin)} · ${escapeHTML(product.roast || 'Medium')}</small>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <a href="product.html?id=${product.id}" style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--cream);text-decoration:underline;">Vezi detalii →</a>
+            <button data-chat-add="${product.id}" style="margin-left:auto;background:var(--gold);color:var(--black);border:none;padding:4px 10px;font-size:10px;font-weight:600;letter-spacing:1px;border-radius:2px;cursor:pointer;">+ ADAUGĂ ÎN COȘ</button>
+          </div>
         </div>
       `).join('');
     }
@@ -78,81 +84,80 @@ function initChatbot() {
   document.addEventListener('click', (event) => {
     const add = event.target.closest('[data-chat-add]');
     if (!add) return;
-    addToCart(Number(add.dataset.chatAdd));
+    const pid = Number(add.dataset.chatAdd);
+    if (typeof addToCart === 'function') {
+      addToCart(pid);
+    }
     add.textContent = '✓ Adăugat';
+    add.style.background = '#4CAF50';
+    add.style.color = '#fff';
   });
 }
 
 function getEVAResponse(query) {
   const normalized = normalizeText(query);
-  const intents = getIntents(normalized);
-  const topIntent = intents[0]?.intent || 'recommendation';
+  const products = window.COFFEE_TRIP_PRODUCTS || [];
 
-  const recommendations = recommend(normalized);
-  const selected = recommendations[0] || window.COFFEE_TRIP_PRODUCTS[0];
+  if (normalized.includes('dulce') || normalized.includes('ciocolat') || normalized.includes('caramel')) {
+    const list = products.filter(p => p.notes?.some(n => /caramel|chocolate|toffee|dulce/i.test(n)) || p.category === 'Single Origin');
+    const selected = list[0] || products[1];
+    return {
+      text: `Pentru un profil dulce și reconfortant, îți recomand cu căldură ${selected.name}. ${selected.description}`,
+      products: list.slice(0, 2)
+    };
+  }
 
-  const responseMap = {
-    sweet: `Pentru un profil dulce și ciocolatos, aș începe cu ${selected.name}. ${selected.description}`,
-    floral: `Pentru un profil floral și elegant, ${selected.name} este potrivit. ${selected.description}`,
-    fruity: `Pentru ceva fructat și vibrant, ${selected.name} ar putea fi alegerea perfectă. ${selected.description}`,
-    strong: `Dacă vrei ceva tare, ${selected.name} te poate surprinde cu profunzime și intensitate. ${selected.description}`,
-    light: `Pentru un profil ușor și delicat, ${selected.name} este o opțiune excelentă. ${selected.description}`,
-    rare: `Dacă vrei ceva rar și premium, ${selected.name} este o selecție extraordinară. ${selected.description}`,
-    origin: `Aș recomanda ${selected.name} pentru originea menționată. ${selected.description}`,
-    recommendation: `Cred că ${selected.name} ar fi perfect pentru tine. ${selected.description}`,
-    price: `${selected.name} este una dintre selecțiile Coffee Trip. Prețul este momentan necunoscut. Îți pot arăta produsul sau îți pot recomanda alte cafele.`,
-    greeting: 'Bun venit la Coffee Trip. Spune-mi ce gusturi îți plac și îți recomand ceva potrivit.'
-  };
+  if (normalized.includes('floral') || normalized.includes('flori') || normalized.includes('jasmine') || normalized.includes('ceai')) {
+    const list = products.filter(p => p.notes?.some(n => /jasmine|bergamot|floral|rose|peach/i.test(n)) || p.roast === 'Light');
+    const selected = list[0] || products[0];
+    return {
+      text: `Dacă apreciezi aromaticele florale și finețea citrică, alegerea de referință este ${selected.name}. ${selected.description}`,
+      products: list.slice(0, 2)
+    };
+  }
 
+  if (normalized.includes('espresso') || normalized.includes('tare') || normalized.includes('intens') || normalized.includes('crema')) {
+    const list = products.filter(p => p.category === 'Espresso' || (p.roast && p.roast.includes('Dark')));
+    const selected = list[0] || products[4];
+    return {
+      text: `Pentru un espresso intens cu corp dens și cremă bogată, profilul impecabil este ${selected.name}. ${selected.description}`,
+      products: list.slice(0, 2)
+    };
+  }
+
+  if (normalized.includes('rar') || normalized.includes('geisha') || normalized.includes('special') || normalized.includes('lux') || normalized.includes('cadou')) {
+    const list = products.filter(p => p.category === 'Rare Coffee' || p.badge === 'LIMITED');
+    const selected = list[0] || products[3];
+    return {
+      text: `Pentru o experiență exclusivistă din recolte limitate, bijuteria colecției este ${selected.name}. ${selected.description}`,
+      products: list.slice(0, 2)
+    };
+  }
+
+  // Fallback
   return {
-    text: responseMap[topIntent] || 'Sunt EVA și pot recomanda cafele în funcție de gusturi, intensitate și origine.',
-    products: recommendations.slice(0, 2)
+    text: `Iată două dintre cele mai apreciate origini din atelierul nostru. Îmi poți spune dacă preferi note florale, dulci-ciocolatoase sau un espresso puternic!`,
+    products: products.filter(p => p.featured).slice(0, 2)
   };
 }
 
-function getIntents(text) {
-  const intentKeywords = {
-    greeting: ['salut', 'bună', 'buna', 'hello', 'hei', 'hey'],
-    sweet: ['dulce', 'ciocolatos', 'ciocolatos', 'caramel', 'toffee', 'hazelnut', 'cacao', 'chocolate'],
-    floral: ['floral', 'iasomie', 'jasmine', 'bergamot', 'rose', 'trandafir'],
-    fruity: ['fructat', 'fructata', 'peach', 'piersică', 'apricot', 'citrus', 'orange', 'tangerine'],
-    strong: ['tare', 'puternic', 'intens', 'espresso', 'dark'],
-    light: ['light', 'ușoară', 'usoara', 'delicata', 'delicat'],
-    rare: ['rar', 'premium', 'exclusive', 'geisha', 'mountain'],
-    origin: ['ethiopia', 'colombia', 'brazil', 'guatemala', 'kenya', 'panama'],
-    price: ['ieftin', 'pret', 'preț', 'buget', 'sub 70']
-  };
-
-  return Object.entries(intentKeywords)
-    .map(([intent, keywords]) => ({ intent, score: keywords.filter((keyword) => fuzzyContains(text, keyword)).length }))
-    .filter((entry) => entry.score > 0)
-    .sort((a, b) => b.score - a.score);
+function normalizeText(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
-function recommend(text) {
-  return window.COFFEE_TRIP_PRODUCTS
-    .map((product) => ({ product, score: scoreProduct(product, text) }))
-    .sort((a, b) => b.score - a.score)
-    .map((entry) => entry.product)
-    .slice(0, 4);
-}
-
-function scoreProduct(product, text) {
-  const combined = [product.name, product.origin, product.category, product.roast, ...product.notes].join(' ').toLowerCase();
-  let score = 0;
-
-  if (fuzzyContains(text, 'dulce') && product.notes.some((note) => /caramel|chocolate|cocoa|hazelnut/.test(note.toLowerCase()))) score += 6;
-  if (fuzzyContains(text, 'floral') && product.notes.some((note) => /jasmine|rose|bergamot|floral/.test(note.toLowerCase()))) score += 6;
-  if (fuzzyContains(text, 'espresso') && product.category.toLowerCase().includes('espresso')) score += 6;
-  if (fuzzyContains(text, 'tare') && (product.roast.toLowerCase().includes('dark') || product.category.toLowerCase().includes('espresso'))) score += 6;
-  if (fuzzyContains(text, 'ieftin') && product.price <= 70) score += 6;
-  if (fuzzyContains(text, 'premium') && product.price >= 150) score += 6;
-  if (fuzzyContains(text, 'panama') && product.origin.toLowerCase().includes('panama')) score += 8;
-  if (fuzzyContains(text, 'ethiopia') && product.origin.toLowerCase().includes('ethiopia')) score += 8;
-
-  if (fuzzyContains(combined, text)) score += 4;
-
-  return score;
+function escapeHTML(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 window.addEventListener('DOMContentLoaded', initChatbot);
