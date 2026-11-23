@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="assets/logo-coffee-trip.svg">
 <title>Account | Coffee Trip</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,6 +77,24 @@
       <section class="section-block">
         <div class="container">
           <div class="account-panel" style="max-width:960px; margin:0 auto;">
+            <div class="account-logo-header">
+              <img class="brand-logo" src="assets/logo-coffee-trip.svg" alt="Sigla Coffee Trip">
+              <strong>COFFEE TRIP<br><small>Contul membrului</small></strong>
+            </div>
+            <div class="contact-grid" style="grid-template-columns:1fr 1fr;margin-bottom:32px;">
+              <form class="account-card" id="loginForm">
+                <p class="eyebrow">Autentificare</p><h3>Intră în cont</h3>
+                <div class="form-field"><label for="loginEmail">E-mail</label><input id="loginEmail" type="email" required></div>
+                <div class="form-field" style="margin-top:12px;"><label for="loginPassword">Parolă</label><input id="loginPassword" type="password" minlength="6" required></div>
+                <button class="btn btn-primary" type="submit" style="margin-top:16px;">Autentificare</button>
+              </form>
+              <form class="account-card" id="registerForm">
+                <p class="eyebrow">Membru nou</p><h3>Creare cont</h3>
+                <div class="form-field"><label for="registerName">Nume complet</label><input id="registerName" type="text" required></div>
+                <div class="form-field" style="margin-top:12px;"><label for="registerEmail">E-mail</label><input id="registerEmail" type="email" required></div>
+                <button class="btn btn-light" type="submit" style="margin-top:16px;">Creează contul</button>
+              </form>
+            </div>
             <div class="account-header">
               <div>
                 <p class="eyebrow">Member profile</p>
@@ -284,8 +302,8 @@
         </div>
     </aside>
 
-    <script src="js/products.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/chatbot.js"></script>
-</body>
+    <script defer src="js/products.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/chatbot.js"></script>
+    <script defer src="js/language.js"></script>`n</body>
 </html>

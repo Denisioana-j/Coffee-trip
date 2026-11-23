@@ -3,6 +3,7 @@ const WISHLIST_KEY = 'coffeeTrip_wishlist';
 const RECENTLY_VIEWED_KEY = 'coffeeTrip_recentlyViewed';
 const ACCOUNT_DEMO_KEY = 'coffeeTrip_accountDemo';
 const NEWSLETTER_KEY = 'coffeeTrip_newsletter';
+const PROMO_KEY = 'coffeeTrip_promo';
 
 const state = {
   cart: loadStorage(CART_KEY, []),
@@ -12,7 +13,8 @@ const state = {
     signedIn: false,
     name: 'Coffee Trip Guest'
   }),
-  newsletter: loadStorage(NEWSLETTER_KEY, [])
+  newsletter: loadStorage(NEWSLETTER_KEY, []),
+  promo: loadStorage(PROMO_KEY, '')
 };
 
 function loadStorage(key, fallback) {
@@ -167,6 +169,10 @@ function renderCart() {
   if (!targets.length) return;
 
   const subtotal = cartSubtotal();
+  const discount = state.promo ? subtotal * 0.10 : 0;
+  const discountedSubtotal = subtotal - discount;
+  const shipping = discountedSubtotal === 0 || discountedSubtotal >= 150 ? 0 : 15;
+  const grandTotal = discountedSubtotal + shipping;
   const cartSubtotalElement = document.getElementById('cartSubtotal');
   const checkoutTotal = document.getElementById('checkoutTotal');
   const checkoutGrandTotal = document.getElementById('checkoutGrandTotal');
@@ -174,13 +180,19 @@ function renderCart() {
   const shippingMessage = document.getElementById('shippingMessage');
 
   if (cartSubtotalElement) cartSubtotalElement.textContent = formatPrice(subtotal);
-  if (checkoutTotal) checkoutTotal.textContent = formatPrice(subtotal);
-  if (checkoutGrandTotal) checkoutGrandTotal.textContent = formatPrice(subtotal);
+  if (checkoutTotal) checkoutTotal.textContent = formatPrice(discountedSubtotal);
+  if (checkoutGrandTotal) checkoutGrandTotal.textContent = formatPrice(grandTotal);
   const freeShippingThreshold = 150;
   const remaining = freeShippingThreshold - subtotal;
   if (shippingSummary) {
     shippingSummary.textContent = subtotal >= freeShippingThreshold || subtotal === 0 ? 'Gratuit' : '15 LEI';
   }
+  document.querySelectorAll('.summary-box .line').forEach((line) => {
+    if (line.textContent.includes('Livrare') || line.textContent.includes('Shipping')) {
+      const value = line.querySelector('strong');
+      if (value) value.textContent = shipping === 0 ? 'Gratuit' : formatPrice(shipping);
+    }
+  });
 
   if (shippingMessage) {
     if (subtotal <= 0) {
@@ -588,9 +600,353 @@ function setupProductPageInteractions(productId) {
       document.querySelectorAll('.tab-content').forEach((content) => content.classList.toggle('active', content.dataset.content === button.dataset.tab));
     });
   });
+
+  const reviewsSection = document.querySelector('.review-grid')?.parentElement;
+  if (reviewsSection && !reviewsSection.querySelector('.review-form')) {
+    const reviewForm = document.createElement('form');
+    reviewForm.className = 'review-form';
+    reviewForm.innerHTML = `
+      <p class="eyebrow">Scrie o recenzie</p>
+      <select name="rating" aria-label="Rating produs" required><option value="">Alege ratingul</option><option value="5">5 stele</option><option value="4">4 stele</option><option value="3">3 stele</option><option value="2">2 stele</option><option value="1">1 stea</option></select>
+      <textarea name="review" required minlength="10" placeholder="Părerea ta despre cafea..." aria-label="Text recenzie"></textarea>
+      <button class="btn btn-primary" type="submit">Publică recenzia</button>
+      <p class="form-feedback" role="status"></p>`;
+    reviewsSection.appendChild(reviewForm);
+    reviewForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const invalid = [...reviewForm.elements].find((field) => field.checkValidity && !field.checkValidity());
+      if (invalid) { invalid.reportValidity(); return; }
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      const stars = Number(reviewForm.rating.value);
+      card.innerHTML = `<div class="stars">${'★'.repeat(stars)}${'☆'.repeat(5-stars)}</div><p>“${escapeHTML(reviewForm.review.value)}”</p><strong>Tu</strong>`;
+      document.querySelector('.review-grid')?.prepend(card);
+      reviewForm.querySelector('.form-feedback').textContent = 'Recenzia a fost adăugată.';
+      reviewForm.reset();
+    });
+  }
 }
 
 function setupGlobalInteractions() {
+  // Selector și traduceri de limbă: RO / EN / DE / FR
+  const languageKey = 'coffeeTrip_language';
+  const legacyTextTranslations = {
+    ro: {
+      Acasă: 'Acasă', Magazin: 'Magazin', 'Atelier & Configurator': 'Atelier & Configurator',
+      'Despre Noi': 'Despre Noi', 'Contact & FAQ': 'Contact & FAQ',
+      'Toate cafelele': 'Toate cafelele', 'Origini Rare': 'Origini Rare',
+      'Blend-uri': 'Blend-uri', 'Colecții': 'Colecții',
+      'Cafea de excepție.': 'Cafea de excepție.',
+      'Momente memorabile.': 'Momente memorabile.',
+      'COLECȚIA DE CAFEA': 'COLECȚIA DE CAFEA',
+      'Cafea selectată pentru fiecare ritual.': 'Cafea selectată pentru fiecare ritual.',
+      'Explorează toate colecțiile': 'Explorează toate colecțiile',
+      'Ghid de preparare': 'Ghid de preparare',
+      'Căutare': 'Căutare', 'Coș': 'Coș', 'Favorite': 'Favorite', 'Contul meu': 'Contul meu'
+    },
+    en: {
+      Acasă: 'Home', Magazin: 'Shop', 'Atelier & Configurator': 'Atelier & Configurator',
+      'Despre Noi': 'About Us', 'Contact & FAQ': 'Contact & FAQ',
+      'Toate cafelele': 'All coffees', 'Origini Rare': 'Rare Origins',
+      'Blend-uri': 'Blends', 'Colecții': 'Collections',
+      'Cafea de excepție.': 'Exceptional coffee.',
+      'Momente memorabile.': 'Remarkable moments.',
+      'COLECȚIA DE CAFEA': 'THE COFFEE COLLECTION',
+      'Cafea selectată pentru fiecare ritual.': 'Curated coffee for every ritual.',
+      'Explorează toate colecțiile': 'Explore all collections',
+      'Ghid de preparare': 'Preparation guide',
+      'Căutare': 'Search', 'Coș': 'Cart', 'Favorite': 'Favorites', 'Contul meu': 'My account'
+    },
+    de: {
+      Acasă: 'Startseite', Magazin: 'Shop', 'Atelier & Configurator': 'Atelier & Konfigurator',
+      'Despre Noi': 'Über uns', 'Contact & FAQ': 'Kontakt & FAQ',
+      'Toate cafelele': 'Alle Kaffees', 'Origini Rare': 'Seltene Ursprünge',
+      'Blend-uri': 'Blends', 'Colecții': 'Kollektionen',
+      'Cafea de excepție.': 'Außergewöhnlicher Kaffee.',
+      'Momente memorabile.': 'Denkwürdige Momente.',
+      'COLECȚIA DE CAFEA': 'DIE KAFFEEKOLLEKTION',
+      'Cafea selectată pentru fiecare ritual.': 'Kaffee für jedes Ritual.',
+      'Explorează toate colecțiile': 'Alle Kollektionen entdecken',
+      'Ghid de preparare': 'Zubereitungsguide',
+      'Căutare': 'Suche', 'Coș': 'Warenkorb', 'Favorite': 'Favoriten', 'Contul meu': 'Mein Konto'
+    },
+    fr: {
+    Acasă: 'Accueil', Magazin: 'Boutique', 'Atelier & Configurator': 'Atelier & Configurateur',
+      'Despre Noi': 'À propos', 'Contact & FAQ': 'Contact & FAQ',
+      'Toate cafelele': 'Tous les cafés', 'Origini Rare': 'Origines rares',
+      'Blend-uri': 'Assemblages', 'Colecții': 'Collections',
+      'Cafea de excepție.': 'Un café exceptionnel.',
+      'Momente memorabile.': 'Des moments mémorables.',
+      'COLECȚIA DE CAFEA': 'LA COLLECTION DE CAFÉ',
+      'Cafea selectată pentru fiecare ritual.': 'Du café choisi pour chaque rituel.',
+      'Explorează toate colecțiile': 'Découvrir toutes les collections',
+      'Ghid de preparare': 'Guide de préparation',
+      'Căutare': 'Recherche', 'Coș': 'Panier', 'Favorite': 'Favoris', 'Contul meu': 'Mon compte'
+    }
+  };
+
+  let currentLanguage = localStorage.getItem(languageKey) || 'ro';
+  if (!translations[currentLanguage]) currentLanguage = 'ro';
+  document.documentElement.lang = currentLanguage;
+
+  function applyLanguage(language) {
+    currentLanguage = language;
+    localStorage.setItem(languageKey, language);
+    document.documentElement.lang = language;
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+      const key = element.dataset.i18n;
+      if (legacyTextTranslations[language]?.[key]) {
+        element.textContent = legacyTextTranslations[language][key];
+      }
+    });
+  }
+
+  document.querySelectorAll('.header-actions').forEach((actions) => {
+    if (actions.querySelector('.language-menu')) return;
+
+    const languageNames = {
+      ro: { flag: '🇷🇴', label: 'Română' },
+      en: { flag: '🇬🇧', label: 'English' },
+      de: { flag: '🇩🇪', label: 'Deutsch' },
+      fr: { flag: '🇫🇷', label: 'Français' }
+    };
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'language-menu';
+    wrapper.innerHTML = `
+      <button class="language-button" type="button" aria-label="Selectează limba" aria-haspopup="menu" aria-expanded="false">
+        <span class="language-flag">${languageNames[currentLanguage].flag}</span>
+        <span class="language-code">${currentLanguage.toUpperCase()}</span>
+        <svg class="language-chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"></path></svg>
+      </button>
+      <div class="language-options" role="menu" aria-label="Limbi disponibile">
+        ${Object.entries(languageNames).map(([code, item]) => `
+          <button type="button" role="menuitem" data-language="${code}" class="${code === currentLanguage ? 'active' : ''}">
+            <span class="language-flag">${item.flag}</span>
+            <span>${item.label}</span>
+          </button>
+        `).join('')}
+      </div>`;
+
+    const button = wrapper.querySelector('.language-button');
+    const options = wrapper.querySelector('.language-options');
+
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const open = wrapper.classList.toggle('open');
+      button.setAttribute('aria-expanded', String(open));
+    });
+
+    wrapper.querySelectorAll('[data-language]').forEach((option) => {
+      option.addEventListener('click', () => {
+        const language = option.dataset.language;
+        applyLanguage(language);
+        button.querySelector('.language-flag').textContent = languageNames[language].flag;
+        button.querySelector('.language-code').textContent = language.toUpperCase();
+        wrapper.querySelectorAll('[data-language]').forEach((item) => item.classList.toggle('active', item === option));
+        wrapper.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    actions.insertBefore(wrapper, actions.firstChild);
+  });
+  applyLanguage(currentLanguage);
+  // Panou cont: validare demonstrativă pentru autentificare și creare cont
+  document.querySelectorAll('#loginForm, #registerForm').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const invalid = [...form.querySelectorAll('[required]')].find((field) => !field.checkValidity());
+      if (invalid) {
+        invalid.reportValidity();
+        invalid.focus();
+        return;
+      }
+      let feedback = form.querySelector('.form-feedback');
+      if (!feedback) {
+        feedback = document.createElement('p');
+        feedback.className = 'form-feedback';
+        feedback.setAttribute('role', 'status');
+        form.appendChild(feedback);
+      }
+      feedback.textContent = form.id === 'loginForm'
+        ? 'Autentificare simulată reușită.'
+        : 'Contul demo a fost creat.';
+    });
+  });
+  // Navigație principală unificată: maximum cinci destinații esențiale
+  document.querySelectorAll('#mainNav').forEach((nav) => {
+    const path = window.location.pathname.toLowerCase();
+    nav.innerHTML = `
+      <a href="index.html" data-i18n="Acasă" class="${path.endsWith('/index.html') || path.endsWith('/') ? 'active' : ''}">Acasă</a>
+      <div class="nav-dropdown">
+        <a href="shop.html" data-i18n="Magazin" class="${['shop.html','coffee.html','rare-coffee.html','espresso.html','signature-blends.html','collections.html'].some(p => path.endsWith(p)) ? 'active' : ''}" aria-haspopup="true">Magazin</a>
+        <div class="nav-dropdown-menu" aria-label="Filtre rapide Magazin">
+          <a href="shop.html" data-i18n="Toate cafelele">Toate cafelele</a>
+          <a href="rare-coffee.html" data-i18n="Origini Rare">Origini Rare</a>
+          <a href="espresso.html">Espresso</a>
+          <a href="signature-blends.html" data-i18n="Blend-uri">Blend-uri</a>
+          <a href="collections.html" data-i18n="Colecții">Colecții</a>
+        </div>
+      </div>
+      <a href="atelier.html" data-i18n="Atelier & Configurator" class="${path.endsWith('atelier.html') || path.endsWith('guide.html') ? 'active' : ''}">Atelier & Configurator</a>
+      <a href="story.html" data-i18n="Despre Noi" class="${path.endsWith('story.html') || path.endsWith('journal.html') ? 'active' : ''}">Despre Noi</a>
+      <a href="contact.html" data-i18n="Contact & FAQ" class="${path.endsWith('contact.html') || path.endsWith('faq.html') ? 'active' : ''}">Contact & FAQ</a>`;
+  });
+  applyLanguage(currentLanguage);
+
+  // Sigla reutilizabilă în header, footer, cont și checkout
+  document.querySelectorAll('header .brand').forEach((brand) => {
+    if (!brand.querySelector('.brand-logo')) {
+      brand.insertAdjacentHTML('afterbegin', '<img class="brand-logo" src="assets/logo-coffee-trip.svg" alt="Sigla Coffee Trip">');
+    }
+    const copy = brand.querySelector('.brand-copy');
+    if (!copy) {
+      const nodes = [...brand.childNodes].filter((node) => node.nodeType === 3 || node.nodeName === 'SPAN' || node.nodeName === 'STRONG');
+      brand.classList.add('brand-with-logo');
+      if (nodes.length) {
+        const wrapper = document.createElement('span');
+        wrapper.className = 'brand-copy';
+        nodes.forEach((node) => wrapper.appendChild(node));
+        brand.appendChild(wrapper);
+      }
+    }
+  });
+  document.querySelectorAll('.footer-brand').forEach((footerBrand) => {
+    if (!footerBrand.querySelector('.brand-logo')) {
+      footerBrand.insertAdjacentHTML('afterbegin', '<img class="brand-logo" src="assets/logo-coffee-trip.svg" alt="Sigla Coffee Trip">');
+    }
+  });
+  document.querySelectorAll('.account-panel').forEach((panel) => {
+    if (!panel.querySelector('.account-logo-header')) {
+      panel.insertAdjacentHTML('afterbegin', '<div class="account-logo-header"><img class="brand-logo" src="assets/logo-coffee-trip.svg" alt="Sigla Coffee Trip"><strong>COFFEE TRIP<br><small>Contul membrului</small></strong></div>');
+    }
+  });
+  document.querySelectorAll('.checkout-panel').forEach((panel) => {
+    if (!panel.querySelector('.checkout-logo-header')) {
+      panel.insertAdjacentHTML('afterbegin', '<div class="checkout-logo-header"><img class="brand-logo" src="assets/logo-coffee-trip.svg" alt="Sigla Coffee Trip"><strong>Finalizare comandă</strong></div>');
+    }
+  });
+
+  // Iconițe liniare uniforme
+  const accountButton = document.querySelector('.header-actions a[aria-label="Account"], .header-actions a[data-account-link]');
+  if (accountButton) {
+    accountButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.5 21c.8-4.4 3.2-6.5 7.5-6.5s6.7 2.1 7.5 6.5"></path></svg>';
+    accountButton.setAttribute('aria-label', 'Cont și autentificare');
+  }
+  document.querySelectorAll('#searchButton').forEach((button) => {
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"></circle><path d="m15 15 5 5"></path></svg>';
+  });
+  document.querySelectorAll('#wishlistButton').forEach((button) => {
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.8c-1.9-2-5.1-1.6-6.8.3L12 7.2l-2-2.1C8.3 3.2 5.1 2.8 3.2 4.8c-2.1 2.3-1.7 5.8.5 7.9l8.3 7.8 8.3-7.8c2.2-2.1 2.6-5.6.5-7.9Z"></path></svg><span class="header-count" id="wishlistCount">0</span>';
+  });
+  document.querySelectorAll('#cartButton').forEach((button) => {
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h2l2.2 10.2h10.5l2.1-7.2H6"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg><span class="header-count" id="cartCount">0</span>';
+  });
+
+  // Traducere coerentă a textelor vizibile
+  const translations = {
+    'HOME': 'ACASĂ',
+    'Home': 'Acasă',
+    'SHOP': 'MAGAZIN',
+    'Shop': 'Magazin',
+    'RARE COFFEE': 'ORIGINI RARE',
+    'Rare Coffee': 'Origini Rare',
+    'THE COFFEE ATELIER': 'ATELIERUL DE CAFEA',
+    'The ritual': 'Ritualul',
+    'JOURNAL': 'JURNAL',
+    'GUIDE': 'GHID',
+    'Exceptional coffee. Remarkable moments.': 'Cafea deosebită. Momente memorabile.',
+    'The ritual behind the ritual.': 'Ritualul din spatele ritualului.',
+    'Your ritual': 'Ritualul tău',
+    'Coșul tău': 'Coșul tău',
+    'Place order': 'Plasează comanda',
+    'Send message': 'Trimite mesajul',
+    'Cart': 'Coș',
+    'Checkout': 'Finalizare comandă',
+    'Account': 'Cont',
+    'Search': 'Căutare',
+    'Your basket': 'Coșul tău',
+    'Proceed to checkout': 'Continuă către finalizare',
+    'Shipping': 'Livrare',
+    'Subtotal': 'Subtotal',
+    'Taxes': 'TVA',
+    'Included': 'Inclus',
+    'Total': 'Total',
+    'Visit or write': 'Vizitează-ne sau scrie-ne',
+    'Get in touch': 'Luați legătura',
+    'Send a note': 'Trimite-ne un mesaj',
+    'Member profile': 'Profil membru',
+    'Favorites': 'Favorite',
+    'Orders': 'Comenzi',
+    'Preferences': 'Preferințe'
+  };
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+  textNodes.forEach((node) => {
+    let value = node.nodeValue;
+    Object.entries(legacyTextTranslations).forEach(([from, to]) => {
+      value = value.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), to);
+    });
+    node.nodeValue = value;
+  });
+  document.title = document.title
+    .replace('Shop', 'Magazin')
+    .replace('Cart', 'Coș')
+    .replace('Checkout', 'Finalizare')
+    .replace('Contact', 'Contact')
+    .replace('Account', 'Cont');
+
+  // Complete footer policy links on every page
+  document.querySelectorAll('.footer-bottom').forEach((bottom) => {
+    if (!bottom.querySelector('a[href="policies.html"]')) {
+      const policyLink = document.createElement('a');
+      policyLink.href = 'policies.html';
+      policyLink.textContent = 'Termeni • Livrare • Retur • GDPR';
+      policyLink.style.marginLeft = 'auto';
+      bottom.appendChild(policyLink);
+    }
+  });
+
+  // Real-time catalog search
+  const filterBar = document.querySelector('.filter-bar');
+  if (filterBar && window.location.pathname.toLowerCase().includes('shop.html')) {
+    const wrap = document.createElement('div');
+    wrap.className = 'catalog-search-wrap';
+    wrap.innerHTML = '<input class="catalog-search" id="catalogSearch" type="search" aria-label="Caută în catalog" placeholder="Caută cafea, origine, categorie sau aromă...">';
+    filterBar.before(wrap);
+    document.getElementById('catalogSearch')?.addEventListener('input', (event) => {
+      const query = event.target.value.toLowerCase().trim();
+      document.querySelectorAll('#productsGrid .product').forEach((card) => {
+        card.hidden = Boolean(query) && !card.textContent.toLowerCase().includes(query);
+      });
+    });
+  }
+
+  // Validated contact form feedback
+  document.querySelectorAll('.contact-card form').forEach((form) => {
+    form.setAttribute('novalidate', 'novalidate');
+    form.querySelectorAll('input, textarea').forEach((field) => field.setAttribute('required', 'required'));
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const invalid = [...form.querySelectorAll('[required]')].find((field) => !field.checkValidity());
+      if (invalid) {
+        invalid.reportValidity();
+        invalid.focus();
+        showToast('Mesaj incomplet', 'Completează toate câmpurile corect.');
+        return;
+      }
+      let feedback = form.querySelector('.form-feedback');
+      if (!feedback) {
+        feedback = document.createElement('p');
+        feedback.className = 'form-feedback';
+        form.appendChild(feedback);
+      }
+      feedback.textContent = 'Mesajul tău a fost trimis. Îți răspundem în cel mult 24 de ore.';
+      form.reset();
+    });
+  });
   // Global promo code handler
   document.getElementById('applyPromoBtn')?.addEventListener('click', () => {
     const input = document.getElementById('promoCodeInput');
@@ -601,6 +957,9 @@ function setupGlobalInteractions() {
       msg.style.display = 'block';
       msg.style.color = '#d8b474';
       msg.textContent = '✓ Cod promoțional ' + code + ' aplicat (-10%)!';
+      state.promo = code;
+      saveStorage(PROMO_KEY, state.promo);
+      renderCart();
       showToast('Cod aplicat!', 'Ai obținut 10% reducere la comanda ta.');
     } else if (code) {
       msg.style.display = 'block';
@@ -614,10 +973,25 @@ function setupGlobalInteractions() {
     if (btn.textContent.trim().toLowerCase() === 'place order' || btn.textContent.trim().toLowerCase() === 'plasează comanda') {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
+        const panel = btn.closest('.checkout-panel');
+        const required = panel?.querySelectorAll('input[type="text"], input[type="email"]') || [];
+        const invalid = [...required].find((input) => !input.checkValidity());
+        if (invalid) {
+          invalid.reportValidity();
+          invalid.focus();
+          showToast('Completează datele', 'Toate câmpurile de livrare sunt obligatorii.');
+          return;
+        }
+        if (!state.cart.length) {
+          showToast('Coș gol', 'Adaugă o cafea înainte de finalizare.');
+          return;
+        }
         const orderNumber = 'CT-' + Math.floor(100000 + Math.random() * 900000);
         showToast('Comandă Confirmată!', `Comanda ta #${orderNumber} a fost înregistrată cu succes.`);
         state.cart = [];
+        state.promo = '';
         saveStorage(CART_KEY, state.cart);
+        saveStorage(PROMO_KEY, state.promo);
         updateCounters();
         renderCart();
         setTimeout(() => {
@@ -791,7 +1165,10 @@ function setupGlobalInteractions() {
   document.getElementById('newsletterForm')?.addEventListener('submit', (event) => {
     event.preventDefault();
     const emailInput = document.getElementById('newsletterEmail');
-    if (!emailInput || !emailInput.value) return;
+    if (!emailInput || !emailInput.checkValidity()) {
+      emailInput?.reportValidity();
+      return;
+    }
 
     state.newsletter.push(emailInput.value);
     saveStorage(NEWSLETTER_KEY, state.newsletter);
@@ -805,38 +1182,20 @@ function setupGlobalInteractions() {
     const nav = document.querySelector('nav') || document.querySelector('.main-nav');
     if (!nav) return;
     nav.classList.toggle('open');
-    if (nav.classList.contains('open')) {
-      nav.style.display = 'flex';
-      nav.style.position = 'absolute';
-      nav.style.top = '74px';
-      nav.style.left = '0';
-      nav.style.right = '0';
-      nav.style.padding = '22px 20px 28px';
-      nav.style.background = '#080807';
-      nav.style.flexDirection = 'column';
-      nav.style.alignItems = 'flex-start';
-      nav.style.gap = '14px';
-      nav.style.borderTop = '1px solid var(--border)';
-      nav.style.borderBottom = '1px solid var(--border)';
-      nav.style.zIndex = '999';
-    } else {
-      nav.style.display = '';
-      nav.style.position = '';
-      nav.style.top = '';
-      nav.style.left = '';
-      nav.style.right = '';
-      nav.style.padding = '';
-      nav.style.background = '';
-      nav.style.flexDirection = '';
-      nav.style.alignItems = '';
-      nav.style.gap = '';
-      nav.style.borderTop = '';
-      nav.style.borderBottom = '';
-      nav.style.zIndex = '';
-    }
+    const open = nav.classList.contains('open');
+    document.body.classList.toggle('locked', open);
+    document.getElementById('mobileButton')?.setAttribute('aria-expanded', String(open));
   };
   document.getElementById('mobileButton')?.addEventListener('click', handleMobileNav);
   document.getElementById('mobileMenuButton')?.addEventListener('click', handleMobileNav);
+  document.querySelectorAll('#mainNav a').forEach((link) => {
+    link.addEventListener('click', () => {
+      const nav = document.getElementById('mainNav');
+      nav?.classList.remove('open');
+      document.body.classList.remove('locked');
+      document.getElementById('mobileButton')?.setAttribute('aria-expanded', 'false');
+    });
+  });
 
   document.getElementById('filterToggle')?.addEventListener('click', () => {
     const panel = document.getElementById('filterPanel');
@@ -1134,10 +1493,22 @@ function initPage() {
   }
 
   document.getElementById('backdrop')?.addEventListener('click', closeDrawers);
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.language-menu')) {
+      document.querySelectorAll('.language-menu.open').forEach((menu) => {
+        menu.classList.remove('open');
+        menu.querySelector('.language-button')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       closeDrawers();
       closeOverlays();
+      document.querySelectorAll('.language-menu.open').forEach((menu) => {
+        menu.classList.remove('open');
+        menu.querySelector('.language-button')?.setAttribute('aria-expanded', 'false');
+      });
       const chat = document.getElementById('chat') || document.getElementById('chatPanel');
       if (chat) chat.classList.remove('open');
     }
