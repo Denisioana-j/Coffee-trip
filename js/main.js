@@ -29,11 +29,25 @@ function saveStorage(key, value) {
 }
 
 function formatPrice(value) {
-  return 'PREȚ NECUNOSCUT';
+  return window.CoffeeTripI18n
+    ? window.CoffeeTripI18n.formatPrice(value)
+    : `${Number(value).toLocaleString('ro-RO')} RON`;
 }
 
 function getPriceLabel(product) {
-  return product?.priceLabel || 'PREȚ NECUNOSCUT';
+  if (window.CoffeeTripI18n) return window.CoffeeTripI18n.priceLabel(product);
+  if (!product?.price) return 'PREȚ NECUNOSCUT';
+  return product.isEstimatedPrice
+    ? `${formatPrice(product.price)} · Preț estimativ`
+    : formatPrice(product.price);
+}
+
+function getLocalizedProduct(product) {
+  return window.CoffeeTripI18n ? window.CoffeeTripI18n.product(product) : product;
+}
+
+function translate(key) {
+  return window.CoffeeTripI18n ? window.CoffeeTripI18n.t(key) : key;
 }
 
 function escapeHTML(value) {
@@ -95,6 +109,7 @@ function addToCart(productId, quantity = 1) {
       name: product.name,
       origin: product.origin,
       price: product.price,
+      isEstimatedPrice: product.isEstimatedPrice,
       image: product.image,
       weight: product.weight,
       quantity
@@ -104,7 +119,9 @@ function addToCart(productId, quantity = 1) {
   saveStorage(CART_KEY, state.cart);
   updateCounters();
   renderCart();
-  showToast('Adăugat în coș', `${product.name} × ${quantity}`);
+  document.getElementById('cartButton')?.classList.remove('cart-pulse');
+  requestAnimationFrame(() => document.getElementById('cartButton')?.classList.add('cart-pulse'));
+  showToast(translate('Adăugat în coș'), `${product.name} × ${quantity}`);
 }
 
 function changeCartQuantity(id, delta) {
@@ -137,16 +154,17 @@ function toggleWishlist(id) {
 
   if (state.wishlist.includes(pid)) {
     state.wishlist = state.wishlist.filter((entry) => entry !== pid);
-    showToast('Eliminat din favorite', product.name);
+    showToast(translate('Eliminat din favorite'), product.name);
   } else {
     state.wishlist.push(pid);
-    showToast('Adăugat la favorite', product.name);
+    showToast(translate('Adăugat la favorite'), product.name);
   }
 
   saveStorage(WISHLIST_KEY, state.wishlist);
   updateCounters();
   renderWishlist();
   renderProductCards();
+  document.querySelector(`[data-favorite="${pid}"]`)?.classList.add('favorite-pulse');
 }
 
 function cartSubtotal() {
@@ -171,30 +189,32 @@ function renderCart() {
   if (cartSubtotalElement) cartSubtotalElement.textContent = formatPrice(subtotal);
   if (checkoutTotal) checkoutTotal.textContent = formatPrice(subtotal);
   if (checkoutGrandTotal) checkoutGrandTotal.textContent = formatPrice(subtotal);
-  if (shippingSummary) shippingSummary.textContent = 'Disponibil la confirmarea comenzii';
+  if (shippingSummary) shippingSummary.textContent = translate('Available at order confirmation');
 
   if (shippingMessage) {
-    const remaining = 250 - subtotal;
-    shippingMessage.textContent = 'Prețurile finale sunt disponibile la confirmarea comenzii.';
+    shippingMessage.textContent = translate('Final prices are available when your order is confirmed.');
   }
 
   const emptyMarkup = `
     <div class="empty-state">
       <div>
-        <h4>Coșul este gol.</h4>
-        <p>Barista are o recomandare pentru tine.</p>
+        <h4>${translate('Your cart is empty.')}</h4>
+        <p>${translate('The barista has a recommendation for you.')}</p>
       </div>
     </div>
   `;
 
   const itemsMarkup = state.cart.map((item) => `
+    ${(() => {
+      const product = getLocalizedProduct(getProductById(item.id) || item);
+      return `
     <div class="drawer-item">
       <div class="drawer-thumb">
-        <img src="${item.image}" alt="${escapeHTML(item.name)}">
+        <img src="${product.image || item.image}" alt="${escapeHTML(product.name)}">
       </div>
       <div>
-        <h4>${escapeHTML(item.name)}</h4>
-        <div class="meta">${escapeHTML(item.origin)} · ${escapeHTML(item.weight)}</div>
+        <h4>${escapeHTML(product.name)}</h4>
+        <div class="meta">${escapeHTML(product.origin)} · ${escapeHTML(product.weight)}</div>
         <div class="qty-box">
           <button data-cart-minus="${item.id}">−</button>
           <span>${item.quantity}</span>
@@ -202,10 +222,12 @@ function renderCart() {
         </div>
       </div>
       <div>
-        <div class="item-price">${formatPrice(item.price)}</div>
+        <div class="item-price">${getPriceLabel(product)}</div>
         <button class="item-remove" data-cart-remove="${item.id}">×</button>
       </div>
     </div>
+      `;
+    })()}
   `).join('');
 
   targets.forEach((target) => {
@@ -221,13 +243,13 @@ function renderWishlist() {
 
   if (!targets.length) return;
 
-  const items = window.COFFEE_TRIP_PRODUCTS.filter((product) => state.wishlist.includes(product.id));
+  const items = window.COFFEE_TRIP_PRODUCTS.filter((product) => state.wishlist.includes(product.id)).map(getLocalizedProduct);
 
   const emptyMarkup = `
     <div class="empty-state">
       <div>
-        <h4>Favoritele tale</h4>
-        <p>Încă nu ai adăugat nimic.</p>
+        <h4>${translate('Your favorites')}</h4>
+        <p>${translate('Nothing added yet.')}</p>
       </div>
     </div>
   `;
@@ -240,8 +262,8 @@ function renderWishlist() {
       <div>
         <h4>${escapeHTML(product.name)}</h4>
         <div class="meta">${escapeHTML(product.origin)} · ${getPriceLabel(product)}</div>
-        <a class="view-link" href="product.html?id=${product.id}">Vezi produsul →</a>
-        <button class="btn btn-light" data-wishlist-add="${product.id}" style="margin-top:12px; min-height:32px; padding:0 12px;">+ Adaugă în coș</button>
+        <a class="view-link" href="product.html?id=${product.id}">${translate('View product →')}</a>
+        <button class="btn btn-light" data-wishlist-add="${product.id}" style="margin-top:12px; min-height:32px; padding:0 12px;">+ ${translate('Add to cart')}</button>
       </div>
       <div>
         <button class="item-remove" data-wishlist-remove="${product.id}">×</button>
@@ -258,15 +280,23 @@ function renderProductCards() {
   const container = document.getElementById('productsGrid');
   if (!container) return;
 
-  const products = window.COFFEE_TRIP_PRODUCTS;
+  const category = new URLSearchParams(window.location.search).get('category');
+  const encodedCategory = category;
+  const products = encodedCategory && encodedCategory !== 'All'
+    ? window.COFFEE_TRIP_PRODUCTS.filter((product) => product.category === encodedCategory)
+    : window.COFFEE_TRIP_PRODUCTS;
+  const count = document.getElementById('catalogCount');
+  if (count) count.textContent = `${products.length} ${translate('produse')}`;
 
-  container.innerHTML = products.map((product) => `
+  container.innerHTML = products.map((sourceProduct) => {
+    const product = getLocalizedProduct(sourceProduct);
+    return `
     <article class="product-card reveal">
       <div class="product-visual">
         <span class="product-badge">${escapeHTML(product.badge || 'Curated')}</span>
         <button class="product-favorite ${isFavorite(product.id) ? 'active' : ''}" data-favorite="${product.id}" aria-label="Favorite">${isFavorite(product.id) ? '♥' : '♡'}</button>
         <img src="${product.image}" alt="${escapeHTML(product.name)}">
-        <button class="btn btn-dark product-quick-add" data-add-cart="${product.id}">+ Adaugă în coș</button>
+        <button class="btn btn-dark product-quick-add" data-add-cart="${product.id}">+ ${translate('Add to cart')}</button>
       </div>
       <div class="product-body">
         <div class="product-top">
@@ -284,10 +314,11 @@ function renderProductCards() {
         <div class="product-notes">
           ${product.notes.map((note) => `<span class="product-note">${escapeHTML(note)}</span>`).join('')}
         </div>
-        <a class="view-link" href="product.html?id=${product.id}">Vezi produs →</a>
+        <a class="view-link" href="product.html?id=${product.id}">${translate('View product →')}</a>
       </div>
     </article>
-  `).join('');
+  `;
+  }).join('');
 
   if (window.observeRevealElements) window.observeRevealElements();
 }
@@ -296,7 +327,7 @@ function renderRelatedProducts() {
   const container = document.getElementById('relatedProducts');
   if (!container) return;
 
-  const products = window.COFFEE_TRIP_PRODUCTS.slice(0, 4);
+  const products = window.COFFEE_TRIP_PRODUCTS.slice(0, 4).map(getLocalizedProduct);
   container.innerHTML = products.map((product) => `
     <article class="product-card reveal">
       <div class="product-visual">
@@ -308,7 +339,7 @@ function renderRelatedProducts() {
           <span class="product-price">${getPriceLabel(product)}</span>
         </div>
         <div class="product-meta">${escapeHTML(product.origin)} · ${escapeHTML(product.roast)}</div>
-        <a class="view-link" href="product.html?id=${product.id}">Vezi produs →</a>
+        <a class="view-link" href="product.html?id=${product.id}">${translate('View product →')}</a>
       </div>
     </article>
   `).join('');
@@ -321,11 +352,12 @@ function renderProductPage() {
   const container = document.getElementById('productDetail');
   if (!container || !productId) return;
 
-  const product = getProductById(productId);
-  if (!product) {
-    container.innerHTML = '<div class="empty-state"><div><h4>Produsul nu a fost găsit.</h4><p><a href="shop.html">Înapoi la magazin</a></p></div></div>';
+  const sourceProduct = getProductById(productId);
+  if (!sourceProduct) {
+    container.innerHTML = `<div class="empty-state"><div><h4>${translate('Product not found.')}</h4><p><a href="shop.html">${translate('Back to shop')}</a></p></div></div>`;
     return;
   }
+  const product = getLocalizedProduct(sourceProduct);
 
   const reviews = window.COFFEE_TRIP_REVIEWS[product.id] || [];
   const averageRating = reviews.length ? (reviews.reduce((sum, item) => sum + item.rating, 0) / reviews.length).toFixed(1) : product.rating;
@@ -407,8 +439,8 @@ function renderProductPage() {
             <button data-qty-plus>+</button>
           </div>
           <div class="primary-actions">
-            <button class="btn btn-primary" data-add-product="${product.id}">Add to cart</button>
-            <button class="btn btn-light" data-favorite="${product.id}">${isFavorite(product.id) ? '♥ Saved' : '♡ Wishlist'}</button>
+            <button class="btn btn-primary" data-add-product="${product.id}">${translate('Add to cart')}</button>
+            <button class="btn btn-light" data-favorite="${product.id}">${isFavorite(product.id) ? `♥ ${translate('Saved')}` : `♡ ${translate('Add to wishlist')}`}</button>
           </div>
         </div>
 
@@ -512,7 +544,7 @@ function setupProductPageInteractions(productId) {
   document.querySelector('[data-favorite]')?.addEventListener('click', () => {
     toggleWishlist(productId);
     const btn = document.querySelector('[data-favorite]');
-    if (btn) btn.textContent = isFavorite(productId) ? '♥ Saved' : '♡ Wishlist';
+    if (btn) btn.textContent = isFavorite(productId) ? `♥ ${translate('Saved')}` : `♡ ${translate('Add to wishlist')}`;
   });
 
   document.querySelectorAll('.tab-button').forEach((button) => {
@@ -634,21 +666,24 @@ function setupGlobalInteractions() {
     if (!results) return;
 
     if (!query) {
-      results.innerHTML = '<div class="empty-state"><div><h4>Search collection</h4><p>Type to explore the catalog.</p></div></div>';
+        results.innerHTML = `<div class="empty-state"><div><h4>${translate('Search collection')}</h4><p>${translate('Type to explore the catalog.')}</p></div></div>`;
       return;
     }
 
-    const matches = window.COFFEE_TRIP_PRODUCTS.filter((product) => {
+    const matches = window.COFFEE_TRIP_PRODUCTS.filter((sourceProduct) => {
+      const product = getLocalizedProduct(sourceProduct);
       const haystack = [product.name, product.origin, product.category, product.roast, ...product.notes].join(' ').toLowerCase();
       return fuzzyContains(haystack, query);
     });
 
     if (!matches.length) {
-      results.innerHTML = '<div class="empty-state"><div><h4>No results found.</h4><p>Try floral, espresso, Ethiopia, or premium.</p></div></div>';
+      results.innerHTML = `<div class="empty-state"><div><h4>${translate('No results found.')}</h4><p>${translate('Try floral, espresso, Ethiopia, or premium.')}</p></div></div>`;
       return;
     }
 
-    results.innerHTML = matches.map((product) => `
+    results.innerHTML = matches.map((sourceProduct) => {
+      const product = getLocalizedProduct(sourceProduct);
+      return `
       <button class="search-result" data-search-id="${product.id}">
         <span>
           <strong>${escapeHTML(product.name)}</strong>
@@ -656,7 +691,8 @@ function setupGlobalInteractions() {
         </span>
         <span>${getPriceLabel(product)}</span>
       </button>
-    `).join('');
+      `;
+    }).join('');
 
     results.querySelectorAll('[data-search-id]').forEach((button) => {
       button.addEventListener('click', () => {
@@ -668,7 +704,7 @@ function setupGlobalInteractions() {
 
   document.getElementById('checkoutButton')?.addEventListener('click', () => {
     if (!state.cart.length) {
-      showToast('Coș gol', 'Adaugă o cafea înainte de checkout.');
+      showToast(translate('Your cart is empty.'), translate('Add a coffee before checkout.'));
       return;
     }
 
@@ -677,7 +713,7 @@ function setupGlobalInteractions() {
 
   document.getElementById('checkoutPageButton')?.addEventListener('click', () => {
     if (!state.cart.length) {
-      showToast('Coș gol', 'Adaugă o cafea înainte de checkout.');
+      showToast(translate('Your cart is empty.'), translate('Add a coffee before checkout.'));
       return;
     }
 
@@ -693,7 +729,7 @@ function setupGlobalInteractions() {
     saveStorage(NEWSLETTER_KEY, state.newsletter);
 
     const message = document.getElementById('newsletterMessage');
-    if (message) message.textContent = 'Mulțumim. Vei primi selecții exclusiviste în inbox.';
+    if (message) message.textContent = translate('Thank you. You will receive exclusive selections in your inbox.');
     emailInput.value = '';
   });
 
@@ -839,6 +875,78 @@ function setupRevealObserver() {
   window.observeRevealElements = () => setupRevealObserver();
 }
 
+function setupLuxuryInteractions() {
+  const progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.prepend(progress);
+
+  const backToTop = document.createElement('button');
+  backToTop.className = 'back-to-top';
+  backToTop.type = 'button';
+  backToTop.setAttribute('aria-label', 'Back to top');
+  backToTop.innerHTML = '<span>↑</span><small>TOP</small>';
+  document.body.appendChild(backToTop);
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (window.matchMedia('(pointer: fine)').matches && !reducedMotion) {
+    const cursor = document.createElement('span');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    window.addEventListener('pointermove', (event) => {
+      cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+    }, { passive: true });
+    document.querySelectorAll('a, button, input, select, textarea').forEach((element) => {
+      element.addEventListener('pointerenter', () => cursor.classList.add('is-hovering'));
+      element.addEventListener('pointerleave', () => cursor.classList.remove('is-hovering'));
+    });
+  }
+  const updateScrollUI = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+    progress.style.transform = `scaleX(${ratio})`;
+    backToTop.classList.toggle('visible', window.scrollY > 500);
+    document.querySelector('.main-header')?.classList.toggle('scrolled', window.scrollY > 24);
+  };
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateScrollUI();
+      ticking = false;
+    });
+  }, { passive: true });
+  updateScrollUI();
+
+  document.querySelectorAll('.products-grid, .journal-grid, .collection-grid, .cta-grid').forEach((grid) => {
+    [...grid.children].forEach((item, index) => item.style.setProperty('--reveal-delay', `${Math.min(index * 70, 350)}ms`));
+  });
+
+  if (!reducedMotion) {
+    document.querySelectorAll('.page-hero, .home-hero').forEach((hero) => hero.addEventListener('pointermove', (event) => {
+      if (window.innerWidth < 800) return;
+      const bounds = hero.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - .5;
+      const y = (event.clientY - bounds.top) / bounds.height - .5;
+      hero.style.setProperty('--hero-shift-x', `${x * 8}px`);
+      hero.style.setProperty('--hero-shift-y', `${y * 8}px`);
+    }));
+  }
+
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const url = new URL(link.href, window.location.href);
+    if (url.origin !== window.location.origin || url.pathname === window.location.pathname || link.target === '_blank' || link.hasAttribute('download')) return;
+    link.addEventListener('click', (event) => {
+      if (reducedMotion || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      document.body.classList.add('page-leaving');
+      window.setTimeout(() => { window.location.href = link.href; }, 260);
+    });
+  });
+}
+
 function buildCollections() {
   const collectionList = document.getElementById('collectionsList');
   if (!collectionList) return;
@@ -880,16 +988,19 @@ function setupHomePage() {
       if (!results) return;
 
       if (!query) {
-        results.innerHTML = '<div class="empty-state"><div><h4>Search collection</h4><p>Type to explore products.</p></div></div>';
+        results.innerHTML = `<div class="empty-state"><div><h4>${translate('Search collection')}</h4><p>${translate('Type to explore the catalog.')}</p></div></div>`;
         return;
       }
 
-      const matches = window.COFFEE_TRIP_PRODUCTS.filter((product) => {
+      const matches = window.COFFEE_TRIP_PRODUCTS.filter((sourceProduct) => {
+        const product = getLocalizedProduct(sourceProduct);
         const haystack = [product.name, product.origin, product.category, product.roast, ...product.notes].join(' ').toLowerCase();
         return fuzzyContains(haystack, query);
       });
 
-      results.innerHTML = matches.slice(0, 6).map((product) => `
+      results.innerHTML = matches.slice(0, 6).map((sourceProduct) => {
+        const product = getLocalizedProduct(sourceProduct);
+        return `
         <button class="search-result" data-search-id="${product.id}">
           <span>
             <strong>${escapeHTML(product.name)}</strong>
@@ -897,7 +1008,8 @@ function setupHomePage() {
           </span>
           <span>${getPriceLabel(product)}</span>
         </button>
-      `).join('');
+        `;
+      }).join('');
 
       results.querySelectorAll('[data-search-id]').forEach((button) => {
         button.addEventListener('click', () => {
@@ -919,10 +1031,11 @@ function initPage() {
   setupGlobalInteractions();
   ensureJourneyLinks();
   setupRevealObserver();
+  setupLuxuryInteractions();
 
   const loader = document.getElementById('loader');
   if (loader) {
-    setTimeout(() => loader.classList.add('hide'), 550);
+    setTimeout(() => loader.classList.add('hide'), 1900);
   }
 
   document.getElementById('backdrop')?.addEventListener('click', closeDrawers);
@@ -941,5 +1054,16 @@ function initPage() {
     }
   });
 }
+
+window.addEventListener('coffeeTrip:languageChanged', () => {
+  renderCart();
+  renderWishlist();
+  renderProductCards();
+  renderRelatedProducts();
+  renderProductPage();
+
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput?.value.trim()) searchInput.dispatchEvent(new Event('input'));
+});
 
 window.addEventListener('DOMContentLoaded', initPage);

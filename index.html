@@ -6,10 +6,10 @@
 
     <meta
         name="description"
-        content="Coffee Trip — Luxury specialty coffee, rare origins and curated coffee experiences."
+        content="Coffee Trip â€” Luxury specialty coffee, rare origins and curated coffee experiences."
     >
 
-    <title>Coffee Trip — The Art of Exceptional Coffee</title>
+    <title>Coffee Trip â€” The Art of Exceptional Coffee</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
 
     <style>
         /* ==========================================================
-           COFFEE TRIP — LUXURY DESIGN SYSTEM
+           COFFEE TRIP â€” LUXURY DESIGN SYSTEM
         ========================================================== */
 
         :root {
@@ -290,6 +290,83 @@
             justify-content: flex-end;
             align-items: center;
             gap: 8px;
+        }
+
+        .language-switcher { position: relative; }
+
+        .language-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-width: 46px;
+            height: 38px;
+            padding: 0 7px;
+            color: var(--cream);
+            font-size: 8px;
+            letter-spacing: 1.2px;
+        }
+
+        .language-button svg {
+            width: 15px;
+            height: 15px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.3;
+        }
+
+        .language-button:hover,
+        .language-button:focus-visible {
+            color: var(--gold-light);
+            outline: 1px solid var(--border);
+        }
+
+        .language-options {
+            position: absolute;
+            z-index: 80;
+            top: calc(100% + 10px);
+            right: 0;
+            display: grid;
+            min-width: 150px;
+            padding: 6px;
+            background: #11100e;
+            border: 1px solid var(--border);
+            box-shadow: 0 18px 50px rgba(0,0,0,.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5px);
+            transition: .2s ease;
+        }
+
+        .language-switcher.open .language-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .language-options button {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 9px 10px;
+            color: rgba(243,238,228,.76);
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .language-options button > span:first-child {
+            width: 24px;
+            color: var(--gold-light);
+            font-size: 8px;
+            letter-spacing: 1px;
+        }
+
+        .language-options button:hover,
+        .language-options button:focus-visible,
+        .language-options button.active {
+            color: var(--cream);
+            background: rgba(216,180,116,.1);
+            outline: none;
         }
 
         .header-action {
@@ -2443,9 +2520,9 @@
 
     <div class="announcement">
         <strong>COMPLIMENTARY DELIVERY</strong>
-        <span>•</span>
+        <span>â€˘</span>
         <span>DETAILS AT CONFIRMATION</span>
-        <span>•</span>
+        <span>â€˘</span>
         <span>ROASTED WITH INTENTION</span>
     </div>
 
@@ -2483,12 +2560,12 @@
             </nav>
 
                     <div class="header-actions">
-                        <a href="account.html" class="header-action" aria-label="Account">◎</a>
+                        <a href="account.html" class="header-action" aria-label="Account">â—Ž</a>
 
                 <button
                     class="header-action"
                     id="searchButton"
-                    aria-label="Caută"
+                    aria-label="CautÄ"
                 >
                     <span class="search-icon"></span>
                 </button>
@@ -2498,14 +2575,14 @@
                     id="wishlistButton"
                     aria-label="Favorite"
                 >
-                    <span class="heart-icon">♡</span>
+                    <span class="heart-icon">â™ˇ</span>
                     <span class="header-count" id="wishlistCount">0</span>
                 </button>
 
                 <button
                     class="header-action"
                     id="cartButton"
-                    aria-label="Coș"
+                    aria-label="CoČ™"
                 >
                     <span class="bag-icon"></span>
                     <span class="header-count" id="cartCount">0</span>
@@ -2542,9 +2619,9 @@
                     </h1>
 
                     <p class="hero-description">
-                        O colecție atent curatoriată de cafele de specialitate,
-                        origini rare și profiluri create pentru cei care văd cafeaua
-                        ca pe o formă de artă.
+                        O colecČ›ie atent curatoriatÄ de cafele de specialitate,
+                        origini rare Č™i profiluri create pentru cei care vÄd cafeaua
+                        ca pe o formÄ de artÄ.
                     </p>
 
                     <div class="hero-buttons">
@@ -2553,15 +2630,15 @@
                             href="#shop"
                             class="btn btn-gold"
                         >
-                            EXPLOREAZĂ COLECȚIA
+                            EXPLOREAZÄ‚ COLECČšIA
                         </a>
 
                         <a
                             href="#story"
                             class="hero-link"
                         >
-                            DESCOPERĂ POVESTEA
-                            <span>→</span>
+                            DESCOPERÄ‚ POVESTEA
+                            <span>â†’</span>
                         </a>
 
                     </div>
@@ -2613,18 +2690,18 @@
                 <div class="intro-right reveal">
 
                     <p>
-                        Coffee Trip aduce împreună origini extraordinare,
-                        roasting de precizie și un ritual contemporan.
-                        Descoperă cafele create pentru dimineți lente,
-                        conversații memorabile și momente care merită savurate.
+                        Coffee Trip aduce Ă®mpreunÄ origini extraordinare,
+                        roasting de precizie Č™i un ritual contemporan.
+                        DescoperÄ cafele create pentru dimineČ›i lente,
+                        conversaČ›ii memorabile Č™i momente care meritÄ savurate.
                     </p>
 
                     <a
                         href="#story"
                         class="under-link"
                     >
-                        CITEȘTE MANIFESTUL
-                        <span>↗</span>
+                        CITEČTE MANIFESTUL
+                        <span>â†—</span>
                     </a>
 
                 </div>
@@ -2654,7 +2731,7 @@
                         </p>
 
                         <h2>
-                            Selecții
+                            SelecČ›ii
                             <em>extraordinare</em>
                         </h2>
 
@@ -2671,7 +2748,7 @@
                             class="filter-toggle"
                             id="filterToggle"
                         >
-                            FILTREAZĂ +
+                            FILTREAZÄ‚ +
                         </button>
 
                     </div>
@@ -2693,37 +2770,45 @@
 
                     <button
                         class="filter-btn"
-                        data-filter="Single Origin"
+                        data-filter="Cafea de Origine"
                     >
-                        SINGLE ORIGIN
+                        Cafea de Origine
                     </button>
 
                     <button
                         class="filter-btn"
-                        data-filter="Rare Coffee"
+                        data-filter="Cafea Rară"
                     >
-                        RARE COFFEE
+                        Cafea Rară
                     </button>
 
                     <button
                         class="filter-btn"
-                        data-filter="Espresso"
+                        data-filter="Blenduri de Cafea"
                     >
-                        ESPRESSO
+                        Blenduri de Cafea
                     </button>
 
                     <button
                         class="filter-btn"
-                        data-filter="Signature Blend"
+                        data-filter="Ceaiuri Premium"
                     >
-                        SIGNATURE BLEND
+                        Ceaiuri Premium
                     </button>
 
                     <button
                         class="filter-btn"
-                        data-filter="House Blend"
+                        data-filter="Mirodenii & Condimente"
                     >
-                        HOUSE BLEND
+                        Mirodenii & Condimente
+                    </button>
+
+                    <button class="filter-btn" data-filter="Siropuri Artizanale">
+                        Siropuri Artizanale
+                    </button>
+
+                    <button class="filter-btn" data-filter="Accesorii & Consumabile">
+                        Accesorii & Consumabile
                     </button>
 
                 </div>
@@ -2738,15 +2823,15 @@
                 <div class="collection-bottom">
 
                     <p>
-                        Descoperă fiecare origine.
-                        Găsește-ți ritualul.
+                        DescoperÄ fiecare origine.
+                        GÄseČ™te-Č›i ritualul.
                     </p>
 
                     <div class="stats">
 
                         <span class="stat">
                             <strong>08</strong>
-                            ORIGINI & SELECȚII
+                            ORIGINI & SELECČšII
                         </span>
 
                         <span class="stat">
@@ -2793,10 +2878,10 @@
                     </h2>
 
                     <p>
-                        La Coffee Trip, fiecare boabă trece printr-un proces
-                        atent de selecție, prăjire și degustare. Construim
-                        profile clare și elegante, păstrând caracterul autentic
-                        al fiecărei origini.
+                        La Coffee Trip, fiecare boabÄ trece printr-un proces
+                        atent de selecČ›ie, prÄjire Č™i degustare. Construim
+                        profile clare Č™i elegante, pÄstrĂ˘nd caracterul autentic
+                        al fiecÄrei origini.
                     </p>
 
                     <div class="steps">
@@ -2810,7 +2895,7 @@
                             <div>
                                 <h4>SELECT</h4>
                                 <p>
-                                    Micro-loturi și cafele de origine unică.
+                                    Micro-loturi Č™i cafele de origine unicÄ.
                                 </p>
                             </div>
 
@@ -2825,7 +2910,7 @@
                             <div>
                                 <h4>ROAST</h4>
                                 <p>
-                                    Profile de prăjire dezvoltate pentru fiecare lot.
+                                    Profile de prÄjire dezvoltate pentru fiecare lot.
                                 </p>
                             </div>
 
@@ -2840,7 +2925,7 @@
                             <div>
                                 <h4>REVEAL</h4>
                                 <p>
-                                    Note de degustare care transformă fiecare ceașcă într-o poveste.
+                                    Note de degustare care transformÄ fiecare ceaČ™cÄ Ă®ntr-o poveste.
                                 </p>
                             </div>
 
@@ -2864,7 +2949,7 @@
             <div class="quote-inner reveal">
 
                 <div class="quote-mark">
-                    “
+                    â€ś
                 </div>
 
                 <blockquote>
@@ -2873,7 +2958,7 @@
                 </blockquote>
 
                 <span class="quote-author">
-                    — COFFEE TRIP ATELIER
+                    â€” COFFEE TRIP ATELIER
                 </span>
 
             </div>
@@ -2912,16 +2997,16 @@
                 <div class="story-right reveal">
 
                     <p class="lead">
-                        Coffee Trip a început cu o idee simplă:
-                        cafeaua de excepție trebuie să fie o experiență,
+                        Coffee Trip a Ă®nceput cu o idee simplÄ:
+                        cafeaua de excepČ›ie trebuie sÄ fie o experienČ›Ä,
                         nu doar un produs.
                     </p>
 
                     <p>
-                        De la ferme aflate la altitudini impresionante până
-                        la masa de cupping din atelierul nostru, urmărim
-                        drumul fiecărei selecții. Nu căutăm cea mai puternică
-                        cafea, ci cea mai expresivă.
+                        De la ferme aflate la altitudini impresionante pĂ˘nÄ
+                        la masa de cupping din atelierul nostru, urmÄrim
+                        drumul fiecÄrei selecČ›ii. Nu cÄutÄm cea mai puternicÄ
+                        cafea, ci cea mai expresivÄ.
                     </p>
 
                     <a
@@ -2929,7 +3014,7 @@
                         class="btn btn-dark"
                         style="margin-top:30px;"
                     >
-                        INTRĂ ÎN LUMEA COFFEE TRIP
+                        INTRÄ‚ ĂŽN LUMEA COFFEE TRIP
                     </a>
 
                 </div>
@@ -2955,7 +3040,7 @@
 
                     <h2>
                         Descoperiri rare.<br>
-                        <em>În inbox-ul tău.</em>
+                        <em>ĂŽn inbox-ul tÄu.</em>
                     </h2>
 
                 </div>
@@ -2966,7 +3051,7 @@
                 >
 
                     <label for="newsletterEmail">
-                        Primește selecții, povești și lansări exclusive.
+                        PrimeČ™te selecČ›ii, poveČ™ti Č™i lansÄri exclusive.
                     </label>
 
                     <div class="newsletter-form-row">
@@ -2982,7 +3067,7 @@
                             type="submit"
                             class="newsletter-submit"
                         >
-                            →
+                            â†’
                         </button>
 
                     </div>
@@ -3026,7 +3111,7 @@
                             EXPLORE
                         </div>
 
-                        <a href="#shop">Colecția</a>
+                        <a href="#shop">ColecČ›ia</a>
                         <a href="#atelier">Atelier</a>
                         <a href="#story">Povestea</a>
                         <a href="#contact">Contact</a>
@@ -3041,8 +3126,8 @@
 
                         <a href="faq.html#shipping">Livrare</a>
                         <a href="faq.html#returns">Retururi</a>
-                        <a href="faq.html">Întrebări frecvente</a>
-                        <a href="contact.html#terms">Termeni & condiții</a>
+                        <a href="faq.html">ĂŽntrebÄri frecvente</a>
+                        <a href="contact.html#terms">Termeni & condiČ›ii</a>
 
                     </div>
 
@@ -3052,7 +3137,7 @@
                             CONTACT
                         </div>
 
-                        <p>București, România</p>
+                        <p>BucureČ™ti, RomĂ˘nia</p>
                         <p>hello@coffeetrip.ro</p>
                         <p>+40 700 000 000</p>
 
@@ -3064,7 +3149,7 @@
                 <div class="footer-bottom">
 
                     <span>
-                        © 2026 COFFEE TRIP — FIRMĂ DE EXERCIȚIU
+                        Â© 2026 COFFEE TRIP â€” FIRMÄ‚ DE EXERCIČšIU
                     </span>
 
                     <span>
@@ -3108,7 +3193,7 @@
                 </p>
 
                 <h3>
-                    Coșul tău
+                    CoČ™ul tÄu
                 </h3>
 
             </div>
@@ -3117,7 +3202,7 @@
                 class="close-round"
                 data-close-drawer
             >
-                ×
+                Ă—
             </button>
 
         </div>
@@ -3136,7 +3221,7 @@
                 </span>
 
                 <strong id="cartSubtotal">
-                    PREȚ NECUNOSCUT
+                    PREČš NECUNOSCUT
                 </strong>
 
             </div>
@@ -3145,7 +3230,7 @@
                 class="drawer-message"
                 id="shippingMessage"
             >
-                Prețurile finale sunt disponibile la confirmarea comenzii.
+                PreČ›urile finale sunt disponibile la confirmarea comenzii.
             </p>
 
             <button
@@ -3153,7 +3238,7 @@
                 style="width:100%;"
                 id="checkoutButton"
             >
-                CONTINUĂ CĂTRE CHECKOUT
+                CONTINUÄ‚ CÄ‚TRE CHECKOUT
             </button>
 
         </div>
@@ -3188,7 +3273,7 @@
                 class="close-round"
                 data-close-drawer
             >
-                ×
+                Ă—
             </button>
 
         </div>
@@ -3216,7 +3301,7 @@
                 class="close-round modal-close"
                 data-close-modal
             >
-                ×
+                Ă—
             </button>
 
             <p class="eyebrow">
@@ -3224,7 +3309,7 @@
             </p>
 
             <h2>
-                Caută în colecție
+                CautÄ Ă®n colecČ›ie
             </h2>
 
             <div class="search-input-wrap">
@@ -3237,7 +3322,7 @@
                 >
 
                 <span>
-                    ⌕
+                    âŚ•
                 </span>
 
             </div>
@@ -3248,7 +3333,7 @@
             >
                 <div class="empty">
                     <div>
-                        Scrie pentru a explora colecția.
+                        Scrie pentru a explora colecČ›ia.
                     </div>
                 </div>
             </div>
@@ -3273,7 +3358,7 @@
                 class="close-round modal-close"
                 data-close-modal
             >
-                ×
+                Ă—
             </button>
 
             <div id="productModalContent"></div>
@@ -3298,7 +3383,7 @@
                 class="close-round modal-close"
                 data-close-modal
             >
-                ×
+                Ă—
             </button>
 
             <div id="checkoutFormView">
@@ -3310,12 +3395,12 @@
                     </p>
 
                     <h2>
-                        Finalizează
+                        FinalizeazÄ
                         <em>ritualul.</em>
                     </h2>
 
                     <p>
-                        Demo UI/UX — nicio plată reală nu va fi procesată.
+                        Demo UI/UX â€” nicio platÄ realÄ nu va fi procesatÄ.
                     </p>
 
                 </div>
@@ -3336,7 +3421,7 @@
                                 <input
                                     type="text"
                                     required
-                                    placeholder="Numele tău"
+                                    placeholder="Numele tÄu"
                                 >
                             </div>
 
@@ -3359,11 +3444,11 @@
                             </div>
 
                             <div class="field">
-                                <label>Oraș</label>
+                                <label>OraČ™</label>
                                 <input
                                     type="text"
                                     required
-                                    placeholder="București"
+                                    placeholder="BucureČ™ti"
                                 >
                             </div>
 
@@ -3381,13 +3466,13 @@
                         <div class="field">
 
                             <label>
-                                Adresă
+                                AdresÄ
                             </label>
 
                             <input
                                 type="text"
                                 required
-                                placeholder="Stradă, număr, apartament"
+                                placeholder="StradÄ, numÄr, apartament"
                             >
 
                         </div>
@@ -3398,7 +3483,7 @@
                     <div class="checkout-section">
 
                         <h4>
-                            03 / METODĂ DE PLATĂ
+                            03 / METODÄ‚ DE PLATÄ‚
                         </h4>
 
                         <div class="payment-grid">
@@ -3418,7 +3503,7 @@
                                     </strong>
 
                                     <small>
-                                        Simulare securizată
+                                        Simulare securizatÄ
                                     </small>
                                 </div>
 
@@ -3439,7 +3524,7 @@
                                     </strong>
 
                                     <small>
-                                        Plată la livrare
+                                        PlatÄ la livrare
                                     </small>
                                 </div>
 
@@ -3457,7 +3542,7 @@
                         </span>
 
                         <strong id="checkoutTotal">
-                            PREȚ NECUNOSCUT
+                            PREČš NECUNOSCUT
                         </strong>
 
                     </div>
@@ -3468,7 +3553,7 @@
                         style="width:100%;"
                         type="submit"
                     >
-                        PLASEAZĂ COMANDA DEMO
+                        PLASEAZÄ‚ COMANDA DEMO
                     </button>
 
                 </form>
@@ -3482,7 +3567,7 @@
             >
 
                 <div class="success-icon">
-                    ✓
+                    âś“
                 </div>
 
                 <p class="eyebrow gold">
@@ -3490,21 +3575,21 @@
                 </p>
 
                 <h2>
-                    Mulțumim pentru
+                    MulČ›umim pentru
                     <em>alegere.</em>
                 </h2>
 
                 <p id="successMessage">
-                    Comanda demo a fost înregistrată cu succes.
-                    Într-un magazin real, aici ar începe procesarea
-                    și notificarea de livrare.
+                    Comanda demo a fost Ă®nregistratÄ cu succes.
+                    ĂŽntr-un magazin real, aici ar Ă®ncepe procesarea
+                    Č™i notificarea de livrare.
                 </p>
 
                 <button
                     class="btn btn-dark"
                     data-close-modal
                 >
-                    ÎNAPOI LA COFFEE TRIP
+                    ĂŽNAPOI LA COFFEE TRIP
                 </button>
 
             </div>
@@ -3525,7 +3610,7 @@
         </strong>
 
         <p id="toastMessage">
-            Acțiunea a fost finalizată.
+            AcČ›iunea a fost finalizatÄ.
         </p>
 
     </div>
@@ -3578,12 +3663,12 @@
             <div class="chat-agent">
 
                 <strong>
-                    EVA · BARISTA AI
+                    EVA Â· BARISTA AI
                 </strong>
 
                 <span>
                     <i class="online-dot"></i>
-                    ONLINE · READY TO BREW
+                    ONLINE Â· READY TO BREW
                 </span>
 
             </div>
@@ -3592,7 +3677,7 @@
                 id="chatClose"
                 class="chat-close"
             >
-                ×
+                Ă—
             </button>
 
         </div>
@@ -3606,13 +3691,13 @@
 
             <h3>
                 Cu ce cafea<br>
-                începem?
+                Ă®ncepem?
             </h3>
 
             <p>
-                Spune-mi ce gusturi îți plac.
-                Pot recomanda cafele în timp real,
-                chiar dacă mai faci mici greșeli de scriere.
+                Spune-mi ce gusturi Ă®Č›i plac.
+                Pot recomanda cafele Ă®n timp real,
+                chiar dacÄ mai faci mici greČ™eli de scriere.
             </p>
 
         </div>
@@ -3620,20 +3705,20 @@
 
         <div class="chat-suggestions">
 
-            <button data-chat-suggestion="Vreau ceva dulce și ciocolatos">
+            <button data-chat-suggestion="Vreau ceva dulce Č™i ciocolatos">
                 Dulce & ciocolatos
             </button>
 
-            <button data-chat-suggestion="Îmi place cafeaua florală">
+            <button data-chat-suggestion="ĂŽmi place cafeaua floralÄ">
                 Floral & elegant
             </button>
 
-            <button data-chat-suggestion="Vreau o cafea puternică">
+            <button data-chat-suggestion="Vreau o cafea puternicÄ">
                 Intens & puternic
             </button>
 
             <button data-chat-suggestion="Ce cafea recomanzi?">
-                Surprinde-mă
+                Surprinde-mÄ
             </button>
 
         </div>
@@ -3652,14 +3737,14 @@
             >
 
             <button id="chatSend">
-                →
+                â†’
             </button>
 
         </div>
 
 
         <div class="chat-status">
-            Fuzzy matching active • Client-side NLP
+            Fuzzy matching active â€˘ Client-side NLP
         </div>
 
     </aside>
@@ -3667,256 +3752,18 @@
 
     <!-- ==========================================================
          JAVASCRIPT
-         TOTUL ESTE ÎN ACEST INDEX.HTML
+         TOTUL ESTE ĂŽN ACEST INDEX.HTML
     ========================================================== -->
 
+    <script src="js/products.js"></script>
+    <script src="js/language.js"></script>
     <script>
 
         /* ==========================================================
            PRODUCT DATABASE
         ========================================================== */
 
-        const products = [
-            {
-                id: 1,
-                name: "Ethiopian Yirgacheffe",
-                origin: "Ethiopia",
-                category: "Single Origin",
-                price: 89,
-                weight: "250g",
-                roast: "Light",
-                notes: ["Jasmine", "Bergamot", "Blueberry"],
-                description:
-                    "O cafea elegantă de origine unică, cu aromatice florale, citrice luminoase și un finish foarte fin.",
-                image: "assets/img/img1.jpg",
-                featured: true
-            },
-
-            {
-                id: 2,
-                name: "Colombian Supremo",
-                origin: "Colombia",
-                category: "Single Origin",
-                price: 79,
-                weight: "250g",
-                roast: "Medium",
-                notes: ["Caramel", "Red Apple", "Chocolate"],
-                description:
-                    "Un profil sofisticat cu dulceață de caramel, aciditate de măr roșu și un corp bogat de ciocolată.",
-                image: "assets/img/img2.jpg",
-                featured: true
-            },
-
-            {
-                id: 3,
-                name: "Jamaican Blue Mountain",
-                origin: "Jamaica",
-                category: "Rare Coffee",
-                price: 199,
-                weight: "250g",
-                roast: "Medium-Light",
-                notes: ["Hazelnut", "Cocoa", "Cedar"],
-                description:
-                    "O cafea rară, cunoscută pentru echilibrul său excepțional, claritate și finish extrem de smooth.",
-                image: "assets/img/img3.jpg",
-                featured: true
-            },
-
-            {
-                id: 4,
-                name: "Panama Geisha",
-                origin: "Panama",
-                category: "Rare Coffee",
-                price: 249,
-                weight: "100g",
-                roast: "Light",
-                notes: ["Peach", "Tea Rose", "Tangerine"],
-                description:
-                    "Un micro-lot extraordinar cu flori delicate, dulceață de piersică și citrice vibrante.",
-                image: "assets/img/img4.jpg",
-                featured: true
-            },
-
-            {
-                id: 5,
-                name: "Brazilian Bourbon",
-                origin: "Brazil",
-                category: "Espresso",
-                price: 69,
-                weight: "250g",
-                roast: "Medium-Dark",
-                notes: ["Hazelnut", "Toffee", "Milk Chocolate"],
-                description:
-                    "Smooth, confortabil și decadent, creat special pentru iubitorii de espresso.",
-                image: "assets/img/img5.jpg",
-                featured: false
-            },
-
-            {
-                id: 6,
-                name: "Guatemala Antigua",
-                origin: "Guatemala",
-                category: "Single Origin",
-                price: 74,
-                weight: "250g",
-                roast: "Medium",
-                notes: ["Cocoa", "Orange", "Brown Sugar"],
-                description:
-                    "Solul vulcanic și altitudinea creează o cafea expresivă, cu bogăție de cacao și aciditate de portocală.",
-                image: "assets/img/img6.jpg",
-                featured: false
-            },
-
-            {
-                id: 7,
-                name: "Kenya AA",
-                origin: "Kenya",
-                category: "Single Origin",
-                price: 84,
-                weight: "250g",
-                roast: "Light",
-                notes: ["Blackcurrant", "Grapefruit", "Honey"],
-                description:
-                    "Vibrantă și complexă, cu aciditate strălucitoare și dulceață de fructe negre.",
-                image: "assets/img/img7.jpg",
-                featured: false
-            },
-
-            {
-                id: 8,
-                name: "House Noir",
-                origin: "Coffee Trip Atelier",
-                category: "Signature Blend",
-                price: 64,
-                weight: "250g",
-                roast: "Dark",
-                notes: ["Dark Chocolate", "Walnut", "Molasses"],
-                description:
-                    "Blend-ul nostru signature, creat pentru un espresso puternic, sofisticat și memorabil.",
-                image: "assets/img/img8.jpg",
-                featured: false
-            },
-
-            {
-                id: 9,
-                name: "Velvet Reserve",
-                origin: "Brazil + Colombia",
-                category: "Signature Blend",
-                price: 59,
-                weight: "250g",
-                roast: "Medium",
-                notes: ["Caramel", "Milk Chocolate", "Hazelnut"],
-                description:
-                    "Un blend elegant și accesibil, conceput pentru o experiență smooth, caldă și foarte plăcută de fiecare zi.",
-                image: "assets/img/img9.jpg",
-                featured: false
-            },
-
-            {
-                id: 10,
-                name: "Maison Noire",
-                origin: "Brazil + Guatemala",
-                category: "Signature Blend",
-                price: 64,
-                weight: "250g",
-                roast: "Medium-Dark",
-                notes: ["Dark Chocolate", "Walnut", "Toffee"],
-                description:
-                    "O versiune dark luxury, dar accesibilă, cu profunzime de cacao și un final de caramel pronunțat.",
-                image: "assets/img/img10.jpg",
-                featured: false
-            },
-
-            {
-                id: 11,
-                name: "Golden Estate",
-                origin: "Colombia + Brazil",
-                category: "Signature Blend",
-                price: 69,
-                weight: "250g",
-                roast: "Medium",
-                notes: ["Honey", "Caramel", "Cocoa"],
-                description:
-                    "Un blend premium-looking cu o profilare prietenoasă, echilibrată și foarte bine pregătită pentru utilizare zilnică.",
-                image: "assets/img/img11.jpg",
-                featured: false
-            },
-
-            {
-                id: 12,
-                name: "Noir Élégance",
-                origin: "Brazil + India",
-                category: "Espresso",
-                price: 72,
-                weight: "250g",
-                roast: "Dark",
-                notes: ["Dark Chocolate", "Molasses", "Roasted Almond"],
-                description:
-                    "Un espresso intens și elegant, cu corp amplu, note de cacao și un final rafinat, perfect pentru momentele care merită stil.",
-                image: "assets/img/img12.jpg",
-                featured: false
-            },
-
-            {
-                id: 13,
-                name: "Velours d'Or",
-                origin: "Colombia + Ethiopia",
-                category: "Signature Blend",
-                price: 76,
-                weight: "250g",
-                roast: "Medium",
-                notes: ["Red Berries", "Caramel", "Cocoa"],
-                description:
-                    "Un profil sofisticat, aromatic și foarte echilibrat, cu un parfum frumos de fructe roșii și dulceață fină.",
-                image: "assets/img/img13.jpg",
-                featured: false
-            },
-
-            {
-                id: 14,
-                name: "Royal Morning",
-                origin: "Brazil + Colombia",
-                category: "House Blend",
-                price: 54,
-                weight: "250g",
-                roast: "Medium",
-                notes: ["Biscuit", "Caramel", "Milk Chocolate"],
-                description:
-                    "Cea mai accesibilă dintre selecțiile premium din colecție, cu un profil cald, familiar și impecabil pentru începutul zilei.",
-                image: "assets/img/img14.jpg",
-                featured: false
-            },
-
-            {
-                id: 15,
-                name: "Imperial Amber",
-                origin: "Brazil + Colombia + India",
-                category: "Espresso",
-                price: 79,
-                weight: "250g",
-                roast: "Medium-Dark",
-                notes: ["Brown Sugar", "Cocoa", "Hazelnut"],
-                description:
-                    "Un espresso premium pentru consum zilnic, cu rotunjime elegantă, dulceață de zahăr brun și un finish sofisticat.",
-                image: "assets/img/img15.jpg",
-                featured: false
-            },
-
-            {
-                id: 16,
-                name: "Atelier Privé",
-                origin: "Ethiopia + Colombia",
-                category: "Signature Blend",
-                price: 84,
-                weight: "250g",
-                roast: "Medium-Light",
-                notes: ["Jasmine", "Apricot", "Honey"],
-                description:
-                    "Blend-ul nostru cel mai sofisticat și accesibil, cu profunzime florală, franchețe fructată și o eleganță clară.",
-                image: "assets/img/img16.jpg",
-                featured: false
-            }
-        ];
+        const products = window.COFFEE_TRIP_PRODUCTS;
 
 
         /* ==========================================================
@@ -3975,7 +3822,30 @@
         ========================================================== */
 
         function formatPrice(value) {
-            return "PREȚ NECUNOSCUT";
+            return window.CoffeeTripI18n
+                ? window.CoffeeTripI18n.formatPrice(value)
+                : `${Number(value).toLocaleString("ro-RO")} RON`;
+        }
+
+
+        function translate(key) {
+            return window.CoffeeTripI18n
+                ? window.CoffeeTripI18n.t(key)
+                : key;
+        }
+
+
+        function localizedProduct(product) {
+            return window.CoffeeTripI18n
+                ? window.CoffeeTripI18n.product(product)
+                : product;
+        }
+
+
+        function priceLabel(product) {
+            return window.CoffeeTripI18n
+                ? window.CoffeeTripI18n.priceLabel(product)
+                : formatPrice(product.price);
         }
 
 
@@ -4104,6 +3974,7 @@
                     name: product.name,
                     origin: product.origin,
                     price: product.price,
+                    isEstimatedPrice: product.isEstimatedPrice,
                     weight: product.weight,
                     image: product.image,
                     quantity: quantity
@@ -4119,8 +3990,8 @@
 
 
             showToast(
-                "Adăugat în coș",
-                `${product.name} × ${quantity}`
+                translate("Adăugat în coș"),
+                `${product.name} Ă— ${quantity}`
             );
 
         }
@@ -4205,13 +4076,14 @@
 
                 document.getElementById("shippingMessage")
                     .textContent =
-                    "Transportul tău este gratuit.";
+                    translate("Shipping is free.");
 
             } else {
 
                 document.getElementById("shippingMessage")
                     .textContent =
-                    `Mai adaugă ${formatPrice(remaining)} pentru transport gratuit.`;
+                    translate("Add {amount} for free shipping.")
+                        .replace("{amount}", formatPrice(remaining));
 
             }
 
@@ -4221,9 +4093,9 @@
                 container.innerHTML = `
                     <div class="empty">
                         <div>
-                            <strong>Coșul este gol.</strong>
+                            <strong>${translate("Your cart is empty.")}</strong>
                             <p>
-                                Poate că Barista are o recomandare pentru tine.
+                                ${translate("The barista has a recommendation for you.")}
                             </p>
                         </div>
                     </div>
@@ -4235,14 +4107,17 @@
 
 
             container.innerHTML =
-                cart.map(item => `
+                cart.map(item => {
+                    const sourceProduct = products.find(product => product.id === item.id) || item;
+                    const product = localizedProduct(sourceProduct);
+                    return `
 
                     <article class="cart-item">
 
                         <div class="cart-image">
                             <img
-                                src="${item.image}"
-                                alt="${escapeHTML(item.name)}"
+                                src="${product.image || item.image}"
+                                alt="${escapeHTML(product.name)}"
                                 onerror="this.style.display='none'"
                             >
                         </div>
@@ -4250,13 +4125,13 @@
                         <div>
 
                             <div class="cart-name">
-                                ${escapeHTML(item.name)}
+                                ${escapeHTML(product.name)}
                             </div>
 
                             <div class="cart-meta">
-                                ${escapeHTML(item.origin)}
-                                ·
-                                ${escapeHTML(item.weight)}
+                                ${escapeHTML(product.origin)}
+                                Â·
+                                ${escapeHTML(product.weight)}
                             </div>
 
                             <div class="qty">
@@ -4264,7 +4139,7 @@
                                 <button
                                     data-cart-minus="${item.id}"
                                 >
-                                    −
+                                    â’
                                 </button>
 
                                 <span>
@@ -4284,23 +4159,23 @@
                         <div>
 
                             <div class="item-price">
-                                ${formatPrice(
-                                    item.price * item.quantity
-                                )}
+                                ${priceLabel({ ...product, price: product.price * item.quantity })}
+                                × ${item.quantity}
                             </div>
 
                             <button
                                 class="remove"
                                 data-cart-remove="${item.id}"
                             >
-                                ×
+                                Ă—
                             </button>
 
                         </div>
 
                     </article>
 
-                `).join("");
+                    `;
+                }).join("");
 
         }
 
@@ -4347,7 +4222,7 @@
                 wishlist.push(id);
 
                 showToast(
-                    "Adăugat la favorite",
+                    "AdÄugat la favorite",
                     product.name
                 );
 
@@ -4372,7 +4247,7 @@
                 products.filter(
                     product =>
                         wishlist.includes(product.id)
-                );
+                ).map(localizedProduct);
 
 
             if (!favoriteProducts.length) {
@@ -4380,10 +4255,9 @@
                 container.innerHTML = `
                     <div class="empty">
                         <div>
-                            <strong>Încă nu ai favorite.</strong>
+                            <strong>${translate("No favorites yet.")}</strong>
                             <p>
-                                Păstrează aici selecțiile
-                                care ți-au atras atenția.
+                                ${translate("Save the products you love here.")}
                             </p>
                         </div>
                     </div>
@@ -4417,15 +4291,15 @@
 
                             <div class="wishlist-meta">
                                 ${escapeHTML(product.origin)}
-                                ·
-                                ${formatPrice(product.price)}
+                                Â·
+                                ${priceLabel(product)}
                             </div>
 
                             <button
                                 class="mini-add"
                                 data-wishlist-add="${product.id}"
                             >
-                                + ADAUGĂ ÎN COȘ
+                                + ${translate("Add to cart")}
                             </button>
 
                         </div>
@@ -4434,7 +4308,7 @@
                             class="remove"
                             data-wishlist-remove="${product.id}"
                         >
-                            ×
+                            Ă—
                         </button>
 
                     </article>
@@ -4449,6 +4323,7 @@
         ========================================================== */
 
         let currentFilter = "all";
+        let activeProductId = null;
 
 
         function renderProducts(filter = "all") {
@@ -4475,7 +4350,9 @@
 
 
             container.innerHTML =
-                visible.map(product => `
+                visible.map(sourceProduct => {
+                    const product = localizedProduct(sourceProduct);
+                    return `
 
                     <article
                         class="product reveal"
@@ -4508,8 +4385,8 @@
                             >
                                 ${
                                     isFavorite(product.id)
-                                        ? "♥"
-                                        : "♡"
+                                        ? "â™Ą"
+                                        : "â™ˇ"
                                 }
                             </button>
 
@@ -4526,7 +4403,7 @@
                                 class="quick-add"
                                 data-add-cart="${product.id}"
                             >
-                                + ADAUGĂ ÎN COȘ
+                                + ADAUGÄ‚ ĂŽN COČ
                             </button>
 
                         </div>
@@ -4541,14 +4418,14 @@
                                 </h3>
 
                                 <span class="product-price">
-                                    ${formatPrice(product.price)}
+                                    ${priceLabel(product)}
                                 </span>
 
                             </div>
 
                             <div class="product-meta">
                                 ${escapeHTML(product.origin)}
-                                ·
+                                Â·
                                 ${escapeHTML(product.roast)}
                             </div>
 
@@ -4572,7 +4449,8 @@
 
                     </article>
 
-                `).join("");
+                    `;
+                }).join("");
 
 
             observeRevealElements();
@@ -4965,12 +4843,14 @@
 
         function openProductModal(id) {
 
-            const product =
+            const sourceProduct =
                 products.find(
                     p => p.id === Number(id)
                 );
 
-            if (!product) return;
+            if (!sourceProduct) return;
+            activeProductId = sourceProduct.id;
+            const product = localizedProduct(sourceProduct);
 
 
             document.getElementById(
@@ -5002,14 +4882,14 @@
 
                         <div class="detail-origin">
                             ${escapeHTML(product.origin)}
-                            ·
+                            Â·
                             ${escapeHTML(product.roast)}
-                            ·
+                            Â·
                             ${escapeHTML(product.weight)}
                         </div>
 
                         <div class="detail-price">
-                            ${formatPrice(product.price)}
+                            ${priceLabel(product)}
                         </div>
 
                         <p class="detail-description">
@@ -5037,7 +4917,7 @@
                             style="width:100%;"
                             id="detailAdd"
                         >
-                            ADAUGĂ ÎN COȘ
+                            ${translate("Add to cart")}
                         </button>
 
                         <button
@@ -5047,8 +4927,8 @@
                         >
                             ${
                                 isFavorite(product.id)
-                                    ? "♥ ELIMINĂ DIN FAVORITE"
-                                    : "♡ ADAUGĂ LA FAVORITE"
+                                    ? translate("Remove from wishlist")
+                                        : translate("Add to wishlist")
                             }
                         </button>
 
@@ -5094,8 +4974,8 @@
                                 isFavorite(
                                     product.id
                                 )
-                                    ? "♥ ELIMINĂ DIN FAVORITE"
-                                    : "♡ ADAUGĂ LA FAVORITE";
+                                    ? translate("Remove from wishlist")
+                                    : translate("Add to wishlist");
 
                     }
                 );
@@ -5153,7 +5033,7 @@
 
                         results.innerHTML = `
                             <div class="empty">
-                                Scrie pentru a explora colecția.
+                                ${translate("Type to explore the catalog.")}
                             </div>
                         `;
 
@@ -5164,7 +5044,8 @@
 
                     const matches =
                         products.filter(
-                            product => {
+                            sourceProduct => {
+                                const product = localizedProduct(sourceProduct);
 
                                 const content =
                                     [
@@ -5187,7 +5068,7 @@
 
                         results.innerHTML = `
                             <div class="empty">
-                                Nu am găsit această selecție.
+                                ${translate("No results found.")}
                             </div>
                         `;
 
@@ -5198,7 +5079,9 @@
 
                     results.innerHTML =
                         matches.map(
-                            product => `
+                            sourceProduct => {
+                                const product = localizedProduct(sourceProduct);
+                                return `
 
                                 <button
                                     class="search-result"
@@ -5213,19 +5096,20 @@
 
                                         <small>
                                             ${escapeHTML(product.origin)}
-                                            ·
+                                            Â·
                                             ${escapeHTML(product.category)}
                                         </small>
 
                                     </span>
 
                                     <span>
-                                        ${formatPrice(product.price)}
+                                        ${priceLabel(product)}
                                     </span>
 
                                 </button>
 
-                            `
+                                `;
+                            }
                         ).join("");
 
 
@@ -5269,8 +5153,8 @@
                     if (!cart.length) {
 
                         showToast(
-                            "Coș gol",
-                            "Adaugă o cafea înainte de checkout."
+                            translate("Your cart is empty."),
+                            translate("Add a coffee before checkout.")
                         );
 
                         return;
@@ -5330,8 +5214,8 @@
                     document.getElementById(
                         "successMessage"
                     ).textContent =
-                        `Comanda demo ${code} a fost înregistrată cu succes. ` +
-                        `Într-un magazin real, aici ar începe procesarea și notificarea de livrare.`;
+                        translate("Demo order {code} placed successfully. In a real store, order processing and delivery notifications would start here.")
+                            .replace("{code}", code);
 
 
                     cart = [];
@@ -5369,7 +5253,7 @@
                     document.getElementById(
                         "newsletterMessage"
                     ).textContent =
-                        "Mulțumim. Într-un magazin real, adresa ar fi adăugată la newsletter.";
+                        translate("Thank you. In a real store, this address would be added to the newsletter.");
 
 
                     input.value = "";
@@ -5501,7 +5385,7 @@
             greeting: [
                 "salut",
                 "buna",
-                "bună",
+                "bunÄ",
                 "hello",
                 "hei",
                 "hey",
@@ -5513,7 +5397,7 @@
                 "recomandare",
                 "recomanzi",
                 "sugereaza",
-                "sugerează",
+                "sugereazÄ",
                 "ce cafea",
                 "aleg",
                 "cafea"
@@ -5522,11 +5406,11 @@
             sweet: [
                 "dulce",
                 "ciocolata",
-                "ciocolată",
+                "ciocolatÄ",
                 "caramel",
                 "toffee",
                 "nuca",
-                "nucă",
+                "nucÄ",
                 "alune",
                 "hazelnut",
                 "cacao",
@@ -5550,17 +5434,17 @@
             fruity: [
                 "fruct",
                 "fructata",
-                "fructată",
+                "fructatÄ",
                 "blueberry",
                 "afina",
-                "afină",
+                "afinÄ",
                 "peach",
                 "piersica",
-                "piersică",
+                "piersicÄ",
                 "orange",
                 "tangerine",
                 "grapefruit",
-                "măr",
+                "mÄr",
                 "mar",
                 "apple",
                 "blackcurrant"
@@ -5569,39 +5453,39 @@
             strong: [
                 "tare",
                 "puternica",
-                "puternică",
+                "puternicÄ",
                 "intens",
                 "intensa",
-                "intensă",
+                "intensÄ",
                 "dark",
                 "espresso",
                 "amar",
-                "amărui",
+                "amÄrui",
                 "strong"
             ],
 
             light: [
                 "light",
                 "usoara",
-                "ușoară",
+                "uČ™oarÄ",
                 "delicata",
-                "delicată",
+                "delicatÄ",
                 "fresh",
                 "acida",
-                "acidă"
+                "acidÄ"
             ],
 
             rare: [
                 "rara",
-                "rară",
+                "rarÄ",
                 "rare",
                 "premium",
                 "exclusiva",
-                "exclusivă",
+                "exclusivÄ",
                 "lux",
                 "luxury",
                 "speciala",
-                "specială",
+                "specialÄ",
                 "geisha",
                 "mountain"
             ],
@@ -5623,14 +5507,14 @@
 
             price: [
                 "pret",
-                "preț",
+                "preČ›",
                 "ieftin",
                 "ieftina",
-                "ieftină",
+                "ieftinÄ",
                 "buget",
                 "lei",
                 "costa",
-                "costă"
+                "costÄ"
             ]
 
         };
@@ -6086,7 +5970,7 @@
 
 
             if (
-                /\b(ieftin|ieftina|ieftină|buget)\b/i
+                /\b(ieftin|ieftina|ieftinÄ|buget)\b/i
                     .test(normalized)
             ) {
 
@@ -6151,9 +6035,9 @@
                 return {
 
                     text:
-                        "Bun venit la Coffee Trip. ☕ " +
-                        "Sunt EVA, Barista ta digitală. " +
-                        "Spune-mi ce profil de gust cauți și îți găsesc ceva potrivit.",
+                        "Bun venit la Coffee Trip. â• " +
+                        "Sunt EVA, Barista ta digitalÄ. " +
+                        "Spune-mi ce profil de gust cauČ›i Č™i Ă®Č›i gÄsesc ceva potrivit.",
 
                     products: []
 
@@ -6184,7 +6068,7 @@
                     text:
                         `Pentru un punct de pornire accesibil, ` +
                         `${cheapest.name} este ${formatPrice(cheapest.price)}. ` +
-                        `Pentru o experiență de colecție, ` +
+                        `Pentru o experienČ›Ä de colecČ›ie, ` +
                         `${premium.name} este ${formatPrice(premium.price)}.`,
 
                     products: [
@@ -6233,17 +6117,17 @@
 
                 if (top === "sweet") {
                     style =
-                        "zona dulce și ciocolatoasă";
+                        "zona dulce Č™i ciocolatoasÄ";
                 }
 
                 if (top === "floral") {
                     style =
-                        "profilul floral și elegant";
+                        "profilul floral Č™i elegant";
                 }
 
                 if (top === "fruity") {
                     style =
-                        "profilul fructat și vibrant";
+                        "profilul fructat Č™i vibrant";
                 }
 
                 if (top === "strong") {
@@ -6253,17 +6137,17 @@
 
                 if (top === "light") {
                     style =
-                        "o ceașcă light și delicată";
+                        "o ceaČ™cÄ light Č™i delicatÄ";
                 }
 
                 if (top === "rare") {
                     style =
-                        "o selecție premium și rară";
+                        "o selecČ›ie premium Č™i rarÄ";
                 }
 
                 if (top === "origin") {
                     style =
-                        "originea menționată";
+                        "originea menČ›ionatÄ";
                 }
 
 
@@ -6271,7 +6155,7 @@
 
                     text:
                         `Pentru ${style}, ` +
-                        `aș începe cu ${selected.name}. ` +
+                        `aČ™ Ă®ncepe cu ${selected.name}. ` +
                         `${selected.description}`,
 
                     products:
@@ -6294,10 +6178,10 @@
             return {
 
                 text:
-                    "Nu sunt 100% sigur ce profil cauți, " +
-                    "dar pot începe cu două selecții excelente. " +
-                    "Încearcă „ceva floral”, „dulce și ciocolatos”, " +
-                    "„o cafea tare” sau spune-mi o origine.",
+                    "Nu sunt 100% sigur ce profil cauČ›i, " +
+                    "dar pot Ă®ncepe cu douÄ selecČ›ii excelente. " +
+                    "ĂŽncearcÄ â€žceva floralâ€ť, â€ždulce Č™i ciocolatosâ€ť, " +
+                    "â€žo cafea tareâ€ť sau spune-mi o origine.",
 
                 products:
                     defaultProducts
@@ -6383,14 +6267,14 @@
 
                                     <small>
                                         ${escapeHTML(product.origin)}
-                                        ·
+                                        Â·
                                         ${formatPrice(product.price)}
                                     </small>
 
                                     <button
                                         data-chat-add="${product.id}"
                                     >
-                                        + ADAUGĂ ÎN COȘ
+                                        + ADAUGÄ‚ ĂŽN COČ
                                     </button>
 
                                 </div>
@@ -6491,7 +6375,7 @@
                                 addMessage(
                                     "bot",
                                     "Bun venit. Sunt EVA, Barista AI de la Coffee Trip. " +
-                                    "Spune-mi ce fel de cafea îți place și îți fac o recomandare."
+                                    "Spune-mi ce fel de cafea Ă®Č›i place Č™i Ă®Č›i fac o recomandare."
                                 );
 
                             },
@@ -6609,7 +6493,7 @@
 
 
                 button.textContent =
-                    "✓ ADĂUGAT";
+                    "âś“ ADÄ‚UGAT";
 
             }
         );
@@ -6688,6 +6572,24 @@
             }
         );
 
+
+        window.addEventListener("coffeeTrip:languageChanged", () => {
+            renderProducts(currentFilter);
+            renderCart();
+            renderWishlist();
+
+            if (
+                activeProductId
+                && document.getElementById("productOverlay").classList.contains("open")
+            ) {
+                openProductModal(activeProductId);
+            }
+
+            const searchInput = document.getElementById("searchInput");
+            if (searchInput.value.trim()) {
+                searchInput.dispatchEvent(new Event("input"));
+            }
+        });
 
         renderProducts();
         renderCart();
