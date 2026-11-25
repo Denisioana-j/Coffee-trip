@@ -2575,7 +2575,7 @@
                     id="wishlistButton"
                     aria-label="Favorite"
                 >
-                    <span class="heart-icon">â™ˇ</span>
+                    <span class="heart-icon">♡</span>
                     <span class="header-count" id="wishlistCount">0</span>
                 </button>
 
@@ -2730,10 +2730,7 @@
                             THE PRIVATE COLLECTION
                         </p>
 
-                        <h2>
-                            SelecČ›ii
-                            <em>extraordinare</em>
-                        </h2>
+                        <h2>Selecții extraordinare</h2>
 
                     </div>
 
@@ -3202,7 +3199,7 @@
                 class="close-round"
                 data-close-drawer
             >
-                Ă—
+                ×
             </button>
 
         </div>
@@ -3273,7 +3270,7 @@
                 class="close-round"
                 data-close-drawer
             >
-                Ă—
+                ×
             </button>
 
         </div>
@@ -3301,7 +3298,7 @@
                 class="close-round modal-close"
                 data-close-modal
             >
-                Ă—
+                ×
             </button>
 
             <p class="eyebrow">
@@ -3358,7 +3355,7 @@
                 class="close-round modal-close"
                 data-close-modal
             >
-                Ă—
+                ×
             </button>
 
             <div id="productModalContent"></div>
@@ -3383,7 +3380,7 @@
                 class="close-round modal-close"
                 data-close-modal
             >
-                Ă—
+                ×
             </button>
 
             <div id="checkoutFormView">
@@ -3663,12 +3660,12 @@
             <div class="chat-agent">
 
                 <strong>
-                    EVA Â· BARISTA AI
+                    EVA · BARISTA AI
                 </strong>
 
                 <span>
                     <i class="online-dot"></i>
-                    ONLINE Â· READY TO BREW
+                    ONLINE · READY TO BREW
                 </span>
 
             </div>
@@ -3677,7 +3674,7 @@
                 id="chatClose"
                 class="chat-close"
             >
-                Ă—
+                ×
             </button>
 
         </div>
@@ -3991,7 +3988,7 @@
 
             showToast(
                 translate("Adăugat în coș"),
-                `${product.name} Ă— ${quantity}`
+                `${product.name} × ${quantity}`
             );
 
         }
@@ -4130,7 +4127,7 @@
 
                             <div class="cart-meta">
                                 ${escapeHTML(product.origin)}
-                                Â·
+                                ·
                                 ${escapeHTML(product.weight)}
                             </div>
 
@@ -4139,7 +4136,7 @@
                                 <button
                                     data-cart-minus="${item.id}"
                                 >
-                                    â’
+                                    −
                                 </button>
 
                                 <span>
@@ -4167,7 +4164,7 @@
                                 class="remove"
                                 data-cart-remove="${item.id}"
                             >
-                                Ă—
+                                ×
                             </button>
 
                         </div>
@@ -4291,7 +4288,7 @@
 
                             <div class="wishlist-meta">
                                 ${escapeHTML(product.origin)}
-                                Â·
+                                ·
                                 ${priceLabel(product)}
                             </div>
 
@@ -4308,7 +4305,7 @@
                             class="remove"
                             data-wishlist-remove="${product.id}"
                         >
-                            Ă—
+                            ×
                         </button>
 
                     </article>
@@ -4385,8 +4382,8 @@
                             >
                                 ${
                                     isFavorite(product.id)
-                                        ? "â™Ą"
-                                        : "â™ˇ"
+                                        ? "♥"
+                                        : "♡"
                                 }
                             </button>
 
@@ -4403,7 +4400,7 @@
                                 class="quick-add"
                                 data-add-cart="${product.id}"
                             >
-                                + ADAUGÄ‚ ĂŽN COČ
+                                + ${translate("Add to cart")}
                             </button>
 
                         </div>
@@ -4425,7 +4422,7 @@
 
                             <div class="product-meta">
                                 ${escapeHTML(product.origin)}
-                                Â·
+                                ·
                                 ${escapeHTML(product.roast)}
                             </div>
 
@@ -4882,9 +4879,9 @@
 
                         <div class="detail-origin">
                             ${escapeHTML(product.origin)}
-                            Â·
+                            ·
                             ${escapeHTML(product.roast)}
-                            Â·
+                            ·
                             ${escapeHTML(product.weight)}
                         </div>
 
@@ -5096,7 +5093,7 @@
 
                                         <small>
                                             ${escapeHTML(product.origin)}
-                                            Â·
+                                            ·
                                             ${escapeHTML(product.category)}
                                         </small>
 
@@ -5387,6 +5384,8 @@
                 "buna",
                 "bunÄ",
                 "hello",
+                "bonjour",
+                "hola",
                 "hei",
                 "hey",
                 "servus"
@@ -5400,7 +5399,12 @@
                 "sugereazÄ",
                 "ce cafea",
                 "aleg",
-                "cafea"
+                "cafea",
+                "recommend",
+                "recommande",
+                "recomendar",
+                "café",
+                "coffee"
             ],
 
             sweet: [
@@ -5416,7 +5420,13 @@
                 "cacao",
                 "cocoa",
                 "molasses",
-                "chocolate"
+                "chocolate",
+                "sweet",
+                "doux",
+                "dulce",
+                "chocolaté",
+                "achocolatado",
+                "sucré"
             ],
 
             floral: [
@@ -5428,7 +5438,11 @@
                 "bergamota",
                 "trandafir",
                 "rose",
-                "parfum"
+                "parfum",
+                "jasmine",
+                "jasmin",
+                "jazmín",
+                "floral"
             ],
 
             fruity: [
@@ -5447,7 +5461,13 @@
                 "mÄr",
                 "mar",
                 "apple",
-                "blackcurrant"
+                "blackcurrant",
+                "fruit",
+                "fruity",
+                "fruité",
+                "afrutado",
+                "pêche",
+                "melocotón"
             ],
 
             strong: [
@@ -5461,7 +5481,11 @@
                 "espresso",
                 "amar",
                 "amÄrui",
-                "strong"
+                "strong",
+                "intense",
+                "intens",
+                "fuerte",
+                "corsé"
             ],
 
             light: [
@@ -5472,7 +5496,12 @@
                 "delicatÄ",
                 "fresh",
                 "acida",
-                "acidÄ"
+                "acidÄ",
+                "light",
+                "léger",
+                "ligero",
+                "delicate",
+                "délicat"
             ],
 
             rare: [
@@ -5487,7 +5516,11 @@
                 "speciala",
                 "specialÄ",
                 "geisha",
-                "mountain"
+                "mountain",
+                "excepcional",
+                "exceptionnel",
+                "prémium",
+                "premium"
             ],
 
             origin: [
@@ -5502,6 +5535,9 @@
                 "guatemala",
                 "kenya",
                 "origine",
+                "origin",
+                "origen",
+                "origins",
                 "origin"
             ],
 
@@ -5514,7 +5550,14 @@
                 "buget",
                 "lei",
                 "costa",
-                "costÄ"
+                "costÄ",
+                "price",
+                "prix",
+                "precio",
+                "cheap",
+                "barato",
+                "pas cher",
+                "budget"
             ]
 
         };
@@ -6021,171 +6064,45 @@
         ========================================================== */
 
         function getBotResponse(text) {
+            const top = getIntents(text)[0]?.intent || "recommendation";
+            const recommendations = recommend(text);
+            const selected = recommendations[0] || products[0];
+            const localized = window.CoffeeTripI18n.product(selected);
+            const locale = window.CoffeeTripI18n.locale();
+            const copy = {
+                ro: {
+                    greeting: "Bun venit la Coffee Trip. Spune-mi ce profil de gust cauți.",
+                    price: (cheap, premium) => `Pentru un început accesibil, ${cheap.name} costă ${window.CoffeeTripI18n.priceLabel(cheap)}. Pentru o selecție premium, ${premium.name} costă ${window.CoffeeTripI18n.priceLabel(premium)}.`,
+                    recommendation: (p) => `Cred că ${p.name} ți s-ar potrivi. ${p.description}`
+                },
+                en: {
+                    greeting: "Welcome to Coffee Trip. Tell me what flavor profile you are looking for.",
+                    price: (cheap, premium) => `For an accessible start, ${cheap.name} is ${window.CoffeeTripI18n.priceLabel(cheap)}. For a premium selection, ${premium.name} is ${window.CoffeeTripI18n.priceLabel(premium)}.`,
+                    recommendation: (p) => `I think ${p.name} could be a great match for you. ${p.description}`
+                },
+                fr: {
+                    greeting: "Bienvenue chez Coffee Trip. Dites-moi quel profil aromatique vous recherchez.",
+                    price: (cheap, premium) => `Pour commencer à petit prix, ${cheap.name} coûte ${window.CoffeeTripI18n.priceLabel(cheap)}. Pour une sélection premium, découvrez ${premium.name} à ${window.CoffeeTripI18n.priceLabel(premium)}.`,
+                    recommendation: (p) => `${p.name} pourrait vous plaire. ${p.description}`
+                },
+                es: {
+                    greeting: "Te damos la bienvenida a Coffee Trip. Cuéntame qué perfil de sabor buscas.",
+                    price: (cheap, premium) => `Para empezar con una opción asequible, ${cheap.name} cuesta ${window.CoffeeTripI18n.priceLabel(cheap)}. Para una selección prémium, ${premium.name} cuesta ${window.CoffeeTripI18n.priceLabel(premium)}.`,
+                    recommendation: (p) => `Creo que ${p.name} puede ser ideal para ti. ${p.description}`
+                }
+            }[locale];
 
-            const intents =
-                getIntents(text);
-
-            const top =
-                intents[0]?.intent
-                    || "unknown";
-
-
-            if (top === "greeting") {
-
-                return {
-
-                    text:
-                        "Bun venit la Coffee Trip. â• " +
-                        "Sunt EVA, Barista ta digitalÄ. " +
-                        "Spune-mi ce profil de gust cauČ›i Č™i Ă®Č›i gÄsesc ceva potrivit.",
-
-                    products: []
-
-                };
-
-            }
-
-
+            if (top === "greeting") return { text: copy.greeting, products: [] };
             if (top === "price") {
-
-                const cheapest =
-                    [...products]
-                        .sort(
-                            (a,b) =>
-                                a.price - b.price
-                        )[0];
-
-                const premium =
-                    [...products]
-                        .sort(
-                            (a,b) =>
-                                b.price - a.price
-                        )[0];
-
-
+                const sorted = [...products].sort((a, b) => a.price - b.price);
                 return {
-
-                    text:
-                        `Pentru un punct de pornire accesibil, ` +
-                        `${cheapest.name} este ${formatPrice(cheapest.price)}. ` +
-                        `Pentru o experienČ›Ä de colecČ›ie, ` +
-                        `${premium.name} este ${formatPrice(premium.price)}.`,
-
-                    products: [
-                        cheapest,
-                        premium
-                    ]
-
+                    text: copy.price(sorted[0], sorted[sorted.length - 1]),
+                    products: [sorted[0], sorted[sorted.length - 1]]
                 };
-
             }
-
-
-            const recommendations =
-                recommend(text);
-
-
-            if (
-                recommendations.length
-                &&
-                (
-                    top === "sweet"
-                    ||
-                    top === "floral"
-                    ||
-                    top === "fruity"
-                    ||
-                    top === "strong"
-                    ||
-                    top === "light"
-                    ||
-                    top === "rare"
-                    ||
-                    top === "origin"
-                    ||
-                    top === "recommendation"
-                )
-            ) {
-
-                const selected =
-                    recommendations[0];
-
-
-                let style =
-                    "profilul pe care l-ai descris";
-
-
-                if (top === "sweet") {
-                    style =
-                        "zona dulce Č™i ciocolatoasÄ";
-                }
-
-                if (top === "floral") {
-                    style =
-                        "profilul floral Č™i elegant";
-                }
-
-                if (top === "fruity") {
-                    style =
-                        "profilul fructat Č™i vibrant";
-                }
-
-                if (top === "strong") {
-                    style =
-                        "un espresso mai intens";
-                }
-
-                if (top === "light") {
-                    style =
-                        "o ceaČ™cÄ light Č™i delicatÄ";
-                }
-
-                if (top === "rare") {
-                    style =
-                        "o selecČ›ie premium Č™i rarÄ";
-                }
-
-                if (top === "origin") {
-                    style =
-                        "originea menČ›ionatÄ";
-                }
-
-
-                return {
-
-                    text:
-                        `Pentru ${style}, ` +
-                        `aČ™ Ă®ncepe cu ${selected.name}. ` +
-                        `${selected.description}`,
-
-                    products:
-                        recommendations
-
-                };
-
-            }
-
-
-            const defaultProducts =
-                products
-                    .filter(
-                        product =>
-                            product.featured
-                    )
-                    .slice(0,2);
-
-
             return {
-
-                text:
-                    "Nu sunt 100% sigur ce profil cauČ›i, " +
-                    "dar pot Ă®ncepe cu douÄ selecČ›ii excelente. " +
-                    "ĂŽncearcÄ â€žceva floralâ€ť, â€ždulce Č™i ciocolatosâ€ť, " +
-                    "â€žo cafea tareâ€ť sau spune-mi o origine.",
-
-                products:
-                    defaultProducts
-
+                text: copy.recommendation(localized),
+                products: recommendations.length ? recommendations : products.filter((product) => product.featured).slice(0, 2)
             };
 
         }
@@ -6203,6 +6120,16 @@
 
         const chatInput =
             document.getElementById("chatInput");
+
+        function homepageChatCopy() {
+            const greetings = {
+                ro: "Bun venit. Sunt EVA, barista AI de la Coffee Trip. Spune-mi ce cafea îți place și îți voi face o recomandare.",
+                en: "Welcome. I’m EVA, Coffee Trip’s AI barista. Tell me what coffee you enjoy and I’ll make a recommendation.",
+                fr: "Bienvenue. Je suis EVA, la barista IA de Coffee Trip. Dites-moi quel café vous aimez et je vous conseillerai.",
+                es: "Te damos la bienvenida. Soy EVA, la barista de IA de Coffee Trip. Cuéntame qué café te gusta y te recomendaré uno."
+            };
+            return { greeting: greetings[window.CoffeeTripI18n.locale()] };
+        }
 
 
         function addMessage(
@@ -6257,7 +6184,10 @@
                     recommendationProducts
                         .slice(0,2)
                         .map(
-                            product => `
+                            product => {
+                                const localized =
+                                    window.CoffeeTripI18n.product(product);
+                                return `
 
                                 <div class="recommendation">
 
@@ -6266,20 +6196,21 @@
                                     </strong>
 
                                     <small>
-                                        ${escapeHTML(product.origin)}
-                                        Â·
-                                        ${formatPrice(product.price)}
+                                        ${escapeHTML(localized.origin)}
+                                        ·
+                                        ${window.CoffeeTripI18n.priceLabel(product)}
                                     </small>
 
                                     <button
                                         data-chat-add="${product.id}"
                                     >
-                                        + ADAUGÄ‚ ĂŽN COČ
+                                        + ${window.CoffeeTripI18n.t("Add to cart")}
                                     </button>
 
                                 </div>
 
-                            `
+                            `;
+                            }
                         )
                         .join("");
 
@@ -6374,8 +6305,7 @@
 
                                 addMessage(
                                     "bot",
-                                    "Bun venit. Sunt EVA, Barista AI de la Coffee Trip. " +
-                                    "Spune-mi ce fel de cafea Ă®Č›i place Č™i Ă®Č›i fac o recomandare."
+                                    homepageChatCopy().greeting
                                 );
 
                             },
@@ -6493,7 +6423,7 @@
 
 
                 button.textContent =
-                    "âś“ ADÄ‚UGAT";
+                    `✓ ${window.CoffeeTripI18n.t("Added to cart")}`;
 
             }
         );

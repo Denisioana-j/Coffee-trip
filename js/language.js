@@ -31,6 +31,7 @@
     'Coffee Guide': ['Ghid de cafea', 'Guide du café', 'Guía del café'],
     'Search': ['Caută', 'Rechercher', 'Buscar'],
     'Wishlist': ['Favorite', 'Favoris', 'Favoritos'],
+    'Favorite': ['Wishlist', 'Favoris', 'Favoritos'],
     'Cart': ['Coș', 'Panier', 'Carrito'],
     'Account': ['Cont', 'Compte', 'Cuenta'],
     'Home': ['Acasă', 'Accueil', 'Inicio'],
@@ -102,6 +103,14 @@
     'Adăugat la favorite': ['Added to wishlist', 'Ajouté aux favoris', 'Añadido a favoritos'],
     'Coșul este gol.': ['Your cart is empty.', 'Votre panier est vide.', 'Tu carrito está vacío.'],
     'Favoritele tale': ['Your favorites', 'Vos favoris', 'Tus favoritos'],
+    'Vreau ceva dulce și ciocolatos': ['I want something sweet and chocolatey', 'Je veux quelque chose de doux et chocolaté', 'Quiero algo dulce y achocolatado'],
+    'Îmi place cafeaua florală': ['I like floral coffee', 'J’aime le café floral', 'Me gusta el café floral'],
+    'Vreau un espresso intens': ['I want an intense espresso', 'Je veux un espresso intense', 'Quiero un espresso intenso'],
+    'Ce cafea recomanzi?': ['What coffee do you recommend?', 'Quel café recommandez-vous ?', '¿Qué café recomiendas?'],
+    'Dulce & ciocolatos': ['Sweet & chocolatey', 'Doux & chocolaté', 'Dulce y achocolatado'],
+    'Floral & elegant': ['Floral & elegant', 'Floral & élégant', 'Floral y elegante'],
+    'Intens & puternic': ['Intense & bold', 'Intense & corsé', 'Intenso y fuerte'],
+    'Surprinde-mă': ['Surprise me', 'Surprenez-moi', 'Sorpréndeme'],
     'Încă nu ai adăugat nimic.': ['Nothing added yet.', 'Vous n’avez encore rien ajouté.', 'Aún no has añadido nada.'],
     'Vezi produsul': ['View product', 'Voir le produit', 'Ver producto'],
     'Înapoi la magazin': ['Back to shop', 'Retour à la boutique', 'Volver a la tienda'],
@@ -347,7 +356,6 @@
     'Acțiunea a fost finalizată.': ['Action completed.', 'Action terminée.', 'Acción completada.'],
     'Selectează limba': ['Select language', 'Choisir la langue', 'Elegir idioma'],
     'Coșul tău': ['Your cart', 'Votre panier', 'Tu carrito'],
-    'Favorite': ['Favorites', 'Favoris', 'Favoritos'],
     'Available at order confirmation': ['Disponibil la confirmarea comenzii', 'Disponible à la confirmation de la commande', 'Disponible al confirmar el pedido'],
     'reviews': ['recenzii', 'avis', 'reseñas'],
     'Open navigation': ['Deschide meniul', 'Ouvrir le menu', 'Abrir menú'],
@@ -362,35 +370,55 @@
     'Explore collection': ['Explorează colecția', 'Découvrir la collection', 'Explorar la colección'],
     'View all': ['Vezi toate', 'Tout voir', 'Ver todo'],
     'Checkout': ['Finalizare comandă', 'Paiement', 'Pagar'],
-    'Your basket': ['Coșul tău', 'Votre panier', 'Tu cesta'],
     'Review your order': ['Verifică comanda', 'Vérifier la commande', 'Revisar el pedido'],
     'Close search': ['Închide căutarea', 'Fermer la recherche', 'Cerrar la búsqueda'],
     'Close drawer': ['Închide panoul', 'Fermer le panneau', 'Cerrar el panel'],
     'My account': ['Contul meu', 'Mon compte', 'Mi cuenta'],
     'Product image': ['Imagine produs', 'Image du produit', 'Imagen del producto'],
-    'Thumbnail': ['Miniatură', 'Vignette', 'Miniatura']
+    'Thumbnail': ['Miniatură', 'Vignette', 'Miniatura'],
+    'Meniu': ['Menu', 'Menu', 'Menú'],
+    'Caută': ['Search', 'Rechercher', 'Buscar'],
+    'Coș': ['Cart', 'Panier', 'Carrito'],
+    'Coffee concierge': ['Consultant de cafea', 'Conseiller café', 'Asesor de café'],
+    'Cu ce cafea începem?': ['Where shall we start?', 'Par quel café commencer ?', '¿Con qué café empezamos?'],
+    'Spune-mi ce gusturi îți plac și îți recomand ceva potrivit.': ['Tell me what flavors you enjoy and I’ll find a coffee for you.', 'Dites-moi quels goûts vous aimez et je vous conseillerai un café.', 'Cuéntame qué sabores te gustan y te recomendaré un café.'],
+    'Scrie-i Baristei...': ['Message the barista...', 'Écrivez au barista...', 'Escribe al barista...'],
+    'Fuzzy matching active • Client-side NLP': ['Smart matching active • Client-side NLP', 'Correspondance intelligente • NLP côté client', 'Coincidencia inteligente • PLN en el navegador'],
+    'ONLINE • READY TO BREW': ['ONLINE • READY TO BREW', 'EN LIGNE • PRÊT À PRÉPARER', 'EN LÍNEA • LISTO PARA PREPARAR'],
+    'Close chat': ['Închide conversația', 'Fermer la conversation', 'Cerrar conversación'],
+    'DETAILS AT CONFIRMATION': ['DETALII LA CONFIRMARE', 'DÉTAILS À LA CONFIRMATION', 'DETALLES AL CONFIRMAR'],
+    'ROASTED WITH INTENTION': ['PRĂJITĂ CU GRIJĂ', 'TORRÉFIÉ AVEC SOIN', 'TOSTADO CON INTENCIÓN'],
+    'PRIVATE COFFEE ATELIER': ['ATELIER PRIVAT DE CAFEA', 'ATELIER DE CAFÉ PRIVÉ', 'ATELIER PRIVADO DE CAFÉ'],
+    'EXPLOREAZĂ COLECȚIA': ['EXPLORE THE COLLECTION', 'DÉCOUVRIR LA COLLECTION', 'EXPLORAR LA COLECCIÓN'],
+    'DESCOPERĂ POVESTEA': ['DISCOVER OUR STORY', 'DÉCOUVRIR NOTRE HISTOIRE', 'DESCUBRIR NUESTRA HISTORIA'],
+    'FILTREAZĂ +': ['FILTER +', 'FILTRER +', 'FILTRAR +'],
+    'TOATE': ['ALL', 'TOUT', 'TODOS'],
+    'CURATED': ['SELECTAT', 'SÉLECTIONNÉ', 'SELECCIONADO'],
+    'Selecții extraordinare': ['Exceptional selections', 'Sélections exceptionnelles', 'Selecciones excepcionales'],
+    'DESCOPERĂ FIECARE ORIGINE.': ['DISCOVER EVERY ORIGIN.', 'DÉCOUVREZ CHAQUE ORIGINE.', 'DESCUBRE CADA ORIGEN.'],
+    'GĂSEȘTE-ȚI RITUALUL.': ['FIND YOUR RITUAL.', 'TROUVEZ VOTRE RITUEL.', 'ENCUENTRA TU RITUAL.']
   };
   const pages = {
-    'index.html': ['Coffee Trip — The Art of Exceptional Coffee', 'Coffee Trip — Arta cafelei excepționale', 'Coffee Trip — L’art du café d’exception', 'Coffee Trip — El arte del café excepcional'],
-    'shop.html': ['Shop | Coffee Trip', 'Magazin | Coffee Trip', 'Boutique | Coffee Trip', 'Tienda | Coffee Trip'],
-    'coffee.html': ['Coffee | Coffee Trip', 'Cafea | Coffee Trip', 'Café | Coffee Trip', 'Café | Coffee Trip'],
-    'rare-coffee.html': ['Rare Coffee | Coffee Trip', 'Cafea rară | Coffee Trip', 'Café rare | Coffee Trip', 'Café raro | Coffee Trip'],
+    'index.html': ['Coffee Trip — Arta cafelei excepționale', 'Coffee Trip — The Art of Exceptional Coffee', 'Coffee Trip — L’art du café d’exception', 'Coffee Trip — El arte del café excepcional'],
+    'shop.html': ['Magazin | Coffee Trip', 'Shop | Coffee Trip', 'Boutique | Coffee Trip', 'Tienda | Coffee Trip'],
+    'coffee.html': ['Cafea | Coffee Trip', 'Coffee | Coffee Trip', 'Café | Coffee Trip', 'Café | Coffee Trip'],
+    'rare-coffee.html': ['Cafea rară | Coffee Trip', 'Rare Coffee | Coffee Trip', 'Café rare | Coffee Trip', 'Café raro | Coffee Trip'],
     'espresso.html': ['Espresso | Coffee Trip', 'Espresso | Coffee Trip', 'Espresso | Coffee Trip', 'Espresso | Coffee Trip'],
-    'signature-blends.html': ['Signature Blends | Coffee Trip', 'Blenduri Signature | Coffee Trip', 'Assemblages Signature | Coffee Trip', 'Mezclas Signature | Coffee Trip'],
-    'collections.html': ['Collections | Coffee Trip', 'Colecții | Coffee Trip', 'Collections | Coffee Trip', 'Colecciones | Coffee Trip'],
+    'signature-blends.html': ['Blenduri Signature | Coffee Trip', 'Signature Blends | Coffee Trip', 'Assemblages Signature | Coffee Trip', 'Mezclas Signature | Coffee Trip'],
+    'collections.html': ['Colecții | Coffee Trip', 'Collections | Coffee Trip', 'Collections | Coffee Trip', 'Colecciones | Coffee Trip'],
     'atelier.html': ['Atelier | Coffee Trip', 'Atelier | Coffee Trip', 'Atelier | Coffee Trip', 'Atelier | Coffee Trip'],
-    'journal.html': ['Journal | Coffee Trip', 'Jurnal | Coffee Trip', 'Journal | Coffee Trip', 'Diario | Coffee Trip'],
-    'guide.html': ['Guide | Coffee Trip', 'Ghid | Coffee Trip', 'Guide | Coffee Trip', 'Guía | Coffee Trip'],
-    'story.html': ['Story | Coffee Trip', 'Povestea noastră | Coffee Trip', 'Notre histoire | Coffee Trip', 'Nuestra historia | Coffee Trip'],
+    'journal.html': ['Jurnal | Coffee Trip', 'Journal | Coffee Trip', 'Journal | Coffee Trip', 'Diario | Coffee Trip'],
+    'guide.html': ['Ghid | Coffee Trip', 'Guide | Coffee Trip', 'Guide | Coffee Trip', 'Guía | Coffee Trip'],
+    'story.html': ['Povestea noastră | Coffee Trip', 'Story | Coffee Trip', 'Notre histoire | Coffee Trip', 'Nuestra historia | Coffee Trip'],
     'contact.html': ['Contact | Coffee Trip', 'Contact | Coffee Trip', 'Contact | Coffee Trip', 'Contacto | Coffee Trip'],
-    'faq.html': ['FAQ | Coffee Trip', 'Întrebări frecvente | Coffee Trip', 'FAQ | Coffee Trip', 'Preguntas frecuentes | Coffee Trip'],
-    'account.html': ['Account | Coffee Trip', 'Cont | Coffee Trip', 'Compte | Coffee Trip', 'Cuenta | Coffee Trip'],
-    'cart.html': ['Cart | Coffee Trip', 'Coș | Coffee Trip', 'Panier | Coffee Trip', 'Carrito | Coffee Trip'],
-    'checkout.html': ['Checkout | Coffee Trip', 'Finalizare comandă | Coffee Trip', 'Paiement | Coffee Trip', 'Pago | Coffee Trip'],
-    'wishlist.html': ['Wishlist | Coffee Trip', 'Favorite | Coffee Trip', 'Favoris | Coffee Trip', 'Favoritos | Coffee Trip'],
-    'product.html': ['Product | Coffee Trip', 'Produs | Coffee Trip', 'Produit | Coffee Trip', 'Producto | Coffee Trip'],
-    '404.html': ['Page Not Found | Coffee Trip', 'Pagina nu a fost găsită | Coffee Trip', 'Page introuvable | Coffee Trip', 'Página no encontrada | Coffee Trip'],
-    'policies.html': ['Terms & policies | Coffee Trip', 'Termeni și politici | Coffee Trip', 'Conditions et politiques | Coffee Trip', 'Términos y políticas | Coffee Trip']
+    'faq.html': ['Întrebări frecvente | Coffee Trip', 'FAQ | Coffee Trip', 'FAQ | Coffee Trip', 'Preguntas frecuentes | Coffee Trip'],
+    'account.html': ['Cont | Coffee Trip', 'Account | Coffee Trip', 'Compte | Coffee Trip', 'Cuenta | Coffee Trip'],
+    'cart.html': ['Coș | Coffee Trip', 'Cart | Coffee Trip', 'Panier | Coffee Trip', 'Carrito | Coffee Trip'],
+    'checkout.html': ['Finalizare comandă | Coffee Trip', 'Checkout | Coffee Trip', 'Paiement | Coffee Trip', 'Pago | Coffee Trip'],
+    'wishlist.html': ['Favorite | Coffee Trip', 'Wishlist | Coffee Trip', 'Favoris | Coffee Trip', 'Favoritos | Coffee Trip'],
+    'product.html': ['Produs | Coffee Trip', 'Product | Coffee Trip', 'Produit | Coffee Trip', 'Producto | Coffee Trip'],
+    '404.html': ['Pagina nu a fost găsită | Coffee Trip', 'Page Not Found | Coffee Trip', 'Page introuvable | Coffee Trip', 'Página no encontrada | Coffee Trip'],
+    'policies.html': ['Termeni și politici | Coffee Trip', 'Terms & policies | Coffee Trip', 'Conditions et politiques | Coffee Trip', 'Términos y políticas | Coffee Trip']
   };
   const categoryTranslations = {
     'Cafea de Origine': ['Cafea de Origine', 'Single-origin coffee', 'Café de terroir', 'Café de origen'],
@@ -429,7 +457,8 @@
     'Eliminat din favorite', 'Adăugat la favorite', 'Coșul este gol.',
     'Favoritele tale', 'Favorite', 'Încă nu ai adăugat nimic.', 'Vezi produsul',
     'Înapoi la magazin', 'Adaugă în coș', 'Caută în colecție', 'Favorite', 'Meniu', 'Caută', 'Coș',
-    'Toate produsele', 'Preț estimativ', 'produse'
+    'Toate produsele', 'Preț estimativ', 'produse', 'TOATE',
+    'Favorite', 'Loturi mici. Origini rare. Profile de gust memorabile.'
   ]);
   const translations = { ro: {}, en: {}, fr: {}, es: {} };
   Object.entries(phraseTranslations).forEach(([source, values]) => {
@@ -446,6 +475,9 @@
       translations.es[source] = values[2];
     }
   });
+  const phraseKeys = Object.keys(phraseTranslations)
+    .filter((source) => source.length >= 14 && source.includes(' '))
+    .sort((a, b) => b.length - a.length);
   let current = supported.includes(localStorage.getItem(STORAGE_KEY))
     ? localStorage.getItem(STORAGE_KEY)
     : 'ro';
@@ -479,7 +511,14 @@
 
   function translate(value) {
     value = repairLegacyMojibake(value);
-    return translations[current][value] || value;
+    const normalized = value.replace(/\s+/g, ' ').trim();
+    const direct = translations[current][normalized] || translations[current][value];
+    if (direct) return direct;
+    return phraseKeys.reduce((result, source) => {
+      const localized = translations[current][source];
+      if (!localized || localized === source) return result;
+      return result.replace(new RegExp(source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), localized);
+    }, normalized);
   }
 
   function translateTextNode(node) {
@@ -504,10 +543,10 @@
     let node;
     while ((node = walker.nextNode())) translateTextNode(node);
 
-    const attributeTargets = [element, ...element.querySelectorAll('[placeholder], [aria-label], [title], [alt]')];
+    const attributeTargets = [element, ...element.querySelectorAll('[placeholder], [aria-label], [title], [alt], [data-chat-suggestion]')];
     attributeTargets.forEach((target) => {
       if (target.closest('script, style, noscript, .language-switcher')) return;
-      ['placeholder', 'aria-label', 'title', 'alt'].forEach((attribute) => {
+      ['placeholder', 'aria-label', 'title', 'alt', 'data-chat-suggestion'].forEach((attribute) => {
         if (!target.hasAttribute(attribute)) return;
         if (!originalAttributes.has(target)) originalAttributes.set(target, {});
         const saved = originalAttributes.get(target);
@@ -520,6 +559,7 @@
   function localizedProduct(product) {
     const result = { ...product };
     const index = localeIndex();
+    result.name = result.name.replace(/\(([^()]*)\)/g, (match, packaging) => `(${translateProductText(packaging)})`);
     if (categoryTranslations[result.category]) result.category = categoryTranslations[result.category][index];
     if (countryTranslations[result.origin]) result.origin = countryTranslations[result.origin][index];
     const labels = {
@@ -553,6 +593,8 @@
 
   function translateProductText(source) {
     const terms = {
+      'Boabe întregi': ['Boabe întregi', 'Whole beans', 'Grains entiers', 'Granos enteros'],
+      'Boabe': ['Boabe', 'Whole beans', 'Grains entiers', 'Granos enteros'],
       'Pungă': ['Pungă', 'Bag', 'Sachet', 'Bolsa'],
       'Cutie': ['Cutie', 'Tin', 'Boîte', 'Caja'],
       'Sticlă': ['Sticlă', 'Bottle', 'Bouteille', 'Botella'],
@@ -713,6 +755,7 @@
           ${supported.map((code) => `<button type="button" role="radio" aria-checked="false" data-language="${code}"><span>${locales[code].code}</span><span>${locales[code].name}</span></button>`).join('')}
         </div>`;
       const trigger = menu.querySelector('.language-button');
+      menu.querySelector('.language-options').setAttribute('aria-label', translate('Select language'));
       const options = [...menu.querySelectorAll('[data-language]')];
       const close = () => {
         menu.classList.remove('open');
