@@ -1,47 +1,71 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Story | Coffee Trip</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logo-coffee-trip.svg">
+<title>Story | Coffee Trip</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="site-shell">
-    <div class="announcement-bar"><strong>COMPLIMENTARY DELIVERY</strong><span>•</span><span>DETAILS AT CONFIRMATION</span><span>•</span><span>ROASTED WITH INTENTION</span></div>
+    <!-- ==========================================================
+         ANNOUNCEMENT
+    ========================================================== -->
+    <div class="announcement">
+        <strong>COMPLIMENTARY DELIVERY</strong>
+        <span>•</span>
+        <span>DETAILS AT CONFIRMATION</span>
+        <span>•</span>
+        <span>ROASTED WITH INTENTION</span>
+    </div>
 
-    <header class="main-header">
-      <div class="header-inner">
-        <button class="menu-toggle" id="mobileMenuButton" aria-label="Open navigation"><span></span><span></span><span></span></button>
-        <a href="index.html" class="brand"><span>The art of</span><strong>COFFEE TRIP</strong></a>
-        <nav class="main-nav">
-          <a href="index.html">Acasă</a>
-          <button class="nav-collection">Colecția</button>
-          <a href="coffee.html">Cafea</a>
-          <a href="rare-coffee.html">Cafea rară</a>
-          <a href="espresso.html">Espresso</a>
-          <a href="signature-blends.html">Blenduri</a>
-          <a href="atelier.html">Atelier</a>
-          <a href="journal.html">Jurnal</a>
-          <div class="mega-menu">
-            <div class="mega-group"><h4>Coffee</h4><a href="coffee.html">Single Origin</a><a href="rare-coffee.html">Rare Coffee</a><a href="espresso.html">Espresso</a><a href="signature-blends.html">Signature Blends</a></div>
-            <div class="mega-group"><h4>Discover</h4><a href="shop.html?badge=best">Best Sellers</a><a href="shop.html?badge=new">New Arrivals</a><a href="shop.html?badge=budget">Budget Luxury</a><a href="shop.html?badge=premium">Premium Selection</a></div>
-            <div class="mega-group"><h4>Experience</h4><a href="atelier.html">Coffee Atelier</a><a href="guide.html">Coffee Guide</a><a href="journal.html">Journal</a></div>
-            <div class="mega-feature"><div class="meta">Editorial</div><h5>Discover your next coffee</h5><p>Curated selections, rare origins and a ritual built for slow mornings.</p><a class="btn btn-primary" href="collections.html">Explore collection</a></div>
-          </div>
-        </nav>
-        <div class="header-actions">
-          <button class="header-action" id="searchButton" aria-label="Search"><span class="search-icon"></span></button>
-          <button class="header-action" id="wishlistButton" aria-label="Wishlist"><span class="heart-icon">♡</span><span class="count-badge" id="wishlistCount">0</span></button>
-          <button class="header-action" id="cartButton" aria-label="Cart"><span class="bag-icon"></span><span class="count-badge" id="cartCount">0</span></button>
+    <!-- ==========================================================
+         HEADER
+    ========================================================== -->
+    <header>
+        <div class="header-inner">
+            <button id="mobileButton" aria-label="Meniu">
+                <span></span>
+                <span></span>
+            </button>
+            <a href="index.html" class="brand">
+                <span>THE ART OF</span>
+                <strong>COFFEE TRIP</strong>
+                <span>EST. 2026</span>
+            </a>
+            <nav id="mainNav">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="coffee.html">Coffee</a>
+                <a href="rare-coffee.html">Rare Coffee</a>
+                <a href="espresso.html">Espresso</a>
+                <a href="signature-blends.html">Blends</a>
+                <a href="collections.html">Collections</a>
+                <a href="atelier.html">Atelier</a>
+                <a href="journal.html">Journal</a>
+                <a href="guide.html">Guide</a>
+            </nav>
+            <div class="header-actions">
+                <a href="account.html" class="header-action" aria-label="Account">◎</a>
+                <button class="header-action" id="searchButton" aria-label="Caută">
+                    <span class="search-icon"></span>
+                </button>
+                <button class="header-action" id="wishlistButton" aria-label="Favorite">
+                    <span class="heart-icon">♡</span>
+                    <span class="header-count" id="wishlistCount">0</span>
+                </button>
+                <button class="header-action" id="cartButton" aria-label="Coș">
+                    <span class="bag-icon"></span>
+                    <span class="header-count" id="cartCount">0</span>
+                </button>
+            </div>
         </div>
-      </div>
     </header>
 
-    <main class="page-content">
+<main class="page-content">
       <section class="page-hero">
         <div class="page-hero-inner">
           <div class="breadcrumbs"><a href="index.html">Home</a><span>/</span><span>Story</span></div>
@@ -87,33 +111,194 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-brand"><span class="brand"><span>The art of</span><strong>COFFEE TRIP</strong></span><p>Specialty coffee, carefully selected. Designed for meaningful moments.</p></div>
-          <div><div class="footer-title">Shop</div><div class="footer-links"><a href="shop.html">Shop</a><a href="coffee.html">Coffee</a><a href="rare-coffee.html">Rare Coffee</a><a href="espresso.html">Espresso</a><a href="signature-blends.html">Blends</a></div></div>
-          <div><div class="footer-title">Discover</div><div class="footer-links"><a href="collections.html">Collections</a><a href="atelier.html">Atelier</a><a href="story.html">Story</a><a href="journal.html">Journal</a><a href="guide.html">Guide</a></div></div>
-          <div><div class="footer-title">Support</div><div class="footer-links"><a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="wishlist.html">Wishlist</a><a href="account.html">Account</a></div></div>
+    <!-- ==========================================================
+         FOOTER
+    ========================================================== -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="brand">
+                        <span>THE ART OF</span>
+                        <strong>COFFEE TRIP</strong>
+                    </span>
+                    <p>Colecție privată de cafea de specialitate, origini rare și experiențe senzoriale create pentru cei care apreciază detaliile fine.</p>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-title">COLECȚII</div>
+                    <a href="coffee.html">Single Origin</a>
+                    <a href="rare-coffee.html">Cafele Rare</a>
+                    <a href="espresso.html">Espresso Roast</a>
+                    <a href="signature-blends.html">Signature Blends</a>
+                    <a href="shop.html">Toate Cafelele</a>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-title">EXPERIENȚĂ</div>
+                    <a href="atelier.html">Coffee Atelier</a>
+                    <a href="story.html">Povestea Noastră</a>
+                    <a href="journal.html">Jurnal & Ghiduri</a>
+                    <a href="guide.html">Ghid de Preparare</a>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-title">CONTACT & SUPORT</div>
+                    <a href="contact.html">Contact Atelier</a>
+                    <a href="faq.html">Întrebări Frecvente</a>
+                    <a href="cart.html">Coșul Tău</a>
+                    <a href="account.html">Contul Meu</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 COFFEE TRIP — FIRMĂ DE EXERCIȚIU</span>
+                <span>ROASTED WITH INTENTION • CRAFTED FOR EXCELLENCE</span>
+            </div>
         </div>
-        <div class="footer-bottom"><span>© 2026 Coffee Trip</span><span>Privacy</span><span>Terms</span><span>Cookies</span></div>
-      </div>
     </footer>
-  </div>
 
-  <div id="backdrop" class="backdrop"></div>
-  <aside id="cartDrawer" class="drawer"><div class="drawer-head"><h3>Coșul tău</h3><button class="close-button" data-close-drawer aria-label="Close drawer">×</button></div><div id="cartItems" class="drawer-body"></div><div class="drawer-foot"><div class="drawer-total"><span>Subtotal</span><strong id="cartSubtotal">PREȚ NECUNOSCUT</strong></div><p class="drawer-note" id="shippingMessage">Prețurile finale sunt disponibile la confirmarea comenzii.</p><button class="btn btn-primary" style="width:100%;" id="checkoutButton">Continuă către checkout</button></div></aside>
-  <aside id="wishlistDrawer" class="drawer"><div class="drawer-head"><h3>Favorite</h3><button class="close-button" data-close-drawer aria-label="Close drawer">×</button></div><div id="wishlistItems" class="drawer-body"></div></aside>
+    <!-- ==========================================================
+         BACKDROP
+    ========================================================== -->
+    <div class="backdrop" id="backdrop"></div>
 
-  <div id="searchOverlay" class="overlay"><div class="modal search-modal"><button class="close-button modal-close" data-close-modal aria-label="Close search">×</button><p class="eyebrow">Coffee finder</p><h2 style="font-size:52px;">Caută în colecție</h2><div class="search-box"><input type="search" id="searchInput" placeholder="Ex: floral, espresso, Ethiopia..."><span>⌕</span></div><div id="searchResults" class="search-results"></div></div></div>
+    <!-- ==========================================================
+         CART DRAWER
+    ========================================================== -->
+    <aside class="drawer" id="cartDrawer">
+        <div class="drawer-head">
+            <div>
+                <p class="eyebrow">YOUR RITUAL</p>
+                <h3>Coșul tău</h3>
+            </div>
+            <button class="close-round" data-close-drawer>×</button>
+        </div>
+        <div class="drawer-body" id="cartItems"></div>
+        <div class="drawer-footer">
+            <div class="cart-promo" style="display:flex;gap:8px;margin-bottom:16px;">
+                <input type="text" id="promoCodeInput" placeholder="Cod reducere (ex: AROMA10)" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--cream);padding:8px 12px;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-radius:2px;">
+                <button type="button" id="applyPromoBtn" style="background:var(--gold);color:var(--black);padding:8px 14px;font-size:11px;font-weight:600;letter-spacing:1px;border-radius:2px;">APLICĂ</button>
+            </div>
+            <div id="promoMessage" style="font-size:11px;color:var(--gold-light);margin-bottom:12px;display:none;"></div>
+            <div class="drawer-total">
+                <span>Subtotal</span>
+                <strong id="cartSubtotal">0 LEI</strong>
+            </div>
+            <p class="drawer-message" id="shippingMessage">Livrare gratuită la comenzi de peste 150 LEI.</p>
+            <button class="btn btn-gold" style="width:100%;" id="checkoutButton">CONTINUĂ CĂTRE CHECKOUT</button>
+        </div>
+    </aside>
 
-  <button class="chat-launcher" id="chatLauncher"><span class="bot-avatar"></span><span>BARISTA</span></button>
-  <aside id="chatPanel" class="chat-panel"><div class="chat-header"><span class="bot-avatar"></span><div><strong>EVA • Barista AI</strong><span>ONLINE • READY TO BREW</span></div><button id="chatClose" class="chat-close" aria-label="Close chat">×</button></div><div class="chat-intro"><p class="eyebrow">Coffee concierge</p><h3>Cu ce cafea începem?</h3><p>Spune-mi ce gusturi îți plac și îți recomand ceva potrivit.</p></div><div class="chat-suggestions"><button data-chat-suggestion="Vreau ceva dulce și ciocolatos">Dulce & ciocolatos</button><button data-chat-suggestion="Îmi place cafeaua florală">Floral & elegant</button><button data-chat-suggestion="Vreau un espresso intens">Intens & puternic</button><button data-chat-suggestion="Ce cafea recomanzi?">Surprinde-mă</button></div><div id="chatMessages" class="chat-messages"></div><div class="chat-input-wrap"><input id="chatInput" type="text" placeholder="Scrie-i Baristei..."><button id="chatSend">→</button></div><div class="chat-status">Fuzzy matching active • Client-side NLP</div></aside>
+    <!-- ==========================================================
+         WISHLIST DRAWER
+    ========================================================== -->
+    <aside class="drawer" id="wishlistDrawer">
+        <div class="drawer-head">
+            <div>
+                <p class="eyebrow">YOUR SELECTION</p>
+                <h3>Favorite</h3>
+            </div>
+            <button class="close-round" data-close-drawer>×</button>
+        </div>
+        <div class="drawer-body" id="wishlistItems"></div>
+    </aside>
 
-  <div id="toast" class="toast"><strong id="toastTitle">Done</strong><p id="toastMessage">Acțiunea a fost finalizată.</p></div>
+    <!-- ==========================================================
+         SEARCH MODAL
+    ========================================================== -->
+    <div class="overlay" id="searchOverlay">
+        <div class="modal search-modal">
+            <button class="close-round modal-close" data-close-modal>×</button>
+            <p class="eyebrow">COFFEE FINDER</p>
+            <h2>Caută în colecție</h2>
+            <div class="search-input-wrap">
+                <input type="search" id="searchInput" placeholder="Ex: floral, Ethiopia, espresso..." autocomplete="off">
+                <span>⌕</span>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="empty">Scrie pentru a explora colecția.</div>
+            </div>
+        </div>
+    </div>
 
+<<<<<<< HEAD
   <script src="js/products.js"></script>
   <script src="js/language.js"></script>
   <script src="js/main.js"></script>
   <script src="js/chatbot.js"></script>
 </body>
+=======
+    <!-- ==========================================================
+         PRODUCT QUICK VIEW MODAL
+    ========================================================== -->
+    <div class="overlay" id="productOverlay">
+        <div class="modal">
+            <button class="close-round modal-close" data-close-modal>×</button>
+            <div id="productModalContent"></div>
+        </div>
+    </div>
+
+    <!-- ==========================================================
+         TOAST NOTIFICATION
+    ========================================================== -->
+    <div id="toast">
+        <strong id="toastTitle">Done</strong>
+        <p id="toastMessage">Acțiunea a fost finalizată.</p>
+    </div>
+
+    <!-- ==========================================================
+         BARISTA LAUNCHER (MASCOT EVA)
+    ========================================================== -->
+    <button id="barista-launcher" aria-label="Deschide Barista AI">
+        <div class="bot-head">
+            <span class="bot-glow"></span>
+            <span class="bot-apron"></span>
+            <span class="bot-eye left"></span>
+            <span class="bot-eye right"></span>
+            <span class="bot-mouth"></span>
+        </div>
+        <span class="barista-text">BARISTA</span>
+    </button>
+
+    <!-- ==========================================================
+         BARISTA CHAT
+    ========================================================== -->
+    <aside id="chat">
+        <div class="chat-head">
+            <div class="bot-head">
+                <span class="bot-glow"></span>
+                <span class="bot-apron"></span>
+                <span class="bot-eye left"></span>
+                <span class="bot-eye right"></span>
+                <span class="bot-mouth"></span>
+            </div>
+            <div class="chat-agent">
+                <strong>EVA · BARISTA AI</strong>
+                <span><i class="online-dot"></i> ONLINE · READY TO BREW</span>
+            </div>
+            <button id="chatClose" class="chat-close">×</button>
+        </div>
+        <div class="chat-intro">
+            <p class="eyebrow gold">COFFEE CONCIERGE</p>
+            <h3>Cu ce cafea<br>începem?</h3>
+            <p>Spune-mi ce gusturi îți plac. Pot recomanda cafele în timp real, chiar dacă mai faci mici greșeli de scriere.</p>
+        </div>
+        <div class="chat-suggestions">
+            <button data-chat-suggestion="Vreau ceva dulce și ciocolatos">Dulce & ciocolatos</button>
+            <button data-chat-suggestion="Îmi place cafeaua florală">Floral & elegant</button>
+            <button data-chat-suggestion="Vreau o cafea puternică">Intens & puternic</button>
+            <button data-chat-suggestion="Ce cafea recomanzi?">Surprinde-mă</button>
+        </div>
+        <div id="messages"></div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Scrie-i Baristei..." autocomplete="off">
+            <button id="chatSend">→</button>
+        </div>
+        <div class="chat-status">
+            Fuzzy matching active • Client-side NLP
+        </div>
+    </aside>
+
+    <script defer src="js/products.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/chatbot.js"></script>
+    <script defer src="js/language.js"></script>`n</body>
+>>>>>>> 4599d79d9dddadf03943b7e00ed19a97114d8a9b
 </html>
