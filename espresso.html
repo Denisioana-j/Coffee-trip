@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espresso | Coffee Trip</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/site-components.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+  <div class="site-shell">
+    <div class="announcement-bar"><strong>COMPLIMENTARY DELIVERY</strong><span>•</span><span>DETAILS AT CONFIRMATION</span><span>•</span><span>ROASTED WITH INTENTION</span></div>
+
+    <header class="main-header">
+      <div class="header-inner">
+        <button class="menu-toggle" id="mobileMenuButton" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+        <a href="index.html" class="brand"><span>The art of</span><strong>COFFEE TRIP</strong></a>
+        <nav class="main-nav">
+          <a href="index.html">Acasă</a>
+          <button class="nav-collection">Colecția</button>
+          <a href="coffee.html">Cafea</a>
+          <a href="rare-coffee.html">Cafea rară</a>
+          <a href="espresso.html">Espresso</a>
+          <a href="signature-blends.html">Blenduri</a>
+          <a href="atelier.html">Atelier</a>
+          <a href="journal.html">Jurnal</a>
+          <div class="mega-menu">
+            <div class="mega-group"><h4>Coffee</h4><a href="coffee.html">Single Origin</a><a href="rare-coffee.html">Rare Coffee</a><a href="espresso.html">Espresso</a><a href="signature-blends.html">Signature Blends</a></div>
+            <div class="mega-group"><h4>Discover</h4><a href="shop.html?badge=best">Best Sellers</a><a href="shop.html?badge=new">New Arrivals</a><a href="shop.html?badge=budget">Budget Luxury</a><a href="shop.html?badge=premium">Premium Selection</a></div>
+            <div class="mega-group"><h4>Experience</h4><a href="atelier.html">Coffee Atelier</a><a href="guide.html">Coffee Guide</a><a href="journal.html">Journal</a></div>
+            <div class="mega-feature"><div class="meta">Editorial</div><h5>Discover your next coffee</h5><p>Curated selections, rare origins and a ritual built for slow mornings.</p><a class="btn btn-primary" href="collections.html">Explore collection</a></div>
+          </div>
+        </nav>
+        <div class="header-actions">
+          <button class="header-action" id="searchButton" aria-label="Search"><span class="search-icon"></span></button>
+          <button class="header-action" id="wishlistButton" aria-label="Wishlist"><span class="heart-icon">♡</span><span class="count-badge" id="wishlistCount">0</span></button>
+          <button class="header-action" id="cartButton" aria-label="Cart"><span class="bag-icon"></span><span class="count-badge" id="cartCount">0</span></button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="page-hero">
+        <div class="page-hero-inner">
+          <div class="breadcrumbs"><a href="index.html">Home</a><span>/</span><span>Espresso</span></div>
+          <h1>Espresso</h1>
+          <p class="lead">Balanced intensity, silky texture and a polished finish for short and expressive cups.</p>
+          <div class="page-hero-actions"><a class="btn btn-primary" href="shop.html">Shop espresso</a><a class="btn btn-light" href="guide.html">Brewing guide</a></div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="container">
+          <div class="page-intro-grid">
+            <div class="section-no">03 / Espresso</div>
+            <div><p class="eyebrow">Precision and texture</p><h2>Rich, warm,<br><em>unmistakably elegant.</em></h2></div>
+            <div><p>Espresso coffees at Coffee Trip are selected for crema, sweetness and body — built to deliver a complete, luxurious shot with a smooth and layered finish.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" style="background:#f0e8dc;">
+        <div class="container">
+          <div class="guide-grid">
+            <article class="story-card reveal"><h3>Crema</h3><p>Dense, persistent crema that signals sweetness, body and balance in the cup.</p></article>
+            <article class="story-card reveal"><h3>Body</h3><p>Silky textures and a rich mouthfeel that make espresso feel complete and satisfying.</p></article>
+            <article class="story-card reveal"><h3>Finish</h3><p>Long, polished aftertaste that lingers gently and keeps the profile memorable.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="container">
+          <div class="section-head">
+            <div><p class="eyebrow">The espresso line</p><h2>Signature picks</h2></div>
+            <div><p>Perfect for espresso shots, milk-based drinks and slow, indulgent rituals.</p></div>
+          </div>
+          <div id="productsGrid" class="products-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand"><span class="brand"><span>The art of</span><strong>COFFEE TRIP</strong></span><p>Specialty coffee, carefully selected. Designed for meaningful moments.</p></div>
+          <div><div class="footer-title">Shop</div><div class="footer-links"><a href="shop.html">Shop</a><a href="coffee.html">Coffee</a><a href="rare-coffee.html">Rare Coffee</a><a href="espresso.html">Espresso</a><a href="signature-blends.html">Blends</a></div></div>
+          <div><div class="footer-title">Discover</div><div class="footer-links"><a href="collections.html">Collections</a><a href="atelier.html">Atelier</a><a href="story.html">Story</a><a href="journal.html">Journal</a><a href="guide.html">Guide</a></div></div>
+          <div><div class="footer-title">Support</div><div class="footer-links"><a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="wishlist.html">Wishlist</a><a href="account.html">Account</a></div></div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 Coffee Trip</span><span>Privacy</span><span>Terms</span><span>Cookies</span></div>
+      </div>
+    </footer>
+  </div>
+
+  <div id="backdrop" class="backdrop"></div>
+  <aside id="cartDrawer" class="drawer"><div class="drawer-head"><h3>Coșul tău</h3><button class="close-button" data-close-drawer aria-label="Close drawer">×</button></div><div id="cartItems" class="drawer-body"></div><div class="drawer-foot"><div class="drawer-total"><span>Subtotal</span><strong id="cartSubtotal">0 RON</strong></div><p class="drawer-note" id="shippingMessage">Prețurile finale sunt disponibile la confirmarea comenzii.</p><button class="btn btn-primary" style="width:100%;" id="checkoutButton">Continuă către checkout</button></div></aside>
+  <aside id="wishlistDrawer" class="drawer"><div class="drawer-head"><h3>Favorite</h3><button class="close-button" data-close-drawer aria-label="Close drawer">×</button></div><div id="wishlistItems" class="drawer-body"></div></aside>
+
+  <div id="searchOverlay" class="overlay"><div class="modal search-modal"><button class="close-button modal-close" data-close-modal aria-label="Close search">×</button><p class="eyebrow">Coffee finder</p><h2 style="font-size:52px;">Caută în colecție</h2><div class="search-box"><input type="search" id="searchInput" placeholder="Ex: floral, espresso, Ethiopia..."><span>⌕</span></div><div id="searchResults" class="search-results"></div></div></div>
+
+  <button class="chat-launcher" id="chatLauncher"><span class="bot-avatar"></span><span>BARISTA</span></button>
+  <aside id="chatPanel" class="chat-panel"><div class="chat-header"><span class="bot-avatar"></span><div><strong>EVA • Barista AI</strong><span>ONLINE • READY TO BREW</span></div><button id="chatClose" class="chat-close" aria-label="Close chat">×</button></div><div class="chat-intro"><p class="eyebrow">Coffee concierge</p><h3>Cu ce cafea începem?</h3><p>Spune-mi ce gusturi îți plac și îți recomand ceva potrivit.</p></div><div class="chat-suggestions"><button data-chat-suggestion="Vreau ceva dulce și ciocolatos">Dulce & ciocolatos</button><button data-chat-suggestion="Îmi place cafeaua florală">Floral & elegant</button><button data-chat-suggestion="Vreau un espresso intens">Intens & puternic</button><button data-chat-suggestion="Ce cafea recomanzi?">Surprinde-mă</button></div><div id="chatMessages" class="chat-messages"></div><div class="chat-input-wrap"><input id="chatInput" type="text" placeholder="Scrie-i Baristei..."><button id="chatSend">→</button></div><div class="chat-status">Fuzzy matching active • Client-side NLP</div></aside>
+
+  <div id="toast" class="toast"><strong id="toastTitle">Done</strong><p id="toastMessage">Acțiunea a fost finalizată.</p></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/site-components.js"></script>
+</body>
+</html>
